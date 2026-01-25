@@ -1,4 +1,4 @@
-import {SunIcon, MoonIcon, SystemIcon} from "../components/Icons"
+import {SunIcon, MoonIcon, SystemIcon} from "./Icons"
 
 export default function SettingsMenuItem({page}) {
 	// prettier-ignore

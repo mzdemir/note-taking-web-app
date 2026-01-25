@@ -21,10 +21,13 @@ export default function MobileApp() {
 				<Route path="/archived" element={<Archived />} />
 				<Route path="/tags" element={<Tags />} />
 				<Route path="/search" element={<Search />} />
-				<Route path="/settings" element={<Settings />} />
-				<Route path="/settings/color-theme" element={<ColorTheme />} />
-				<Route path="/settings/font-theme" element={<FontTheme />} />
-				<Route path="/settings/change-password" element={<ChangePassword />} />
+
+				<Route path="/settings">
+					<Route index element={<Settings />} />
+					<Route path="color-theme" element={<ColorTheme />} />
+					<Route path="font-theme" element={<FontTheme />} />
+					<Route path="change-password" element={<ChangePassword />} />
+				</Route>
 			</Route>
 		</Routes>
 	)

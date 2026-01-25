@@ -1,3 +1,18 @@
+@font-face {
+	font-family: "Inter";
+	src: url("./assets/fonts/inter/Inter-VariableFont_opsz\,wght.ttf");
+}
+
+@font-face {
+	font-family: "Noto Serif";
+	src: url("./assets/fonts/noto-serif/NotoSerif-VariableFont_wdth\,wght.ttf");
+}
+
+@font-face {
+	font-family: "Source Code Pro";
+	src: url("./assets/fonts/source-code-pro/SourceCodePro-VariableFont_wght.ttf");
+}
+
 :root {
 	/* Neutral Colors */
 	--neutral-950: hsl(222, 32%, 8%);
@@ -30,7 +45,8 @@
 	--bg-page: var(--neutral-0);
 
 	/* Font Families */
-	--ff-sans: Inter, "sans-serif";
+
+	--ff-sans: "Inter", "sans-serif";
 	--ff-serif: "Noto Serif", "sans-serif";
 	--ff-mono: "Source Code Pro", "sans-serif";
 
