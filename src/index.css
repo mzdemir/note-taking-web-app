@@ -43,6 +43,7 @@
 
 	/*  */
 	--bg-page: var(--neutral-0);
+	--border-bottom: 1px solid var(--neutral-800);
 
 	/* Font Families */
 
@@ -106,8 +107,7 @@
 	--navbar-shadow: 0 -4px 6px 0 hsl(0, 0, 0, 50%);
 
 	/* Grid System */
-	--grid-columns-mobile: 4;
-	--grid-columns-tablet: 8;
+	--grid-columns-mobile: 8;
 	--grid-columns-desktop: 12;
 	--grid-gap-mobile: 1rem;
 	--grid-gap: 1.5rem; /* 24px */
@@ -143,6 +143,7 @@ html[data-darkMode="dark"] {
 	box-sizing: border-box;
 	padding: 0;
 	margin: 0;
+	font: inherit;
 }
 
 a {
@@ -150,12 +151,22 @@ a {
 	color: inherit;
 }
 
-a:visited {
+li {
+	list-style: none;
+}
+
+button {
+	border: none;
+	background: none;
 	color: inherit;
 }
 
-li {
-	list-style: none;
+input {
+	inline-size: 100%;
+	background: none;
+	border: none;
+	outline: none;
+	color: inherit;
 }
 
 body {
