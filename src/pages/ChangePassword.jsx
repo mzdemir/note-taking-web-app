@@ -3,7 +3,7 @@ import {InfoIcon, ShowPasswordIcon} from "../components/shared/Icons"
 
 export default function ChangePassword() {
 	return (
-		<div className="main-content">
+		<>
 			<GoBack where="Settings" />
 			<h1 className="page-title text-preset-1">Change Password</h1>
 			<form className="password-form">
@@ -29,6 +29,6 @@ export default function ChangePassword() {
 				</label>
 				<button className="save-password-btn text-preset-4">Save Password</button>
 			</form>
-		</div>
+		</>
 	)
 }

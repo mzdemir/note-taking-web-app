@@ -6,7 +6,9 @@ export default function MobileLayout() {
 	return (
 		<>
 			<MobileNav />
-			<Outlet />
+			<div className="main-content">
+				<Outlet />
+			</div>
 		</>
 	)
 }

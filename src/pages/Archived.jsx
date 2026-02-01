@@ -1,15 +1,13 @@
 import NotesList from "../components/shared/NoteList"
+import useMediaQuery from "../hooks/useMediaQuery"
 
 export default function Archived() {
+	const isDesktop = useMediaQuery("(min-width: 1024px)")
+
 	return (
 		<>
-			<div className="main-content">
-				<h1 className="page-title text-preset-1">Archived Notes</h1>
-				<p className="text-preset-5">
-					All your archived notes are stored here. You can restore or delete them anytime.
-				</p>
-				<NotesList />
-			</div>
+			{!isDesktop && <h1 className="page-title text-preset-1">Archived Notes</h1>}
+			<NotesList />
 		</>
 	)
 }

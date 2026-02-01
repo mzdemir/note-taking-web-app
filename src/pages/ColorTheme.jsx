@@ -5,7 +5,7 @@ export default function ColorTheme() {
 	function handleOptions() {}
 
 	return (
-		<div className="main-content">
+		<>
 			<GoBack where="Settings" />
 			<h1 className="page-title text-preset-1">Color Theme</h1>
 			<p className="text-preset-5">Chose your color theme:</p>
@@ -44,6 +44,6 @@ export default function ColorTheme() {
 					<span className="custom-radio"></span>
 				</label>
 			</div>
-		</div>
+		</>
 	)
 }

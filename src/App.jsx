@@ -38,29 +38,32 @@ export default function App() {
 						<Route path="/" element={<AllNotes />}>
 							<Route path=":id" element={<NoteDetails />} />
 						</Route>
-						{/* <Route path="archived" element={<Archived />} /> */}
-						{/* <Route path="tags" element={<Tags />} /> */}
-						{/* <Route path="tags:/id" element={""} /> */}
-						{/* <Route path="search" element={<Search />} /> */}
+						<Route path="archived" element={<Archived />}>
+							<Route path=":id" element={<NoteDetails />} />
+						</Route>
+						<Route path="tags/:id" element={<TagPage />}>
+							<Route path=":noteId" element={<NoteDetails />} />
+						</Route>
+						<Route path="search" element={<Search />} />
 
-						{/* <Route path="settings"> */}
-						{/* <Route index element={<Settings />} /> */}
-						{/* <Route path="color-theme" element={<ColorTheme />} /> */}
-						{/* <Route path="font-theme" element={<FontTheme />} /> */}
-						{/* <Route path="change-password" element={<ChangePassword />} /> */}
-						{/* </Route> */}
+						<Route path="settings">
+							<Route index element={<Settings />} />
+							<Route path="color-theme" element={<ColorTheme />} />
+							<Route path="font-theme" element={<FontTheme />} />
+							<Route path="change-password" element={<ChangePassword />} />
+						</Route>
 					</Route>
 				</Routes>
 			:	<Routes>
 					<Route element={<MobileLayout />}>
 						<Route path="/" element={<AllNotes />} />
 						<Route path="/:id" element={<NoteDetails />} />
-						<Route path="archived" element={<Archived />} />
-						<Route path="tags" element={<Tags />} />
-						<Route path="tags/:id" element={<TagPage />} />
-						<Route path="search" element={<Search />} />
+						<Route path="/archived" element={<Archived />} />
+						<Route path="/tags" element={<Tags />} />
+						<Route path="/tags/:id" element={<TagPage />} />
+						<Route path="/search" element={<Search />} />
 
-						<Route path="settings">
+						<Route path="/settings">
 							<Route index element={<Settings />} />
 							<Route path="color-theme" element={<ColorTheme />} />
 							<Route path="font-theme" element={<FontTheme />} />

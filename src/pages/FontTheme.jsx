@@ -4,7 +4,7 @@ import GoBack from "../components/mobile/GoBack"
 export default function FontTheme() {
 	function handleOptions() {}
 	return (
-		<div className="main-content">
+		<>
 			<GoBack where="Settings" />
 			<h1 className="page-title text-preset-1">Font Theme</h1>
 			<p>Chose your font theme</p>
@@ -43,6 +43,6 @@ export default function FontTheme() {
 					<span className="custom-radio"></span>
 				</label>
 			</div>
-		</div>
+		</>
 	)
 }

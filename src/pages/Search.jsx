@@ -1,3 +1,4 @@
+import CreateNewNoteBtn from "../components/shared/CreateNewNoteBtn"
 import {SearchIcon} from "../components/shared/Icons"
 import NotesList from "../components/shared/NoteList"
 
@@ -8,22 +9,24 @@ export default function Search() {
 
 	return (
 		<>
-			<div className="main-content">
-				<h1 className="page-title text-preset-1">Search</h1>
-				<label className="search-bar" aria-label="Search by title, content, or tags…">
-					<SearchIcon />
-					<input
-						className="text-preset-5"
-						onChange={(event) => setsearchedTag(event.target.value)}
-						type="text"
-						placeholder="Search by title, content, or tags…"
-					/>
-				</label>
-				{searchedTag && (
-					<p className="text-preset-5">
-						All notes matching "<span>{capitalizeSearchedTag}</span>" are displayed below.
-					</p>
-				)}
+			<h1 className="page-title text-preset-1">Search</h1>
+
+			<label className="search-bar" aria-label="Search by title, content, or tags…">
+				<SearchIcon />
+				<input
+					className="text-preset-5"
+					onChange={(event) => setsearchedTag(event.target.value)}
+					type="text"
+					placeholder="Search by title, content, or tags…"
+				/>
+			</label>
+			{searchedTag && (
+				<p className="text-preset-5">
+					All notes matching "<span>{capitalizeSearchedTag}</span>" are displayed below.
+				</p>
+			)}
+			<div>
+				<CreateNewNoteBtn />
 				<NotesList searchedTag={searchedTag.toLocaleLowerCase().trim()} />
 			</div>
 		</>

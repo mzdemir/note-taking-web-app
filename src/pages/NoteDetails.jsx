@@ -1,55 +1,76 @@
 import {TagsIcon, ClockIcon, StatusIcon} from "../components/shared/Icons"
 import HeaderControl from "../components/mobile/HeaderControl"
+import Button from "../components/shared/Button"
+import useMediaQuery from "../hooks/useMediaQuery"
 
 import {NotesContext} from "../App"
 import {useParams} from "react-router"
 import {useContext} from "react"
+import RightMenu from "../components/desktop/RightMenu"
 
 export default function NoteDetails() {
-	const params = useParams()
+	const isDesktop = useMediaQuery("(min-width: 1024px)")
 	const notes = useContext(NotesContext)
+	const params = useParams()
 
-	const noteDetails = notes && notes?.find((note) => note.id === params.id)
+	const noteId = params.noteId || params.id
+	const noteDetails = notes?.find((note) => note.id === noteId)
 
 	if (!noteDetails) {
 		return <></>
 	}
 
-	console.log(noteDetails)
 	// prettier-ignore
 	return (
 		<>
-			<div className="main-content">
-				<HeaderControl/>
+			<div className="note-details">
+				{!isDesktop && <HeaderControl />}
+				{!isDesktop && <hr />}
 				<h1 className="page-title text-preset-1">{noteDetails.title}</h1>
 				<div className="note-props">
 					<div className="tags">
 						<h2><TagsIcon />Tags</h2>
-						{noteDetails && 
-						<ul >{noteDetails.tags.map(tag => 
-							<li key={tag}>{tag}</li>)}
-						</ul>}
+						{noteDetails && (
+							<ul>
+								{noteDetails.tags.map((tag) => (
+									<li key={tag}>{tag}</li>
+								))}
+							</ul>
+						)}
 					</div>
-					
-				{noteDetails.isArchived && 
-				<div className="note-status">
-						<h2><StatusIcon/> Status</h2>
-						<p>Archived</p>
-				</div>}
-				
+
+					{noteDetails.isArchived && (
+						<div className="note-status">
+							<h2><StatusIcon /> Status</h2>
+							<p>Archived</p>
+						</div>
+					)}
 
 					<div className="last-edited">
-						<h2><ClockIcon/>Last Edited</h2>
+						<h2><ClockIcon />Last Edited
+						</h2>
 						<time className="last-edited" dateTime={noteDetails.lastEdited}>
-							{new Date(noteDetails.lastEdited).toLocaleDateString("en-GB", {day: "2-digit", month: "short", year: "numeric"})}
+							{new Date(noteDetails.lastEdited).toLocaleDateString("en-GB", {
+								day: "2-digit",
+								month: "short",
+								year: "numeric",
+							})}
 						</time>
 					</div>
 				</div>
-				
-				<p style={{ whiteSpace: "pre-line" }}>
-					{noteDetails.content}	
-				</p>
+				<hr />
+				<p style={{whiteSpace: "pre-line"}}>{noteDetails.content}</p>
+				{isDesktop && (
+					<>
+						<hr />
+						<div className="save-btns text-preset-4">
+							<Button variant="primary" text="Save Note" />
+							<Button text="Cancel" />
+						</div>
+					</>
+				)}
 			</div>
+			<RightMenu />
 		</>
 	)
 }
