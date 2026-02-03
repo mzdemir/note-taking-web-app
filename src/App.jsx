@@ -21,7 +21,7 @@ import {useState, useEffect, createContext} from "react"
 const NotesContext = createContext()
 
 export default function App() {
-	const isDesktop = useMediaQuery("(min-width: 1024px)")
+	const isDesktop = useMediaQuery()
 	const [notes, setNotes] = useState(null)
 
 	useEffect(() => {
@@ -44,10 +44,12 @@ export default function App() {
 						<Route path="tags/:id" element={<TagPage />}>
 							<Route path=":noteId" element={<NoteDetails />} />
 						</Route>
-						<Route path="search" element={<Search />} />
 
-						<Route path="settings">
-							<Route index element={<Settings />} />
+						<Route path="/search" element={<Search />}>
+							<Route path=":noteId" element={<NoteDetails />} />
+						</Route>
+
+						<Route path="settings" element={<Settings />}>
 							<Route path="color-theme" element={<ColorTheme />} />
 							<Route path="font-theme" element={<FontTheme />} />
 							<Route path="change-password" element={<ChangePassword />} />
@@ -58,10 +60,16 @@ export default function App() {
 					<Route element={<MobileLayout />}>
 						<Route path="/" element={<AllNotes />} />
 						<Route path="/:id" element={<NoteDetails />} />
+
 						<Route path="/archived" element={<Archived />} />
+						<Route path="/archived/:id" element={<NoteDetails />} />
+
 						<Route path="/tags" element={<Tags />} />
 						<Route path="/tags/:id" element={<TagPage />} />
+						<Route path="/tags/:id/:noteId" element={<NoteDetails />} />
+
 						<Route path="/search" element={<Search />} />
+						<Route path="/search/:noteId" element={<NoteDetails />} />
 
 						<Route path="/settings">
 							<Route index element={<Settings />} />

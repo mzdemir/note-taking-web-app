@@ -1,34 +1,54 @@
-import CreateNewNoteBtn from "../components/shared/CreateNewNoteBtn"
 import {SearchIcon} from "../components/shared/Icons"
 import NotesList from "../components/shared/NoteList"
+import useMediaQuery from "../hooks/useMediaQuery"
 
-import {useState} from "react"
+import {NotesContext} from "../App"
+import {useContext} from "react"
+import {useSearchParams} from "react-router"
+
 export default function Search() {
-	const [searchedTag, setsearchedTag] = useState("")
-	const capitalizeSearchedTag = searchedTag.charAt(0).toUpperCase() + searchedTag.slice(1)
+	const isDesktop = useMediaQuery()
+	const notes = useContext(NotesContext)
+	const [searchParams, setSearchParams] = useSearchParams()
+
+	const query = searchParams.get("query") || ""
+	const capitalizeQuery = query.charAt(0).toUpperCase() + query.slice(1)
+
+	// prettier-ignore
+	const filteredNotes = !query ? notes 
+		: (notes.filter((note) =>
+				note.title.toLowerCase().includes(query.toLowerCase()) ||
+				note.content?.toLowerCase().includes(query.toLowerCase()) ||
+				note.tags.some((tag) => tag.toLowerCase().includes(query.toLowerCase())),
+			)
+		)
+
+	const pageDesc = (
+		<p className="text-preset-5">
+			All notes matching "<span>{capitalizeQuery}</span>" are displayed below.
+		</p>
+	)
+
+	const getLinkPath = (noteId) => `/search/${noteId}`
 
 	return (
 		<>
-			<h1 className="page-title text-preset-1">Search</h1>
-
-			<label className="search-bar" aria-label="Search by title, content, or tags…">
-				<SearchIcon />
-				<input
-					className="text-preset-5"
-					onChange={(event) => setsearchedTag(event.target.value)}
-					type="text"
-					placeholder="Search by title, content, or tags…"
-				/>
-			</label>
-			{searchedTag && (
-				<p className="text-preset-5">
-					All notes matching "<span>{capitalizeSearchedTag}</span>" are displayed below.
-				</p>
+			{!isDesktop && (
+				<>
+					<h1 className="page-title text-preset-1">Search</h1>
+					<label className="search-bar" aria-label="Search by title, content, or tags…">
+						<SearchIcon />
+						<input
+							value={query}
+							className="text-preset-5"
+							onChange={(event) => setSearchParams({query: event.target.value})}
+							type="text"
+							placeholder="Search by title, content, or tags…"
+						/>
+					</label>
+				</>
 			)}
-			<div>
-				<CreateNewNoteBtn />
-				<NotesList searchedTag={searchedTag.toLocaleLowerCase().trim()} />
-			</div>
+			<NotesList notes={filteredNotes} pageDesc={pageDesc} getLinkPath={getLinkPath} />
 		</>
 	)
 }

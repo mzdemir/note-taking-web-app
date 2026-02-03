@@ -1,55 +1,27 @@
-import {NotesContext} from "../../App"
 import CreateNewNoteBtn from "../shared/CreateNewNoteBtn"
 
-import {useContext, Fragment} from "react"
-import {Link, Outlet, useLocation, useParams} from "react-router"
+import {Fragment} from "react"
+import {Link, Outlet, useSearchParams} from "react-router"
 
-export default function NotesList({searchedTag}) {
-	const notes = useContext(NotesContext)
-	const location = useLocation()
-	const params = useParams()
-
-	const capitalizeTag = params.id && params.id.charAt(0).toUpperCase() + params.id.slice(1)
+export default function NotesList({notes, pageDesc, getLinkPath}) {
+	const [searchParams] = useSearchParams()
 
 	if (!notes) return <></>
-
-	const isArchivedPage = location.pathname.startsWith("/archived")
-	const isTagPage = location.pathname.startsWith("/tags")
-
-	let filteredNotes = notes
-	if (isArchivedPage) {
-		filteredNotes = notes.filter((note) => note.isArchived)
-	} else if (searchedTag && searchedTag.length > 0) {
-		filteredNotes = notes.filter((note) => {
-			return note.tags.map((tag) => tag.toLowerCase()).includes(searchedTag)
-		})
-	}
-
-	function handleRouting(noteId) {
-		if (isArchivedPage) return `/archived/${noteId}`
-		if (isTagPage) return `/tags/${params.id}/${noteId}`
-		return `/${noteId}`
-	}
 
 	return (
 		<>
 			<div className="note-list">
 				<CreateNewNoteBtn />
-				{isArchivedPage && (
-					<p className="text-preset-5">
-						All your archived notes are stored here. You can restore or delete them anytime.
-					</p>
-				)}
-
-				{isTagPage && (
-					<p>
-						All notes with the "<span>{capitalizeTag}</span>" tag are shown here.
-					</p>
-				)}
-				{filteredNotes && filteredNotes.length > 0 ?
-					filteredNotes.map((note) => (
+				{pageDesc && pageDesc}
+				{notes.length > 0 ?
+					notes.map((note) => (
 						<Fragment key={note.id}>
-							<Link to={handleRouting(note.id)} className="text-preset-6">
+							<Link
+								to={{
+									pathname: getLinkPath(note.id),
+									search: searchParams.toString(),
+								}}
+								className="text-preset-6">
 								<h2 className="note-title text-preset-3">{note.title}</h2>
 								<div className="note-tags">
 									{note.tags.map((tag) => (

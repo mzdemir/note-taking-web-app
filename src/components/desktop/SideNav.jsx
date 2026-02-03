@@ -1,5 +1,5 @@
+import Tags from "../../pages/Tags"
 import {ArchivedIcon, HomeIcon, Logo} from "../shared/Icons"
-import TagList from "../shared/TagList"
 
 import {Link} from "react-router"
 
@@ -21,7 +21,7 @@ export default function SideNav() {
 				<hr />
 				<div className="sidebar-tags-list">
 					<h2>Tags</h2>
-					<TagList />
+					<Tags />
 				</div>
 			</nav>
 		</aside>

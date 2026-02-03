@@ -9,7 +9,7 @@ import {useContext} from "react"
 import RightMenu from "../components/desktop/RightMenu"
 
 export default function NoteDetails() {
-	const isDesktop = useMediaQuery("(min-width: 1024px)")
+	const isDesktop = useMediaQuery()
 	const notes = useContext(NotesContext)
 	const params = useParams()
 
@@ -70,7 +70,7 @@ export default function NoteDetails() {
 					</>
 				)}
 			</div>
-			<RightMenu />
+			{isDesktop && <RightMenu />}
 		</>
 	)
 }
