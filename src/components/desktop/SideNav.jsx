@@ -1,7 +1,7 @@
 import Tags from "../../pages/Tags"
 import {ArchivedIcon, HomeIcon, Logo} from "../shared/Icons"
 
-import {Link} from "react-router"
+import {NavLink} from "react-router"
 
 export default function SideNav() {
 	return (
@@ -11,12 +11,12 @@ export default function SideNav() {
 			</div>
 			<nav className="sidenavbar">
 				<div>
-					<Link to="/">
+					<NavLink to="/">
 						<HomeIcon /> All Notes
-					</Link>
-					<Link to="archived">
+					</NavLink>
+					<NavLink to="archived">
 						<ArchivedIcon /> Archived Notes
-					</Link>
+					</NavLink>
 				</div>
 				<hr />
 				<div className="sidebar-tags-list">

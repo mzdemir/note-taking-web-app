@@ -1,7 +1,7 @@
 import CreateNewNoteBtn from "../shared/CreateNewNoteBtn"
 
 import {Fragment} from "react"
-import {Link, Outlet, useSearchParams} from "react-router"
+import {NavLink, Outlet, useSearchParams} from "react-router"
 
 export default function NotesList({notes, pageDesc, getLinkPath}) {
 	const [searchParams] = useSearchParams()
@@ -16,7 +16,7 @@ export default function NotesList({notes, pageDesc, getLinkPath}) {
 				{notes.length > 0 ?
 					notes.map((note) => (
 						<Fragment key={note.id}>
-							<Link
+							<NavLink
 								to={{
 									pathname: getLinkPath(note.id),
 									search: searchParams.toString(),
@@ -35,7 +35,7 @@ export default function NotesList({notes, pageDesc, getLinkPath}) {
 										year: "numeric",
 									})}
 								</time>
-							</Link>
+							</NavLink>
 							<hr />
 						</Fragment>
 					))

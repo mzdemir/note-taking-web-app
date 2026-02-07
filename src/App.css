@@ -73,6 +73,10 @@
 	padding: var(--spacing-100);
 }
 
+.note-list a::after {
+	display: none;
+}
+
 .note-list p {
 	background-color: var(--neutral-800);
 	padding: var(--spacing-100);
@@ -231,6 +235,10 @@
 	align-items: center;
 	gap: var(--spacing-100);
 	padding: var(--spacing-100);
+}
+
+.note-list .settings-item::after {
+	display: block;
 }
 
 .settings-item svg {
