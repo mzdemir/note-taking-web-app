@@ -1,4 +1,5 @@
 import "./App.css"
+import supabase from "./supabase-client.js"
 
 import DesktopLayout from "./layouts/desktop/DesktopLayout"
 import MobileLayout from "./layouts/mobile/MobileLayout"
@@ -24,10 +25,29 @@ export default function App() {
 	const isDesktop = useMediaQuery()
 	const [notes, setNotes] = useState(null)
 
+	async function fetchNotes() {
+		const {data, error} = await supabase
+			.from("notes")
+			.select(
+				`
+    		*,
+   			...note_tags(
+      		...tags(
+        		tags:name
+      		)
+    		)
+    		`,
+			)
+			.order("lastEdited", {ascending: false})
+		if (error) {
+			console.error("Error fetching data:", error)
+			return
+		}
+		setNotes(data)
+	}
+
 	useEffect(() => {
-		fetch("/api/notes")
-			.then((res) => res.json())
-			.then((data) => setNotes(data.notes))
+		fetchNotes()
 	}, [])
 
 	return (

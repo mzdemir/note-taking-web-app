@@ -1,0 +1,68 @@
+db pass oCmLEFX4Bebru5cN
+
+
+// Insert data to notes_tags junction table
+const input = [
+  {
+    title: "React Performance Optimization",
+    tags: ["Dev", "React"],
+  },
+  {
+    title: "Japan Travel Planning",
+    tags: ["Travel", "Personal"],
+  },
+  {
+    title: "Favorite Pasta Recipes",
+    tags: ["Cooking", "Recipes"],
+  },
+  {
+    title: "TypeScript Migration Guide",
+    tags: ["Dev", "React", "TypeScript"],
+  },
+  {
+    title: "Weekly Workout Plan",
+    tags: ["Fitness", "Health"],
+  },
+  {
+    title: "Gift Ideas",
+    tags: ["Personal", "Shopping"],
+  },
+  {
+    title: "React Component Library",
+    tags: ["Dev", "React"],
+  },
+  {
+    title: "Meal Prep Ideas",
+    tags: ["Cooking", "Health", "Recipes"],
+  },
+  {
+    title: "Reading List",
+    tags: ["Personal", "Dev"],
+  },
+  {
+    title: "Fitness Goals 2025",
+    tags: ["Fitness", "Health", "Personal"],
+  },
+]
+
+const allTitles = [...new Set(input.map((i) => i.title))]
+const allTagNames = [...new Set(input.flatMap((i) => i.tags))]
+
+// // Get all notes
+// const {data: notes} = await supabase.from("notes").select("id, title").in("title", allTitles)
+// // Get all tags
+// const {data: tags} = await supabase.from("tags").select("id, name").in("name", allTagNames)
+// // Create quick lookup dictionaries
+// const noteMap = Object.fromEntries(notes.map((n) => [n.title, n.id]))
+// const tagMap = Object.fromEntries(tags.map((t) => [t.name, t.id]))
+// const junctionRows = []
+// input.forEach((item) => {
+// 	const noteId = noteMap[item.title]
+// 	item.tags.forEach((tagName) => {
+// 		const tagId = tagMap[tagName]
+// 		if (noteId && tagId) {
+// 			junctionRows.push({note_id: noteId, tag_id: tagId})
+// 		}
+// 	})
+// })
+// const {error} = await supabase.from("note_tags").insert(junctionRows)

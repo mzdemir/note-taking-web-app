@@ -24,7 +24,7 @@ export default function NotesList({notes, pageDesc, getLinkPath}) {
 								className="text-preset-6">
 								<h2 className="note-title text-preset-3">{note.title}</h2>
 								<div className="note-tags">
-									{note.tags.map((tag) => (
+									{note?.tags.map((tag) => (
 										<span key={tag}>{tag}</span>
 									))}
 								</div>

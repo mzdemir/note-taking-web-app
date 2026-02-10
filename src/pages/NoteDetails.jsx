@@ -14,7 +14,7 @@ export default function NoteDetails() {
 	const params = useParams()
 
 	const noteId = params.noteId || params.id
-	const noteDetails = notes?.find((note) => note.id === noteId)
+	const noteDetails = notes?.find((note) => note.id.toString() === noteId)
 
 	if (!noteDetails) {
 		return <></>

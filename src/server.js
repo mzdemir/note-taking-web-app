@@ -92,7 +92,7 @@ createServer({
 		this.namespace = "api"
 		this.logging = false
 
-		this.get("/notes", (schema, request) => {
+		this.get("/notes", (schema) => {
 			return schema.notes.all()
 		})
 
