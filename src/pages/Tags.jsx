@@ -1,14 +1,14 @@
 import CreateNewNoteBtn from "../components/shared/CreateNewNoteBtn"
-import useMediaQuery from "../hooks/useMediaQuery"
-
 import {TagsIcon} from "../components/shared/Icons"
-import {NotesContext} from "../App"
-import {useContext, Fragment} from "react"
-import {NavLink} from "react-router"
 
+import useMediaQuery from "../hooks/useMediaQuery"
+import {useNotes} from "../context/NoteContext"
+
+import {Fragment} from "react"
+import {NavLink} from "react-router"
 export default function Tags() {
 	const isDesktop = useMediaQuery()
-	const notes = useContext(NotesContext)
+	const notes = useNotes()
 
 	const tags = [...new Set(notes?.map((note) => note.tags).flat())]
 
@@ -36,4 +36,3 @@ export default function Tags() {
 		</>
 	)
 }
-// className={({isActive}) => (isActive ? "active" : null)}

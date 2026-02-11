@@ -2,15 +2,14 @@ import {TagsIcon, ClockIcon, StatusIcon} from "../components/shared/Icons"
 import HeaderControl from "../components/mobile/HeaderControl"
 import Button from "../components/shared/Button"
 import useMediaQuery from "../hooks/useMediaQuery"
-
-import {NotesContext} from "../App"
-import {useParams} from "react-router"
-import {useContext} from "react"
 import RightMenu from "../components/desktop/RightMenu"
+
+import {useParams} from "react-router"
+import {useNotes} from "../context/NoteContext"
 
 export default function NoteDetails() {
 	const isDesktop = useMediaQuery()
-	const notes = useContext(NotesContext)
+	const notes = useNotes()
 	const params = useParams()
 
 	const noteId = params.noteId || params.id
