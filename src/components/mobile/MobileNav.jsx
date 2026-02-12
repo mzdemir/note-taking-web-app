@@ -7,7 +7,7 @@ export default function MobileNav() {
 		<header className="mobile-nav">
 			<div className="logo-wrapper">{<Logo />}</div>
 			<nav className="bottom-navbar">
-				<Link to="/">
+				<Link to="/notes">
 					{<HomeIcon />}
 					<span>Home</span>
 				</Link>

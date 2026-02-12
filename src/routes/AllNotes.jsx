@@ -6,7 +6,7 @@ export default function AllNotes() {
 	const isDesktop = useMediaQuery()
 	const notes = useNotes()
 
-	const getLinkPath = (noteId) => `/${noteId}`
+	const getLinkPath = (noteId) => `/notes/${noteId}`
 	return (
 		<>
 			{!isDesktop && <h1 className="page-title text-preset-1">All Notes</h1>}

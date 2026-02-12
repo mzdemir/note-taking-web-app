@@ -1,4 +1,4 @@
-import Tags from "../../pages/Tags"
+import Tags from "../../routes/Tags"
 import {ArchivedIcon, HomeIcon, Logo} from "../shared/Icons"
 
 import {NavLink} from "react-router"
@@ -11,7 +11,7 @@ export default function SideNav() {
 			</div>
 			<nav className="sidenavbar">
 				<div>
-					<NavLink to="/">
+					<NavLink to="/notes">
 						<HomeIcon /> All Notes
 					</NavLink>
 					<NavLink to="archived">

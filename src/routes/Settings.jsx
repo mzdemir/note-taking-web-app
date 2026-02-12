@@ -1,10 +1,22 @@
 import {SunIcon, FontIcon, LockIcon, LogoutIcon} from "../components/shared/Icons"
 import useMediaQuery from "../hooks/useMediaQuery"
 
-import {NavLink, Outlet} from "react-router"
+import {useAuth} from "../context/AuthContext"
+import {NavLink, Outlet, useNavigate} from "react-router"
 
 export default function Settings() {
 	const isDesktop = useMediaQuery()
+	const {logout} = useAuth()
+	const navigate = useNavigate()
+
+	const handleSignOut = async (e) => {
+		e.preventDefault()
+
+		const {success} = await logout()
+		if (success) {
+			navigate("/")
+		}
+	}
 
 	return (
 		<>
@@ -20,7 +32,7 @@ export default function Settings() {
 					<LockIcon /> Change Password
 				</NavLink>
 				{isDesktop && <hr />}
-				<button className="settings-item text-preset-4">
+				<button className="settings-item text-preset-4" onClick={handleSignOut}>
 					<LogoutIcon /> Logout
 				</button>
 			</div>

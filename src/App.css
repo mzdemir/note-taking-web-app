@@ -411,6 +411,70 @@
 	border-radius: var(--radius-8);
 }
 
+.login-wrapper {
+	max-inline-size: 540px;
+	padding-block: var(--spacing-600);
+	max-block-size: 540px;
+	/* block-size: max(100vh, 540px); */
+	display: grid;
+	place-items: center;
+	gap: var(--spacing-200);
+}
+
+.login-wrapper p {
+	text-align: center;
+	color: var(--neutral-300);
+	margin-block-start: var(--spacing-100);
+}
+
+.login-form {
+	padding: var(--spacing-300) var(--spacing-200) 0;
+	inline-size: 100%;
+	display: grid;
+	gap: var(--spacing-200);
+}
+
+.login-form label {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-075);
+}
+
+.forgot {
+	position: absolute;
+	right: 0;
+	top: var(--spacing-050);
+	color: var(--neutral-400);
+	text-decoration: underline;
+}
+
+.google-login {
+	inline-size: calc(100% - var(--spacing-400));
+	padding-block: var(--spacing-300) var(--spacing-200);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: var(--spacing-200);
+	border-top: var(--border);
+	border-bottom: var(--border);
+}
+
+.google-btn {
+	inline-size: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--spacing-075);
+	padding: var(--spacing-075);
+	border: var(--border);
+	border-radius: var(--radius-12);
+}
+
+.signup-link {
+	color: var(--neutral-0);
+}
+
 @media (min-width: 1024px) {
 	#root {
 		display: flex;

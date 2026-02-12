@@ -3,13 +3,16 @@ import {RouterProvider} from "react-router"
 import {NoteContextProvider} from "./context/NoteContext"
 import {desktopRouter, mobileRouter} from "./router"
 import useMediaQuery from "./hooks/useMediaQuery"
+import {AuthContextProvider} from "./context/AuthContext.jsx"
 
 export default function App() {
 	const isDesktop = useMediaQuery()
 
 	return (
-		<NoteContextProvider>
-			<RouterProvider router={isDesktop ? desktopRouter : mobileRouter} />
-		</NoteContextProvider>
+		<AuthContextProvider>
+			<NoteContextProvider>
+				<RouterProvider router={isDesktop ? desktopRouter : mobileRouter} />
+			</NoteContextProvider>
+		</AuthContextProvider>
 	)
 }
