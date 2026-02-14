@@ -18,10 +18,12 @@ import ProtectedRoute from "./components/auth/ProtectedRoute"
 
 import DesktopLayout from "./layouts/desktop/DesktopLayout"
 import MobileLayout from "./layouts/mobile/MobileLayout"
+import Signup from "./components/auth/SignUp"
 
 export const mobileRouter = createBrowserRouter([
 	{path: "/", element: <RootRedirect />},
 	{path: "/login", element: <Login />},
+	{path: "/sign-up", element: <Signup />},
 	{
 		element: (
 			<ProtectedRoute>
@@ -55,6 +57,7 @@ export const mobileRouter = createBrowserRouter([
 export const desktopRouter = createBrowserRouter([
 	{path: "/", element: <RootRedirect />},
 	{path: "/login", element: <Login />},
+	{path: "/sign-up", element: <Signup />},
 	{
 		element: (
 			<ProtectedRoute>

@@ -12,11 +12,11 @@ export function NoteContextProvider({children}) {
 				.from("notes")
 				.select(
 					`*,
-   			  ...note_tags(
-      		  ...tags(
-        		  tags:name
-      		  )
-    		  )`,
+	 			  ...note_tags(
+	    		  ...tags(
+	      		  tags:name
+	    		  )
+	  		  )`,
 				)
 				.order("lastEdited", {ascending: false})
 			if (error) {

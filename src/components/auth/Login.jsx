@@ -7,14 +7,15 @@ import {useNavigate, Link} from "react-router"
 export default function Login() {
 	const {signInUser} = useAuth()
 	const navigate = useNavigate()
+
 	const [error, submitAction, isPending] = useActionState(async (previousState, formData) => {
 		const email = formData.get("email")
 		const password = formData.get("password")
 
-		const {success, data, error: signInError} = await signInUser(email, password)
+		const {success, data, error: signUpError} = await signInUser(email, password)
 
-		if (signInError) {
-			return new Error(signInError)
+		if (signUpError) {
+			return new Error(signUpError)
 		}
 		if (success && data?.session) {
 			navigate("/notes")
@@ -41,7 +42,7 @@ export default function Login() {
 						required
 						aria-required="true"
 						aria-invalid={error ? "true" : "false"}
-						aria-describedby={error ? "signin-error" : undefined}
+						aria-describedby={error ? "signup-error" : undefined}
 						disabled={isPending}
 					/>
 				</label>
@@ -59,7 +60,7 @@ export default function Login() {
 						required
 						aria-required="true"
 						aria-invalid={error ? "true" : "false"}
-						aria-describedby={error ? "signin-error" : undefined}
+						aria-describedby={error ? "signup-error" : undefined}
 						disabled={isPending}
 					/>
 				</label>
@@ -69,7 +70,7 @@ export default function Login() {
 				</button>
 
 				{error && (
-					<div id="signin-error" role="alert" className="sign-form-error-message">
+					<div id="signup-error" role="alert" className="sign-form-error-message">
 						{error.message}
 					</div>
 				)}
@@ -84,7 +85,7 @@ export default function Login() {
 
 			<p className="text-preset-5">
 				No account yet?
-				<Link to="" className="signup-link">
+				<Link to="/sign-up" className="signup-link">
 					{" "}
 					Sign Up
 				</Link>

@@ -4,7 +4,6 @@ import supabase from "../supabase-client"
 const AuthContext = createContext()
 
 export const AuthContextProvider = ({children}) => {
-	//Session state (user info, sign-in status)
 	const [session, setSession] = useState(undefined)
 
 	useEffect(() => {
@@ -24,7 +23,7 @@ export const AuthContextProvider = ({children}) => {
 
 		supabase.auth.onAuthStateChange((_event, session) => {
 			setSession(session)
-			console.log("Session changed:", session)
+			// console.log("Session changed:", session)
 		})
 	}, [])
 
@@ -60,7 +59,7 @@ export const AuthContextProvider = ({children}) => {
 		}
 	}
 
-	async function signUpNewUser(email, password) {
+	async function signUpUser(email, password) {
 		try {
 			const {data, error} = await supabase.auth.signUp({
 				email: email.toLowerCase(),
@@ -80,7 +79,7 @@ export const AuthContextProvider = ({children}) => {
 
 	// prettier-ignore
 	return ( 
-		<AuthContext.Provider value={{session, signInUser, logout}}>
+		<AuthContext.Provider value={{session, signInUser, logout, signUpUser}}>
 			{children}
 		</AuthContext.Provider>
 	)

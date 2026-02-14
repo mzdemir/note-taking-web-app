@@ -421,10 +421,14 @@
 	gap: var(--spacing-200);
 }
 
-.login-wrapper p {
+.login-wrapper p,
+.login-wrapper h1 {
 	text-align: center;
-	color: var(--neutral-300);
+}
+
+.login-wrapper p {
 	margin-block-start: var(--spacing-100);
+	color: var(--neutral-300);
 }
 
 .login-form {
