@@ -19,6 +19,7 @@ export default function CreateNewNote() {
 						className="text-preset-1"
 						type="text"
 						name="title"
+						required
 						onChange={(event) => {
 							const title = event.target.value
 							setNote((prev) => ({...prev, title: title}))
@@ -36,6 +37,7 @@ export default function CreateNewNote() {
 						<input
 							type="text"
 							name="tags"
+							required
 							onChange={(event) => {
 								const tags = event.target.value
 								setNote((prev) => ({...prev, tags: tags}))
@@ -56,6 +58,7 @@ export default function CreateNewNote() {
 					<input
 						type="text"
 						name="content"
+						required
 						onChange={(event) => {
 							const content = event.target.value
 							setNote((prev) => ({...prev, content: content}))

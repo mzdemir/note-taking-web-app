@@ -3,11 +3,11 @@ import GoBack from "../components/mobile/GoBack"
 import useMediaQuery from "../hooks/useMediaQuery"
 
 import {useParams} from "react-router"
-import {useNotes} from "../context/NoteContext"
+import useFetchNotes from "../hooks/crud/useFetchNotes"
 
 export default function TagPage() {
 	const isDesktop = useMediaQuery()
-	const notes = useNotes()
+	const {notes} = useFetchNotes()
 	const params = useParams()
 
 	const capitalizeTag = params.id?.charAt(0).toUpperCase() + params.id.slice(1)

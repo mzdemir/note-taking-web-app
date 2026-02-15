@@ -1,57 +1,32 @@
 import {DeleteIcon, ArchivedIcon} from "../shared/Icons"
 import GoBack from "./GoBack"
+import Button from "../shared/Button"
 
-import supabase from "../../supabase-client"
-import {useAuth} from "../../context/AuthContext"
+import useInsertNote from "../../hooks/crud/useInsertNote"
+import useDeleteNote from "../../hooks/crud/useDeleteNote"
+import useUpdateNote from "../../hooks/crud/useUpdateNote"
 
-export default function HeaderControl({note}) {
-	const {session} = useAuth()
-
-	console.log({
-		user_id: session.user.id,
-		...note,
-	})
-
-	async function InsertNote() {
-		try {
-			const {error: noteError} = await supabase.from("notes").insert({
-				user_id: session.user.id,
-				title: note.title,
-				content: note.content,
-			})
-
-			const {error: tagsError} = await supabase.from("tags").insert({
-				user_id: session.user.id,
-				name: note.tags,
-			})
-
-			if (noteError) throw noteError
-			if (tagsError) throw tagsError
-		} catch (error) {
-			console.log("Inserting error: ", error)
-		}
-	}
-
-	function deleteNote() {
-		console.log(session.user)
-	}
+export default function HeaderControl({note, noteId}) {
+	const {createNote} = useInsertNote()
+	const {deleteNote} = useDeleteNote()
+	const {updateNote} = useUpdateNote()
 
 	return (
 		<header className="header-control">
 			<GoBack where={"Go Back"} />
 			<div className="control-btns text-preset-5">
-				<button aria-label="Delete note" onClick={deleteNote}>
+				<Button aria-label="Delete note" onClick={() => deleteNote(noteId)}>
 					<DeleteIcon />
-				</button>
+				</Button>
 
-				<button aria-label="Archive note">
+				<Button aria-label="Archive note" onClick={() => updateNote(noteId)}>
 					<ArchivedIcon />
-				</button>
+				</Button>
 
 				<button>Cancel</button>
-				<button className="save-note" onClick={InsertNote}>
+				<Button className={""} onClick={() => createNote(note)}>
 					Save Note
-				</button>
+				</Button>
 			</div>
 		</header>
 	)

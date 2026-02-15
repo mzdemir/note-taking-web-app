@@ -1,9 +1,7 @@
-import {createContext, useState, useEffect, useContext} from "react"
-import supabase from "../supabase-client.js"
+import {useState, useEffect} from "react"
+import supabase from "../../supabase-client"
 
-const NotesContext = createContext()
-
-export function NoteContextProvider({children}) {
+export default function useFetchNotes() {
 	const [notes, setNotes] = useState([])
 
 	useEffect(() => {
@@ -28,14 +26,5 @@ export function NoteContextProvider({children}) {
 		fetchNotes()
 	}, [])
 
-	// prettier-ignore
-	return (
-    <NotesContext.Provider value={notes}>
-      {children}
-    </NotesContext.Provider> 
-  )
-}
-
-export function useNotes() {
-	return useContext(NotesContext)
+	return {notes}
 }

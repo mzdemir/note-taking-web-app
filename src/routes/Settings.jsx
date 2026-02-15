@@ -1,7 +1,7 @@
 import {SunIcon, FontIcon, LockIcon, LogoutIcon} from "../components/shared/Icons"
 import useMediaQuery from "../hooks/useMediaQuery"
 
-import {useAuth} from "../context/AuthContext"
+import useAuth from "../hooks/useAuth"
 import {NavLink, Outlet, useNavigate} from "react-router"
 
 export default function Settings() {

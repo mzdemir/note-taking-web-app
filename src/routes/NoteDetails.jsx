@@ -5,11 +5,11 @@ import useMediaQuery from "../hooks/useMediaQuery"
 import RightMenu from "../components/desktop/RightMenu"
 
 import {useParams} from "react-router"
-import {useNotes} from "../context/NoteContext"
+import useFetchNotes from "../hooks/crud/useFetchNotes"
 
 export default function NoteDetails() {
 	const isDesktop = useMediaQuery()
-	const notes = useNotes()
+	const {notes} = useFetchNotes()
 	const params = useParams()
 
 	const noteId = params.noteId || params.id
@@ -23,7 +23,7 @@ export default function NoteDetails() {
 	return (
 		<>
 			<div className="note-details">
-				{!isDesktop && <HeaderControl />}
+				{!isDesktop && <HeaderControl noteId={notes[0].id} />}
 				{!isDesktop && <hr />}
 				<h1 className="page-title text-preset-1">{noteDetails.title}</h1>
 				<div className="note-props">

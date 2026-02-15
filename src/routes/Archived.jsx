@@ -1,10 +1,10 @@
 import NotesList from "../components/shared/NoteList"
 import useMediaQuery from "../hooks/useMediaQuery"
-import {useNotes} from "../context/NoteContext"
+import useFetchNotes from "../hooks/crud/useFetchNotes"
 
 export default function Archived() {
 	const isDesktop = useMediaQuery()
-	const notes = useNotes()
+	const {notes} = useFetchNotes()
 
 	const filteredNotes = notes?.filter((note) => note.isArchived)
 

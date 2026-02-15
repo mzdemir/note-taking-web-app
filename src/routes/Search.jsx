@@ -2,13 +2,13 @@ import {SearchIcon} from "../components/shared/Icons"
 import NotesList from "../components/shared/NoteList"
 
 import useMediaQuery from "../hooks/useMediaQuery"
-import {useNotes} from "../context/NoteContext"
+import useFetchNotes from "../hooks/crud/useFetchNotes"
 
 import {useSearchParams} from "react-router"
 
 export default function Search() {
 	const isDesktop = useMediaQuery()
-	const notes = useNotes()
+	const {notes} = useFetchNotes()
 	const [searchParams, setSearchParams] = useSearchParams()
 
 	const query = searchParams.get("query") || ""

@@ -1,4 +1,4 @@
-import {useAuth} from "../../context/AuthContext"
+import useAuth from "../../hooks/useAuth"
 import {useActionState} from "react"
 import {Link, useNavigate} from "react-router"
 import {Logo, GoogleIcon} from "../shared/Icons"

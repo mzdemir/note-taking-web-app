@@ -1,5 +1,5 @@
 import {Logo, GoogleIcon} from "../shared/Icons"
-import {useAuth} from "../../context/AuthContext"
+import useAuth from "../../hooks/useAuth"
 
 import {useActionState} from "react"
 import {useNavigate, Link} from "react-router"

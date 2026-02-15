@@ -1,9 +1,7 @@
-import {createContext, useState, useContext, useEffect} from "react"
+import {useState, useEffect} from "react"
 import supabase from "../supabase-client"
 
-const AuthContext = createContext()
-
-export const AuthContextProvider = ({children}) => {
+export default function useAuth() {
 	const [session, setSession] = useState(undefined)
 
 	useEffect(() => {
@@ -23,7 +21,6 @@ export const AuthContextProvider = ({children}) => {
 
 		supabase.auth.onAuthStateChange((_event, session) => {
 			setSession(session)
-			// console.log("Session changed:", session)
 		})
 	}, [])
 
@@ -37,7 +34,6 @@ export const AuthContextProvider = ({children}) => {
 				console.error("Supabase sign-in error:", error.message)
 				return {success: false, error: error.message}
 			}
-			console.log("Supabase sign-in success:", data)
 			return {success: true, data}
 		} catch (error) {
 			console.error("Unexpected error during sign-in:", error.message)
@@ -69,7 +65,6 @@ export const AuthContextProvider = ({children}) => {
 				console.error("Supabase sign-up error:", error.message)
 				return {success: false, error: error.message}
 			}
-			// console.log('Supabase sign-up success:', data);
 			return {success: true, data}
 		} catch (error) {
 			console.error("Unexpected error during sign-up:", error.message)
@@ -77,14 +72,5 @@ export const AuthContextProvider = ({children}) => {
 		}
 	}
 
-	// prettier-ignore
-	return ( 
-		<AuthContext.Provider value={{session, signInUser, logout, signUpUser}}>
-			{children}
-		</AuthContext.Provider>
-	)
-}
-
-export const useAuth = () => {
-	return useContext(AuthContext)
+	return {session, signInUser, logout, signUpUser}
 }

@@ -1,10 +1,10 @@
 import useMediaQuery from "../hooks/useMediaQuery"
 import NotesList from "../components/shared/NoteList"
-import {useNotes} from "../context/NoteContext"
+import useFetchNotes from "../hooks/crud/useFetchNotes"
 
 export default function AllNotes() {
 	const isDesktop = useMediaQuery()
-	const notes = useNotes()
+	const {notes} = useFetchNotes()
 
 	const getLinkPath = (noteId) => `/notes/${noteId}`
 	return (
