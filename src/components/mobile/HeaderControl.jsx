@@ -2,29 +2,27 @@ import {DeleteIcon, ArchivedIcon} from "../shared/Icons"
 import GoBack from "./GoBack"
 import Button from "../shared/Button"
 
-import useInsertNote from "../../hooks/crud/useInsertNote"
 import useDeleteNote from "../../hooks/crud/useDeleteNote"
-import useUpdateNote from "../../hooks/crud/useUpdateNote"
+import useArchiveNote from "../../hooks/crud/useArchiveNote"
 
-export default function HeaderControl({note, noteId}) {
-	const {createNote} = useInsertNote()
+export default function HeaderControl({noteId}) {
 	const {deleteNote} = useDeleteNote()
-	const {updateNote} = useUpdateNote()
+	const {archiveNote} = useArchiveNote()
 
 	return (
-		<header className="header-control">
+		<header className="header-control text-preset-5">
 			<GoBack where={"Go Back"} />
 			<div className="control-btns text-preset-5">
 				<Button aria-label="Delete note" onClick={() => deleteNote(noteId)}>
 					<DeleteIcon />
 				</Button>
 
-				<Button aria-label="Archive note" onClick={() => updateNote(noteId)}>
+				<Button aria-label="Archive note" onClick={() => archiveNote(noteId)}>
 					<ArchivedIcon />
 				</Button>
 
 				<button>Cancel</button>
-				<Button className={""} onClick={() => createNote(note)}>
+				<Button className={""} type="submit">
 					Save Note
 				</Button>
 			</div>

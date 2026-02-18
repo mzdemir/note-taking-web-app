@@ -12,6 +12,7 @@ export default function useDeleteNote() {
 	const [error, setError] = useState(null)
 
 	async function deleteNote(noteId) {
+		// console.log(noteData)
 		try {
 			setLoading(true)
 			setError(null)
@@ -51,7 +52,7 @@ export default function useDeleteNote() {
             .eq("user_id", session.user.id)
 				}
 			}
-
+			console.log("delete succesfull")
 			navigate("/notes")
 			
 		} catch (error) {

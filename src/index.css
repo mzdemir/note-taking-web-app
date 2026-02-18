@@ -165,16 +165,33 @@ button {
 }
 
 input {
-	inline-size: 100%;
 	background: none;
+	inline-size: 100%;
 	border: none;
 	outline: none;
 	color: inherit;
 }
 
+textarea {
+	flex: 1;
+	inline-size: 100%;
+	color: inherit;
+	border: none;
+	background: none;
+	resize: none;
+	outline: none;
+	font: inherit;
+	overflow-wrap: break-word;
+	overflow-y: hidden;
+	padding-block: var(--spacing-050);
+}
+
+::placeholder {
+	font: inherit;
+}
+
 hr {
 	border: 1px solid var(--neutral-800);
-	block-size: 1px;
 }
 
 body {

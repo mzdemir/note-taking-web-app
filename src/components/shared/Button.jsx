@@ -1,7 +1,9 @@
-export default function PrimaryButton({className, onClick, children}) {
+export default function PrimaryButton({className, onClick, children, type}) {
 	// prettier-ignore
 	return (
-		<button 
+		<button
+			type={type ? type : "button"}
+			form="note-form"
       className={className} 
       onClick={onClick}>
 			{children}

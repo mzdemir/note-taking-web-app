@@ -5,7 +5,7 @@ const RootRedirect = () => {
 	const {session} = useAuth()
 
 	if (session === undefined) {
-		return <div>Loading...</div>
+		return <></>
 	}
 
 	return session ? <Navigate to="/notes" /> : <Navigate to="/login" />

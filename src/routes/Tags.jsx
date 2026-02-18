@@ -2,13 +2,15 @@ import CreateNewNoteBtn from "../components/shared/CreateNewNoteBtn"
 import {TagsIcon} from "../components/shared/Icons"
 
 import useMediaQuery from "../hooks/useMediaQuery"
-import useFetchNotes from "../hooks/crud/useFetchNotes"
+import {NoteContext} from "../context/NoteContext"
 
+import {useContext} from "react"
 import {Fragment} from "react"
 import {NavLink} from "react-router"
+
 export default function Tags() {
 	const isDesktop = useMediaQuery()
-	const {notes} = useFetchNotes()
+	const {notes} = useContext(NoteContext)
 
 	const tags = [...new Set(notes?.map((note) => note.tags).flat())]
 

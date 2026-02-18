@@ -143,34 +143,24 @@
 	color: var(--neutral-300);
 }
 
-.tags,
-.note-status,
-.last-edited {
+.prop {
 	display: flex;
 	align-items: center;
 	gap: var(--spacing-100);
-	padding-block: var(--spacing-050);
 }
 
-.tags h2,
-.note-status h2,
-.last-edited h2 {
-	inline-size: 7.25rem;
+.prop label,
+.prop h2,
+.prop p {
 	display: flex;
 	align-items: center;
 	gap: var(--spacing-075);
+	inline-size: 115px;
+	padding-block: var(--spacing-050);
 }
-
-.tags ul {
-	display: flex;
-	gap: var(--spacing-050);
-}
-
-.tags svg,
-.note-status svg,
-.last-edited svg {
-	inline-size: 1rem;
-	block-size: 1rem;
+.prop svg {
+	inline-size: 0.75rem;
+	block-size: 0.75rem;
 }
 
 .search-bar {

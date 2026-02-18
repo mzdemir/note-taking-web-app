@@ -1,75 +1,47 @@
-import {TagsIcon, ClockIcon, StatusIcon} from "../components/shared/Icons"
 import HeaderControl from "../components/mobile/HeaderControl"
-import Button from "../components/shared/Button"
-import useMediaQuery from "../hooks/useMediaQuery"
+import NoteForm from "../components/shared/NoteForm"
 import RightMenu from "../components/desktop/RightMenu"
 
+import useMediaQuery from "../hooks/useMediaQuery"
+import useUpdateNote from "../hooks/crud/useUpdateNote"
+import {NoteContext} from "../context/NoteContext"
+
+import {useActionState, useContext} from "react"
 import {useParams} from "react-router"
-import useFetchNotes from "../hooks/crud/useFetchNotes"
 
 export default function NoteDetails() {
-	const isDesktop = useMediaQuery()
-	const {notes} = useFetchNotes()
 	const params = useParams()
+	const isDesktop = useMediaQuery()
+	const {updateNote} = useUpdateNote()
+	const {notes} = useContext(NoteContext)
 
 	const noteId = params.noteId || params.id
 	const noteDetails = notes?.find((note) => note.id.toString() === noteId)
+
+	const [_error, submitAction, _isPending] = useActionState(async (previousState, formData) => {
+		const title = formData.get("title")
+		const content = formData.get("content")
+		const tags = formData.get("tags")
+
+		const hasChanged =
+			title !== noteDetails.title || content !== noteDetails.content || tags !== noteDetails.tags.join(", ")
+
+		if (!hasChanged) return previousState
+
+		await updateNote(formData)
+
+		return null
+	}, null)
 
 	if (!noteDetails) {
 		return <></>
 	}
 
-	// prettier-ignore
 	return (
-		<>
-			<div className="note-details">
-				{!isDesktop && <HeaderControl noteId={notes[0].id} />}
-				{!isDesktop && <hr />}
-				<h1 className="page-title text-preset-1">{noteDetails.title}</h1>
-				<div className="note-props">
-					<div className="tags">
-						<h2><TagsIcon />Tags</h2>
-						{noteDetails && (
-							<ul>
-								{noteDetails.tags.map((tag) => (
-									<li key={tag}>{tag}</li>
-								))}
-							</ul>
-						)}
-					</div>
-
-					{noteDetails.isArchived && (
-						<div className="note-status">
-							<h2><StatusIcon /> Status</h2>
-							<p>Archived</p>
-						</div>
-					)}
-
-					<div className="last-edited">
-						<h2><ClockIcon />Last Edited
-						</h2>
-						<time className="last-edited" dateTime={noteDetails.lastEdited}>
-							{new Date(noteDetails.lastEdited).toLocaleDateString("en-GB", {
-								day: "2-digit",
-								month: "short",
-								year: "numeric",
-							})}
-						</time>
-					</div>
-				</div>
-				<hr />
-				<p style={{whiteSpace: "pre-line"}}>{noteDetails.content}</p>
-				{isDesktop && (
-					<>
-						<hr />
-						<div className="save-btns text-preset-4">
-							<Button variant="primary" text="Save Note" />
-							<Button text="Cancel" />
-						</div>
-					</>
-				)}
-			</div>
-			{isDesktop && <RightMenu />}
-		</>
+		<div className="note-details">
+			{!isDesktop && <HeaderControl noteId={noteDetails?.id} />}
+			{!isDesktop && <hr />}
+			<NoteForm action={submitAction} noteDetails={noteDetails} />
+		</div>
 	)
 }
