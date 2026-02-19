@@ -1,4 +1,4 @@
-import GoBack from "../components/mobile/GoBack"
+import GoBackLink from "../components/mobile/GoBackLink"
 import {InfoIcon, ShowPasswordIcon} from "../components/shared/Icons"
 import useMediaQuery from "../hooks/useMediaQuery"
 
@@ -7,33 +7,32 @@ export default function ChangePassword() {
 
 	return (
 		<>
-			{!isDesktop && <GoBack where="Settings" />}
-			<div className="settings-item-details note-details">
-				<h1 className="page-title text-preset-1">Change Password</h1>
-				<form className="password-form">
-					<label className="text-preset-4">
-						Old Password
-						<input className="search-bar" type="password" name="old-password" />
-						<ShowPasswordIcon className="show-password-icon" />
-					</label>
+			{!isDesktop && <GoBackLink where="Settings" />}
+			<h1 className="setting-title text-preset-1">Change Password</h1>
 
-					<label className="text-preset-4">
-						New Password
-						<input className="search-bar" type="password" name="new-password" />
-						<ShowPasswordIcon className="show-password-icon" />
-						<span className="hint-text text-preset-6">
-							<InfoIcon /> At least 8 characters
-						</span>
-					</label>
+			<form className="password-form text-preset-4">
+				<label>
+					Old Password
+					<input className="input-bar" type="password" name="old-password" />
+					<ShowPasswordIcon className="show-password-icon" />
+				</label>
 
-					<label className="text-preset-4">
-						Confirm New Password
-						<input className="search-bar" type="password" name="confirm-password" />
-						<ShowPasswordIcon className="show-password-icon" />
-					</label>
-					<button className="save-password-btn text-preset-4">Save Password</button>
-				</form>
-			</div>
+				<label>
+					New Password
+					<input className="input-bar" type="password" name="new-password" />
+					<ShowPasswordIcon className="show-password-icon" />
+					<span className="hint-text text-preset-6">
+						<InfoIcon /> At least 8 characters
+					</span>
+				</label>
+
+				<label>
+					Confirm New Password
+					<input className="input-bar" type="password" name="confirm-password" />
+					<ShowPasswordIcon className="show-password-icon" />
+				</label>
+				<button className="save-password-btn text-preset-4">Save Password</button>
+			</form>
 		</>
 	)
 }

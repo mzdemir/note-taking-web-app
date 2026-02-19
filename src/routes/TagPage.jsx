@@ -1,5 +1,5 @@
 import NotesList from "../components/shared/NoteList"
-import GoBack from "../components/mobile/GoBack"
+import GoBackLink from "../components/mobile/GoBackLink"
 import useMediaQuery from "../hooks/useMediaQuery"
 
 import {NoteContext} from "../context/NoteContext"
@@ -18,24 +18,26 @@ export default function TagPage() {
 		return note.tags.map((tag) => tag.toLowerCase()).includes(params.id)
 	})
 
-	// prettier-ignore
-	const pageDesc = <p>All notes with the "<span>{capitalizeTag}</span>" tag are shown here.</p>
-
 	function getLinkPath(noteId) {
 		return `/tags/${params.id}/${noteId}`
 	}
+
+	if (!filteredNotes) return <></>
 
 	return (
 		<>
 			{!isDesktop && (
 				<>
-					<GoBack where="All Tags" />
-					<h1 className="page-title tagged text-preset-1">
+					<GoBackLink where="All Tags" />
+					<h1 className="tagged text-preset-1">
 						Notes Tagged: <span>{capitalizeTag}</span>
 					</h1>
+					<p className="page-desc text-preset-5">
+						All notes with the "<span>{capitalizeTag}</span>" tag are shown here.
+					</p>
 				</>
 			)}
-			<NotesList notes={filteredNotes} pageDesc={pageDesc} getLinkPath={getLinkPath} />
+			<NotesList notes={filteredNotes} getLinkPath={getLinkPath} />
 		</>
 	)
 }

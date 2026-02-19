@@ -1,32 +1,32 @@
 import {Logo, HomeIcon, ArchivedIcon, TagsIcon, SearchIcon, SettingsIcon} from "../shared/Icons"
 
-import {Link} from "react-router"
+import {NavLink} from "react-router"
 
 export default function MobileNav() {
 	return (
-		<header className="mobile-nav">
+		<header className="mobile-header">
 			<div className="logo-wrapper">{<Logo />}</div>
 			<nav className="bottom-navbar">
-				<Link to="/notes">
+				<NavLink to="/notes" className="nav-links">
 					{<HomeIcon />}
 					<span>Home</span>
-				</Link>
-				<Link to="/search">
+				</NavLink>
+				<NavLink to="/search" className="nav-links">
 					{<SearchIcon />}
 					<span>Search</span>
-				</Link>
-				<Link to="/archived">
+				</NavLink>
+				<NavLink to="/archived" className="nav-links">
 					{<ArchivedIcon />}
 					<span>Archived</span>
-				</Link>
-				<Link to="/tags">
+				</NavLink>
+				<NavLink to="/tags" className="nav-links">
 					{<TagsIcon />}
 					<span>Tags</span>
-				</Link>
-				<Link to="/settings">
+				</NavLink>
+				<NavLink to="/settings" className="nav-links">
 					{<SettingsIcon />}
 					<span>Settings</span>
-				</Link>
+				</NavLink>
 			</nav>
 		</header>
 	)

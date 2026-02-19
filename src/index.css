@@ -81,6 +81,7 @@
 	--spacing-125: 0.625rem; /* 10px */
 	--spacing-150: 0.75rem; /* 12px */
 	--spacing-200: 1rem; /* 16px */
+	--spacing-225: 1.125rem; /* 18px */
 	--spacing-250: 1.25rem; /* 20px */
 	--spacing-300: 1.5rem; /* 24px */
 	--spacing-400: 2rem; /* 32px */
@@ -106,7 +107,7 @@
 
 	--shadow-sm: 0 4px 6px 0 hsl(0, 0, 94, 60%);
 	--shadow-sm: 0 8px 12px 0 hsl(0, 0, 94, 60%);
-	--navbar-shadow: 0 -4px 6px 0 hsl(0, 0, 0, 50%);
+	--navbar-shadow: 0 -5px 6px 0 hsl(0, 0, 0, 50%);
 
 	/* Grid System */
 	--grid-columns-mobile: 8;
@@ -130,7 +131,6 @@
 	--bg-page: var(--neutral-950);
 	--bg-input: var(--neutral-700);
 	--bg-surface: var(--neutral-700);
-
 	--text-primary: var(--neutral-100);
 }
 
@@ -146,11 +146,11 @@ html[data-darkMode="dark"] {
 	padding: 0;
 	margin: 0;
 	font: inherit;
+	color: inherit;
 }
 
 a {
 	text-decoration: none;
-	color: inherit;
 }
 
 li {
@@ -162,6 +162,11 @@ button {
 	background: none;
 	color: inherit;
 	cursor: pointer;
+}
+
+img,
+svg {
+	display: block;
 }
 
 input {
@@ -180,13 +185,6 @@ textarea {
 	background: none;
 	resize: none;
 	outline: none;
-	font: inherit;
-	overflow-wrap: break-word;
-	overflow-y: hidden;
-	padding-block: var(--spacing-050);
-}
-
-::placeholder {
 	font: inherit;
 }
 
@@ -255,22 +253,13 @@ body {
 }
 
 .active {
-	background-color: var(--neutral-800);
+	background-color: var(--neutral-700);
 	border-radius: var(--radius-8);
 	position: relative;
 }
 
 .active svg {
 	color: var(--blue-500);
-}
-
-.active::after {
-	content: "";
-	position: absolute;
-	background: url("./assets/images/icon-chevron-right.svg") center no-repeat;
-	right: var(--spacing-150);
-	inline-size: var(--spacing-075);
-	block-size: var(--spacing-125);
 }
 
 .primary-btn {

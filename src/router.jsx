@@ -16,8 +16,7 @@ import Login from "./components/auth/Login"
 import RootRedirect from "./routes/RootDirect"
 import ProtectedRoute from "./components/auth/ProtectedRoute"
 
-import DesktopLayout from "./layouts/desktop/DesktopLayout"
-import MobileLayout from "./layouts/mobile/MobileLayout"
+import Layout from "./layouts/Layout"
 import Signup from "./components/auth/SignUp"
 
 export const mobileRouter = createBrowserRouter([
@@ -27,7 +26,7 @@ export const mobileRouter = createBrowserRouter([
 	{
 		element: (
 			<ProtectedRoute>
-				<MobileLayout />
+				<Layout />
 			</ProtectedRoute>
 		),
 		children: [
@@ -61,7 +60,7 @@ export const desktopRouter = createBrowserRouter([
 	{
 		element: (
 			<ProtectedRoute>
-				<DesktopLayout />
+				<Layout />
 			</ProtectedRoute>
 		),
 		children: [

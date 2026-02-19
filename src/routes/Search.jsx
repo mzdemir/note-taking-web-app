@@ -15,41 +15,43 @@ export default function Search() {
 	const query = searchParams.get("query") || ""
 	const capitalizeQuery = query.charAt(0).toUpperCase() + query.slice(1)
 
-	// prettier-ignore
-	const filteredNotes = !query ? notes 
-		: (notes.filter((note) =>
-				note.title.toLowerCase().includes(query.toLowerCase()) ||
-				note.content?.toLowerCase().includes(query.toLowerCase()) ||
-				note.tags.some((tag) => tag.toLowerCase().includes(query.toLowerCase())),
+	const filteredNotes =
+		query ?
+			notes?.filter(
+				(note) =>
+					note.title.toLowerCase().includes(query.toLowerCase()) ||
+					note.content?.toLowerCase().includes(query.toLowerCase()) ||
+					note.tags.some((tag) => tag.toLowerCase().includes(query.toLowerCase())),
 			)
-		)
-
-	const pageDesc = (
-		<p className="text-preset-5">
-			All notes matching "<span>{capitalizeQuery}</span>" are displayed below.
-		</p>
-	)
+		:	notes
 
 	const getLinkPath = (noteId) => `/search/${noteId}`
+	const emptyState = "No notes match your search. Try a different keyword or create a new note."
+
+	if (!filteredNotes || filteredNotes.length < 1) return <></>
 
 	return (
 		<>
 			{!isDesktop && (
 				<>
 					<h1 className="page-title text-preset-1">Search</h1>
-					<label className="search-bar" aria-label="Search by title, content, or tags…">
+					<label className="input-bar" aria-label="Search by title, content, or tags…">
 						<SearchIcon />
 						<input
 							value={query}
-							className="text-preset-5"
+							name="search"
+							className=" text-preset-5"
 							onChange={(event) => setSearchParams({query: event.target.value})}
 							type="text"
 							placeholder="Search by title, content, or tags…"
 						/>
 					</label>
+					<p className="page-desc text-preset-5">
+						All notes matching "<span>{capitalizeQuery}</span>" are displayed below.
+					</p>
 				</>
 			)}
-			<NotesList notes={filteredNotes} pageDesc={pageDesc} getLinkPath={getLinkPath} />
+			<NotesList notes={filteredNotes} getLinkPath={getLinkPath} emptyState={emptyState} />
 		</>
 	)
 }

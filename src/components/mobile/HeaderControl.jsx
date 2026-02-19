@@ -1,18 +1,20 @@
 import {DeleteIcon, ArchivedIcon} from "../shared/Icons"
-import GoBack from "./GoBack"
+import GoBackLink from "./GoBackLink"
 import Button from "../shared/Button"
 
+import useMediaQuery from "../../hooks/useMediaQuery"
 import useDeleteNote from "../../hooks/crud/useDeleteNote"
 import useArchiveNote from "../../hooks/crud/useArchiveNote"
 
 export default function HeaderControl({noteId}) {
+	const isDesktop = useMediaQuery()
 	const {deleteNote} = useDeleteNote()
 	const {archiveNote} = useArchiveNote()
 
 	return (
-		<header className="header-control text-preset-5">
-			<GoBack where={"Go Back"} />
-			<div className="control-btns text-preset-5">
+		<header className="header-controls text-preset-5">
+			<GoBackLink where={"Go Back"} />
+			<div className="control-btns">
 				<Button aria-label="Delete note" onClick={() => deleteNote(noteId)}>
 					<DeleteIcon />
 				</Button>
@@ -22,7 +24,7 @@ export default function HeaderControl({noteId}) {
 				</Button>
 
 				<button>Cancel</button>
-				<Button className={""} type="submit">
+				<Button className={!isDesktop ? "save-btn" : "primary-btn"} type="submit">
 					Save Note
 				</Button>
 			</div>

@@ -1,18 +1,26 @@
-import CreateNewNoteBtn from "../shared/CreateNewNoteBtn"
+import {PlusIcon} from "./Icons"
+import Button from "../shared/Button"
+
+import useMediaQuery from "../../hooks/useMediaQuery"
 
 import {Fragment} from "react"
-import {NavLink, Outlet, useSearchParams} from "react-router"
+import {NavLink, Outlet, useSearchParams, useNavigate} from "react-router"
 
-export default function NotesList({notes, pageDesc, getLinkPath}) {
+export default function NotesList({notes, getLinkPath, emptyState}) {
+	const isDesktop = useMediaQuery()
 	const [searchParams] = useSearchParams()
+	const navigate = useNavigate()
 
 	if (!notes) return <></>
 
 	return (
 		<>
 			<div className="note-list">
-				<CreateNewNoteBtn />
-				{pageDesc && pageDesc}
+				<Button className="new-note-btn text-preset-4" onClick={() => navigate("/new-note")}>
+					{!isDesktop ?
+						<PlusIcon />
+					:	"+ Create New Note"}
+				</Button>
 				{notes.length > 0 ?
 					notes.map((note) => (
 						<Fragment key={note.id}>
@@ -21,8 +29,8 @@ export default function NotesList({notes, pageDesc, getLinkPath}) {
 									pathname: getLinkPath(note.id),
 									search: searchParams.toString(),
 								}}
-								className="text-preset-6">
-								<h2 className="note-title text-preset-3">{note.title}</h2>
+								className="note-link text-preset-6">
+								<h2 className="text-preset-3">{note.title}</h2>
 								<div className="note-tags">
 									{note?.tags.map((tag) => (
 										<span key={tag}>{tag}</span>
@@ -39,7 +47,7 @@ export default function NotesList({notes, pageDesc, getLinkPath}) {
 							<hr />
 						</Fragment>
 					))
-				:	<p className="text-preset-5">No notes match your search. Try a different keyword or create a new note.</p>}
+				:	<p className="text-preset-5 empty-state">{emptyState}</p>}
 			</div>
 			<Outlet />
 		</>

@@ -33,9 +33,7 @@ export default function NoteDetails() {
 		return null
 	}, null)
 
-	if (!noteDetails) {
-		return <></>
-	}
+	if (!noteDetails) return <></>
 
 	return (
 		<div className="note-details">

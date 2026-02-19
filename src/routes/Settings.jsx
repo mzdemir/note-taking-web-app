@@ -1,4 +1,5 @@
 import {SunIcon, FontIcon, LockIcon, LogoutIcon} from "../components/shared/Icons"
+import Button from "../components/shared/Button"
 import useMediaQuery from "../hooks/useMediaQuery"
 
 import useAuth from "../hooks/useAuth"
@@ -20,21 +21,21 @@ export default function Settings() {
 
 	return (
 		<>
-			{!isDesktop && <h1 className="page-title text-preset-1">Settings</h1>}
-			<div className="note-list settings-menu">
-				<NavLink to="/settings/color-theme" className="settings-item text-preset-4">
+			{!isDesktop && <h1 className="text-preset-1">Settings</h1>}
+			<div className="settings-menu text-preset-4">
+				<NavLink to="/settings/color-theme" className="settings-item ">
 					<SunIcon /> Color Theme
 				</NavLink>
-				<NavLink to="/settings/font-theme" className="settings-item text-preset-4">
+				<NavLink to="/settings/font-theme" className="settings-item">
 					<FontIcon /> Font Theme
 				</NavLink>
-				<NavLink to="/settings/change-password" className="settings-item text-preset-4">
+				<NavLink to="/settings/change-password" className="settings-item">
 					<LockIcon /> Change Password
 				</NavLink>
 				{isDesktop && <hr />}
-				<button className="settings-item text-preset-4" onClick={handleSignOut}>
+				<Button className="settings-item" onClick={handleSignOut}>
 					<LogoutIcon /> Logout
-				</button>
+				</Button>
 			</div>
 			<Outlet />
 		</>
