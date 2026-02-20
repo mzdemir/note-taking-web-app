@@ -10,7 +10,7 @@ export default function ColorTheme() {
 	function handleOptions() {}
 
 	return (
-		<>
+		<div className="settings-item">
 			{!isDesktop && <GoBackLink where="Settings" />}
 			<h1 className="setting-title text-preset-1">Color Theme</h1>
 			<p className="page-desc text-preset-5">Chose your color theme:</p>
@@ -51,6 +51,6 @@ export default function ColorTheme() {
 				</label>
 				<Button className="primary-btn text-preset-4">Apply Changes</Button>
 			</div>
-		</>
+		</div>
 	)
 }

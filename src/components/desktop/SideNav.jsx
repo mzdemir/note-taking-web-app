@@ -10,7 +10,7 @@ export default function SideNav() {
 				<Logo />
 			</div>
 			<nav className="sidenavbar">
-				<div>
+				<div className="top-items">
 					<NavLink to="/notes">
 						<HomeIcon /> All Notes
 					</NavLink>
@@ -19,10 +19,9 @@ export default function SideNav() {
 					</NavLink>
 				</div>
 				<hr />
-				<div className="sidebar-tags-list">
-					<h2>Tags</h2>
-					<Tags />
-				</div>
+
+				<h2>Tags</h2>
+				<Tags />
 			</nav>
 		</aside>
 	)

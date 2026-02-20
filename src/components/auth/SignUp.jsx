@@ -34,7 +34,7 @@ export default function Signup() {
 				<label>
 					Email Addres
 					<input
-						className="search-bar"
+						className="input-bar"
 						type="email"
 						name="email"
 						placeholder="email@example.com"
@@ -49,7 +49,7 @@ export default function Signup() {
 				<label>
 					Password
 					<input
-						className="search-bar"
+						className="input-bar"
 						type="password"
 						name="password"
 						placeholder=""

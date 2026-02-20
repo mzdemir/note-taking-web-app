@@ -26,9 +26,8 @@ export default function Search() {
 		:	notes
 
 	const getLinkPath = (noteId) => `/search/${noteId}`
+	const pageDesc = `All notes matching "${capitalizeQuery}" are displayed below.`
 	const emptyState = "No notes match your search. Try a different keyword or create a new note."
-
-	if (!filteredNotes || filteredNotes.length < 1) return <></>
 
 	return (
 		<>
@@ -46,12 +45,9 @@ export default function Search() {
 							placeholder="Search by title, content, or tags…"
 						/>
 					</label>
-					<p className="page-desc text-preset-5">
-						All notes matching "<span>{capitalizeQuery}</span>" are displayed below.
-					</p>
 				</>
 			)}
-			<NotesList notes={filteredNotes} getLinkPath={getLinkPath} emptyState={emptyState} />
+			<NotesList notes={filteredNotes} pageDesc={pageDesc} getLinkPath={getLinkPath} emptyState={emptyState} />
 		</>
 	)
 }

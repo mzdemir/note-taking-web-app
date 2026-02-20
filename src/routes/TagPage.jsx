@@ -13,14 +13,14 @@ export default function TagPage() {
 	const params = useParams()
 
 	const capitalizeTag = params.id?.charAt(0).toUpperCase() + params.id.slice(1)
+	console.log(capitalizeTag)
 
 	const filteredNotes = notes?.filter((note) => {
 		return note.tags.map((tag) => tag.toLowerCase()).includes(params.id)
 	})
 
-	function getLinkPath(noteId) {
-		return `/tags/${params.id}/${noteId}`
-	}
+	const pageDesc = `All notes with the "${capitalizeTag}" tag are shown here.`
+	const getLinkPath = (noteId) => `/tags/${params.id}/${noteId}`
 
 	if (!filteredNotes) return <></>
 
@@ -32,12 +32,9 @@ export default function TagPage() {
 					<h1 className="tagged text-preset-1">
 						Notes Tagged: <span>{capitalizeTag}</span>
 					</h1>
-					<p className="page-desc text-preset-5">
-						All notes with the "<span>{capitalizeTag}</span>" tag are shown here.
-					</p>
 				</>
 			)}
-			<NotesList notes={filteredNotes} getLinkPath={getLinkPath} />
+			<NotesList notes={filteredNotes} pageDesc={pageDesc} getLinkPath={getLinkPath} />
 		</>
 	)
 }

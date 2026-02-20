@@ -1,7 +1,6 @@
 #root {
 	max-width: 90rem;
 	margin: 0 auto;
-	height: 100vh;
 }
 
 .mobile-header .logo-wrapper {
@@ -17,6 +16,7 @@
 
 	display: flex;
 	justify-content: center;
+	align-items: center;
 	padding: var(--spacing-150) var(--spacing-400);
 	background-color: var(--neutral-950);
 	border-top: var(--border);
@@ -42,7 +42,8 @@
 }
 
 .note-list {
-	display: grid;
+	display: flex;
+	flex-direction: column;
 	gap: var(--spacing-050);
 }
 
@@ -55,12 +56,14 @@
 	place-items: center;
 	block-size: 3rem;
 	inline-size: 3rem;
+	margin-block-end: var(--spacing-200);
 	background-color: var(--blue-500);
 	border-radius: 50%;
 }
 
 .note-link {
-	display: grid;
+	display: flex;
+	flex-direction: column;
 	gap: var(--spacing-150);
 	padding: var(--spacing-100);
 }
@@ -79,7 +82,6 @@
 .empty-state {
 	background-color: var(--neutral-800);
 	padding: var(--spacing-100);
-	margin-block-end: var(--spacing-200);
 	border: var(--border);
 	border-color: var(--neutral-700);
 	border-radius: var(--radius-8);
@@ -87,6 +89,7 @@
 
 .page-desc {
 	color: var(--neutral-300);
+	margin-block-end: var(--spacing-200);
 }
 
 .note-details {
@@ -193,8 +196,7 @@
 	color: var(--neutral-400);
 }
 
-.tagged span,
-.page-desc span {
+.tagged span {
 	color: var(--neutral-0);
 }
 
@@ -204,20 +206,26 @@
 	gap: var(--spacing-100);
 }
 
-.settings-item {
+.settings-menu-item {
 	display: flex;
 	align-items: center;
 	gap: var(--spacing-100);
 	padding: var(--spacing-100);
 }
 
-.settings-item svg {
+.settings-menu-item svg {
 	inline-size: 1.25rem;
 	block-size: 1.25rem;
 }
 
-.setting-title {
-	margin-block: -0.25rem -0.5rem;
+.settings-item {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-150);
+}
+
+.settings-item .page-desc {
+	margin-block: -0.25rem var(--spacing-125);
 }
 
 .options {
@@ -319,16 +327,7 @@
 	border-radius: var(--radius-8);
 }
 
-@media (min-width: 64rem) {
-	.note-list-item::after {
-		content: "";
-		position: absolute;
-		background: url("./assets/images/icon-chevron-right.svg") center no-repeat;
-		right: var(--spacing-150);
-		inline-size: var(--spacing-075);
-		block-size: var(--spacing-125);
-	}
-}
+/* Desktop */
 
 .desktop-sidenav {
 	display: flex;
@@ -342,22 +341,26 @@
 	gap: var(--spacing-100);
 }
 
-.sidenavbar div:nth-child(1) {
+.sidenavbar .top-items {
 	display: grid;
-	gap: var(--spacing-050);
+	gap: var(--spacing-100);
 }
 
-.sidenavbar a {
+.sidenavbar .top-items a {
 	display: flex;
 	align-items: center;
 	gap: var(--spacing-100);
 	padding: var(--spacing-125) var(--spacing-150);
-	text-wrap: nowrap;
 }
 
 .sidenavbar h2 {
-	padding: var(--spacing-100);
+	padding-inline: var(--spacing-100);
 	color: var(--neutral-500);
+}
+
+.sidebar-tag-list {
+	display: flex;
+	flex-direction: column;
 }
 
 .save-btns {
@@ -365,36 +368,45 @@
 	gap: var(--spacing-200);
 }
 
-.save-btns button:nth-child(2) {
-	color: var(--neutral-400);
-}
-
 .right-bar-menu {
+	grid-column: 10 / 13;
+	padding-inline-start: var(--spacing-200);
+	border-left: var(--border);
 	display: flex;
 	flex-direction: column;
 	gap: var(--spacing-150);
-	margin-block: var(--spacing-250);
 }
 
 .right-bar-menu button {
-	align-self: flex-start;
 	display: flex;
 	align-items: center;
 	gap: var(--spacing-100);
-	inline-size: 100%;
 	padding: var(--spacing-150) var(--spacing-200);
-	border: 1px solid var(--neutral-600);
+	border: var(--border);
+	border-color: var(--neutral-600);
 	border-radius: var(--radius-8);
 }
 
-.login-wrapper {
-	max-inline-size: 540px;
-	padding-block: var(--spacing-600);
-	max-block-size: 540px;
-	/* block-size: max(100vh, 540px); */
+/* login */
+#root:has(.login-wrapper) {
 	display: grid;
+	grid-template-columns: 1fr;
 	place-items: center;
+	min-block-size: 100vh;
+	background-color: var(--neutral-700);
+}
+
+.login-wrapper {
+	inline-size: min(33.75rem, 100% - 1rem * 2);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 	gap: var(--spacing-200);
+	padding-block: var(--spacing-600);
+	margin: 0 auto;
+	background-color: var(--neutral-950);
+	border-radius: var(--radius-16);
 }
 
 .login-wrapper p,
@@ -455,22 +467,37 @@
 	color: var(--neutral-0);
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 64rem) {
 	#root {
 		display: grid;
 		grid-template-columns: var(--sidebar-width) auto;
+		min-block-size: 100vh;
 	}
 
-	.sidebar-tags-list hr {
+	.sidenavbar .active::after,
+	.settings-menu .active::after {
+		content: "";
+		position: absolute;
+		background: url("./assets/images/icon-chevron-right.svg") center no-repeat;
+		right: var(--spacing-150);
+		inline-size: var(--spacing-075);
+		block-size: var(--spacing-125);
+	}
+
+	.tags-list hr {
 		display: none;
 	}
 
-	.main-content-desktop {
+	.tag-link {
+		padding: var(--spacing-125) var(--spacing-150);
+	}
+
+	.main {
 		display: grid;
 		grid-template-columns: repeat(var(--grid-columns-desktop), 1fr);
 		grid-template-rows: var(--spacing-1000) 1fr;
-		column-gap: var(--grid-gap);
-		padding-inline: var(--spacing-400);
+		gap: var(--spacing-250) var(--grid-gap);
+		padding: 0 var(--spacing-400);
 		border-left: 1px solid var(--neutral-800);
 	}
 
@@ -484,33 +511,20 @@
 		grid-column: 1 / -1;
 	}
 
-	.desktop-header .search-bar {
-		inline-size: 300px;
+	.desktop-header .input-bar {
+		inline-size: 18.75rem;
 		margin-inline-start: auto;
 	}
 
 	.desktop-header .setting-icon {
-		margin: 8px;
+		padding: var(--spacing-100);
 	}
 
-	.note-list {
+	.note-list,
+	.settings-menu {
 		grid-column: span 3;
 		padding-inline-end: var(--spacing-200);
-	}
-
-	.note-details {
-		grid-column: span 6;
-		padding: var(--spacing-250) var(--spacing-300);
-		border: 1px solid var(--neutral-800);
-		gap: var(--spacing-200);
-	}
-
-	.right-bar-menu {
-		grid-column: 10 / 13;
-	}
-
-	.note-props {
-		gap: var(--spacing-100);
+		border-right: var(--border);
 	}
 
 	.new-note-btn {
@@ -518,21 +532,23 @@
 		display: block;
 		inline-size: 100%;
 		border-radius: var(--radius-8);
-		margin-block: var(--spacing-250);
 	}
 
-	.tags-list {
-		display: flex;
-		flex-direction: column;
-		gap: var(--spacing-050);
-	}
-
-	.tags-list li {
-		border-bottom: none;
+	.note-details {
+		grid-column: span 6;
+		gap: var(--spacing-200);
 		padding: 0;
 	}
 
-	.settings-menu {
-		margin-block-start: var(--spacing-250);
+	.note-props {
+		gap: var(--spacing-100);
+	}
+
+	.settings-item {
+		grid-column: span 5;
+	}
+
+	.options {
+		margin: 0;
 	}
 }

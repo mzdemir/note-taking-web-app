@@ -1,6 +1,7 @@
 import HeaderControl from "../components/mobile/HeaderControl"
 import NoteForm from "../components/shared/NoteForm"
 import RightMenu from "../components/desktop/RightMenu"
+import Button from "../components/shared/Button"
 
 import useMediaQuery from "../hooks/useMediaQuery"
 import useUpdateNote from "../hooks/crud/useUpdateNote"
@@ -36,10 +37,22 @@ export default function NoteDetails() {
 	if (!noteDetails) return <></>
 
 	return (
-		<div className="note-details">
-			{!isDesktop && <HeaderControl noteId={noteDetails?.id} />}
-			{!isDesktop && <hr />}
-			<NoteForm action={submitAction} noteDetails={noteDetails} />
-		</div>
+		<>
+			<div className="note-details">
+				{!isDesktop && <HeaderControl noteId={noteDetails?.id} />}
+				{!isDesktop && <hr />}
+				<NoteForm action={submitAction} noteDetails={noteDetails} />
+				<hr />
+				{isDesktop && (
+					<div className="save-btns">
+						<Button className="primary-btn" type="submit">
+							Save Note
+						</Button>
+						<Button className="secondary-btn">Cancel</Button>
+					</div>
+				)}
+			</div>
+			{isDesktop && <RightMenu noteId={noteDetails?.id} />}
+		</>
 	)
 }

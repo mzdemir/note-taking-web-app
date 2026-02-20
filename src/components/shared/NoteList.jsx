@@ -6,7 +6,7 @@ import useMediaQuery from "../../hooks/useMediaQuery"
 import {Fragment} from "react"
 import {NavLink, Outlet, useSearchParams, useNavigate} from "react-router"
 
-export default function NotesList({notes, getLinkPath, emptyState}) {
+export default function NotesList({notes, pageDesc, getLinkPath, emptyState}) {
 	const isDesktop = useMediaQuery()
 	const [searchParams] = useSearchParams()
 	const navigate = useNavigate()
@@ -21,6 +21,10 @@ export default function NotesList({notes, getLinkPath, emptyState}) {
 						<PlusIcon />
 					:	"+ Create New Note"}
 				</Button>
+
+				{pageDesc ?
+					<p className="page-desc text-preset-5">{pageDesc}</p>
+				:	null}
 				{notes.length > 0 ?
 					notes.map((note) => (
 						<Fragment key={note.id}>

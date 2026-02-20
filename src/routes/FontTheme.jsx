@@ -10,7 +10,7 @@ export default function FontTheme() {
 	function handleOptions() {}
 
 	return (
-		<>
+		<div className="settings-item">
 			{!isDesktop && <GoBackLink where="Settings" />}
 			<h1 className="setting-title text-preset-1">Font Theme</h1>
 			<p className="page-desc text-preset-5">Chose your font theme</p>
@@ -51,6 +51,6 @@ export default function FontTheme() {
 				</label>
 				<Button className="primary-btn text-preset-4">Apply Changes</Button>
 			</div>
-		</>
+		</div>
 	)
 }

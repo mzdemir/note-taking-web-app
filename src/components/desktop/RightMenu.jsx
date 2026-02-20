@@ -1,15 +1,22 @@
 import {ArchivedIcon, DeleteIcon} from "../shared/Icons"
+import Button from "../shared/Button"
 
-export default function RightMenu() {
+import useDeleteNote from "../../hooks/crud/useDeleteNote"
+import useArchiveNote from "../../hooks/crud/useArchiveNote"
+
+export default function RightMenu({noteId}) {
+	const {deleteNote} = useDeleteNote()
+	const {archiveNote} = useArchiveNote()
+
 	return (
-		<aside className="right-bar-menu">
-			<button className="text-preset-4">
+		<aside className="right-bar-menu text-preset-4">
+			<Button onClick={() => archiveNote(noteId)}>
 				<ArchivedIcon /> Archive Note
-			</button>
-			<button className="text-preset-4">
+			</Button>
+			<Button onClick={() => deleteNote(noteId)}>
 				<DeleteIcon />
 				Delete Note
-			</button>
+			</Button>
 		</aside>
 	)
 }

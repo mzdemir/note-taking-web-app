@@ -1,7 +1,7 @@
 import {Outlet} from "react-router"
 import MobileNav from "../components/mobile/MobileNav"
 import SideNav from "../components/desktop/SideNav"
-import PageHeader from "../components/desktop/PageHeader"
+import DesktopHeader from "../components/desktop/DesktopHeader"
 
 import useMediaQuery from "../hooks/useMediaQuery"
 
@@ -13,7 +13,7 @@ export default function DesktopLayout() {
 		<>
 			{isDesktop ? <SideNav /> : <MobileNav /> }
 			<main className="main">
-				{isDesktop ? <PageHeader /> : null}
+				{isDesktop ? <DesktopHeader /> : null}
 				<Outlet />
 			</main>
 		</>

@@ -2,7 +2,7 @@ import {SearchIcon, SettingsIcon} from "../shared/Icons"
 
 import {useLocation, useParams, Link, useSearchParams, useNavigate} from "react-router"
 
-export default function PageHeader() {
+export default function DesktopHeader() {
 	const [searchParams, setSearchParams] = useSearchParams()
 	const query = searchParams.get("query") || ""
 	const navigate = useNavigate()
@@ -44,7 +44,7 @@ export default function PageHeader() {
 				<h1 className="text-preset-1">
 					{query && !isSearchDetailPage ? `Showing results for: ${capitalizeQuery}` : pageTitle}
 				</h1>
-				<label className="search-bar" aria-label="Search by title, content, or tags…">
+				<label className="input-bar" aria-label="Search by title, content, or tags…">
 					<SearchIcon />
 					<input
 						value={query}

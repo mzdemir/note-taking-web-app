@@ -9,9 +9,8 @@ export default function AllNotes() {
 	const {notes} = useContext(NoteContext)
 
 	const getLinkPath = (noteId) => `/notes/${noteId}`
-	const emptyState = "You don’t have any notes yet. Start a new note to capture your thoughts and ideas."
 
-	if (!notes || notes.length < 1) return <></>
+	const emptyState = "You don’t have any notes yet. Start a new note to capture your thoughts and ideas."
 
 	return (
 		<>

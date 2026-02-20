@@ -6,7 +6,7 @@ export default function ChangePassword() {
 	const isDesktop = useMediaQuery()
 
 	return (
-		<>
+		<div className="settings-item">
 			{!isDesktop && <GoBackLink where="Settings" />}
 			<h1 className="setting-title text-preset-1">Change Password</h1>
 
@@ -33,6 +33,6 @@ export default function ChangePassword() {
 				</label>
 				<button className="save-password-btn text-preset-4">Save Password</button>
 			</form>
-		</>
+		</div>
 	)
 }
