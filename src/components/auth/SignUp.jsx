@@ -1,11 +1,13 @@
 import useAuth from "../../hooks/useAuth"
 import {useActionState} from "react"
 import {Link, useNavigate} from "react-router"
-import {Logo, GoogleIcon} from "../shared/Icons"
+import {Logo, GoogleIcon, ShowPasswordIcon} from "../shared/Icons"
 
+import useTogglePassword from "../../hooks/useTogglePassword"
 export default function Signup() {
 	const {signUpUser} = useAuth()
 	const navigate = useNavigate()
+	const {showPassword, handleShowPassword} = useTogglePassword()
 
 	const [error, submitAction, isPending] = useActionState(async (previousState, formData) => {
 		const email = formData.get("email")
@@ -30,7 +32,11 @@ export default function Signup() {
 				<h1 className="text-preset-1">Create Your Account</h1>
 				<p className="text-preset-5">Sign up to start organizing your notes and boost your productivity.</p>
 			</div>
-			<form action={submitAction} className="login-form" aria-label="Sign up form" aria-describedby="form-description">
+			<form
+				action={submitAction}
+				className="login-form text-preset-5"
+				aria-label="Sign up form"
+				aria-describedby="form-description">
 				<label>
 					Email Addres
 					<input
@@ -50,7 +56,7 @@ export default function Signup() {
 					Password
 					<input
 						className="input-bar"
-						type="password"
+						type={!showPassword.old ? "password" : "text"}
 						name="password"
 						placeholder=""
 						required
@@ -59,6 +65,9 @@ export default function Signup() {
 						aria-describedby={error ? "signup-error" : undefined}
 						disabled={isPending}
 					/>
+					<button type="button" className="show-password-icon" onClick={() => handleShowPassword("old")}>
+						<ShowPasswordIcon />
+					</button>
 				</label>
 
 				<button type="submit" disabled={isPending} className="primary-btn text-preset-3" aria-busy={isPending}>
@@ -82,7 +91,6 @@ export default function Signup() {
 			<p className="text-preset-5">
 				Already have an account?
 				<Link to="/login" className="signup-link">
-					{" "}
 					Login
 				</Link>
 			</p>

@@ -5,7 +5,7 @@ const ProtectedRoute = ({children}) => {
 	const {session} = useAuth()
 
 	if (session === undefined) {
-		return <div>Loading...</div>
+		return
 	}
 
 	return session ? <>{children}</> : <Navigate to="/login" />

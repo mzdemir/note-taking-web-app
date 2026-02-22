@@ -3,11 +3,12 @@ import GoBackLink from "../components/mobile/GoBackLink"
 import Button from "../components/shared/Button"
 
 import useMediaQuery from "../hooks/useMediaQuery"
+import {FontThemeContext} from "../context/FontThemeContext"
 
+import {useContext} from "react"
 export default function FontTheme() {
 	const isDesktop = useMediaQuery()
-
-	function handleOptions() {}
+	const {fontTheme, setFontTheme} = useContext(FontThemeContext)
 
 	return (
 		<div className="settings-item">
@@ -24,7 +25,12 @@ export default function FontTheme() {
 						<h2>Sans-serif</h2>
 						<p className="setting-desc text-preset-6">Clean and modern, easy to read.</p>
 					</div>
-					<input onChange={handleOptions} type="radio" name="setting-option" defaultChecked />
+					<input
+						onChange={() => setFontTheme("sans-serif")}
+						type="radio"
+						name="setting-option"
+						defaultChecked={fontTheme === "sans-serif" && true}
+					/>
 					<span className="custom-radio"></span>
 				</label>
 				<label>
@@ -35,7 +41,12 @@ export default function FontTheme() {
 						<h2>Serif</h2>
 						<p className="setting-desc text-preset-6">Classic and elegant for a timeless feel.</p>
 					</div>
-					<input onChange={handleOptions} type="radio" name="setting-option" />
+					<input
+						onChange={() => setFontTheme("serif")}
+						type="radio"
+						name="setting-option"
+						defaultChecked={fontTheme === "serif" && true}
+					/>
 					<span className="custom-radio"></span>
 				</label>
 				<label>
@@ -46,7 +57,12 @@ export default function FontTheme() {
 						<h2>Monospace</h2>
 						<p className="setting-desc text-preset-6">Code-like, great for a technical vibe.</p>
 					</div>
-					<input onChange={handleOptions} type="radio" name="setting-option" />
+					<input
+						onChange={() => setFontTheme("monospace")}
+						type="radio"
+						name="setting-option"
+						defaultChecked={fontTheme === "monospace" && true}
+					/>
 					<span className="custom-radio"></span>
 				</label>
 				<Button className="primary-btn text-preset-4">Apply Changes</Button>

@@ -72,5 +72,30 @@ export default function useAuth() {
 		}
 	}
 
-	return {session, signInUser, logout, signUpUser}
+	async function changePassword(oldPassword, newPassword) {
+		try {
+			const {error: oldPasswordError} = await supabase.auth.signInWithPassword({
+				email: session.user.email,
+				password: oldPassword,
+			})
+
+			if (oldPasswordError) {
+				console.error("Old password is wrong:", oldPasswordError.message)
+				return {success: false, error: oldPasswordError.message}
+			}
+
+			const {error} = await supabase.auth.updateUser({password: newPassword})
+			if (error) {
+				console.error("Supabase password change error:", error.message)
+				return {success: false, error: error.message}
+			}
+
+			return {success: true}
+		} catch (error) {
+			console.error("Unexpected error during password change:", error.message)
+			return {success: false, error: "An unexpected error occurred. Please try again."}
+		}
+	}
+
+	return {session, signInUser, logout, signUpUser, changePassword}
 }

@@ -7,7 +7,7 @@ export default function NoteForm({action, noteDetails}) {
 		<form action={action} id="note-form" className="note-details text-preset-5">
 			<input type="hidden" name="noteId" value={noteDetails?.id} />
 			<label aria-label="Enter a title...">
-				<Textarea name="title" className="text-preset-1" value={noteDetails?.title}/>
+				<Textarea name="title" className="text-preset-1" value={noteDetails?.title} placeholder="Enter a title..."/>
 			</label>
 
 			<div className="note-props ">
@@ -15,7 +15,7 @@ export default function NoteForm({action, noteDetails}) {
 					<label htmlFor="tags" aria-label="Add tags separated by commas (e.g. Work, Planning)">
 						<TagsIcon name/> Tags
 					</label>
-						<Textarea name="tags" value={noteDetails?.tags}/>
+						<Textarea name="tags" value={noteDetails?.tags} placeholder="Add tags separated by commas (e.g. Work, Planning)"/>
 				</div>
 
 				{noteDetails?.isArchived &&
@@ -41,7 +41,7 @@ export default function NoteForm({action, noteDetails}) {
 			<hr />
 
 			<label className="note-content" aria-label="Start typing your note here…">
-				<Textarea name="content" value={noteDetails?.content}/>
+				<Textarea name="content" value={noteDetails?.content} placeholder="Start typing your note here…"/>
 			</label>
 		</form>
 	)

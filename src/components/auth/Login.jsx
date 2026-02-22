@@ -1,21 +1,23 @@
-import {Logo, GoogleIcon} from "../shared/Icons"
+import {Logo, GoogleIcon, ShowPasswordIcon} from "../shared/Icons"
 import useAuth from "../../hooks/useAuth"
 
+import useTogglePassword from "../../hooks/useTogglePassword"
 import {useActionState} from "react"
 import {useNavigate, Link} from "react-router"
 
 export default function Login() {
 	const {signInUser} = useAuth()
 	const navigate = useNavigate()
+	const {showPassword, handleShowPassword} = useTogglePassword()
 
 	const [error, submitAction, isPending] = useActionState(async (previousState, formData) => {
 		const email = formData.get("email")
 		const password = formData.get("password")
 
-		const {success, data, error: signUpError} = await signInUser(email, password)
+		const {success, data, error: signInError} = await signInUser(email, password)
 
-		if (signUpError) {
-			return new Error(signUpError)
+		if (signInError) {
+			return new Error(signInError)
 		}
 		if (success && data?.session) {
 			navigate("/notes")
@@ -31,7 +33,11 @@ export default function Login() {
 				<h1 className="text-preset-1">Welcome to Note</h1>
 				<p className="text-preset-5">Please log in to continue</p>
 			</div>
-			<form action={submitAction} className="login-form" aria-label="Sign in form" aria-describedby="form-description">
+			<form
+				action={submitAction}
+				className="login-form text-preset-5"
+				aria-label="Sign in form"
+				aria-describedby="form-description">
 				<label>
 					Email Addres
 					<input
@@ -48,13 +54,13 @@ export default function Login() {
 				</label>
 
 				<label>
-					<Link className="forgot text-preset-6" to="">
+					<Link className="forgot text-preset-6" to="/forgot-password">
 						Forgot?
 					</Link>
 					Password
 					<input
 						className="input-bar"
-						type="password"
+						type={!showPassword.old ? "password" : "text"}
 						name="password"
 						placeholder=""
 						required
@@ -63,6 +69,9 @@ export default function Login() {
 						aria-describedby={error ? "signup-error" : undefined}
 						disabled={isPending}
 					/>
+					<button type="button" className="show-password-icon" onClick={() => handleShowPassword("old")}>
+						<ShowPasswordIcon />
+					</button>
 				</label>
 
 				<button type="submit" disabled={isPending} className="primary-btn text-preset-3" aria-busy={isPending}>

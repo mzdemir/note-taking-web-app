@@ -1,6 +1,6 @@
 import {useEffect, useRef} from "react"
 
-export default function Textarea({name, className, value}) {
+export default function Textarea({name, className, value, placeholder}) {
 	const textareaRef = useRef(null)
 
 	function autoResize(event) {
@@ -25,7 +25,7 @@ export default function Textarea({name, className, value}) {
 			className={className}
 			defaultValue={value}
 			required
-			placeholder="Enter a title..."
+			placeholder={placeholder}
 			onInput={autoResize}></textarea>
 	)
 }

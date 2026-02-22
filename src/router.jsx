@@ -12,17 +12,21 @@ import FontTheme from "./routes/FontTheme"
 import ChangePassword from "./routes/ChangePassword"
 import CreateNewNote from "./routes/CreateNewNote"
 import Login from "./components/auth/Login"
+import Signup from "./components/auth/SignUp"
+import ForgotPassword from "./components/auth/ForgotPassword"
+import ResetPassword from "./components/auth/ResetPassword"
 
 import RootRedirect from "./routes/RootDirect"
-import ProtectedRoute from "./components/auth/ProtectedRoute"
 
+import ProtectedRoute from "./components/auth/ProtectedRoute"
 import Layout from "./layouts/Layout"
-import Signup from "./components/auth/SignUp"
 
 export const mobileRouter = createBrowserRouter([
 	{path: "/", element: <RootRedirect />},
 	{path: "/login", element: <Login />},
 	{path: "/sign-up", element: <Signup />},
+	{path: "forgot-password", element: <ForgotPassword />},
+	{path: "reset-password", element: <ResetPassword />},
 	{
 		element: (
 			<ProtectedRoute>
@@ -57,6 +61,8 @@ export const desktopRouter = createBrowserRouter([
 	{path: "/", element: <RootRedirect />},
 	{path: "/login", element: <Login />},
 	{path: "/sign-up", element: <Signup />},
+	{path: "forgot-password", element: <ForgotPassword />},
+	{path: "reset-password", element: <ResetPassword />},
 	{
 		element: (
 			<ProtectedRoute>

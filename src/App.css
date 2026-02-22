@@ -4,7 +4,7 @@
 }
 
 .mobile-header .logo-wrapper {
-	background-color: var(--neutral-800);
+	background-color: var(--bg-surface);
 	padding: var(--spacing-150) var(--spacing-200);
 }
 
@@ -18,9 +18,13 @@
 	justify-content: center;
 	align-items: center;
 	padding: var(--spacing-150) var(--spacing-400);
-	background-color: var(--neutral-950);
+	background-color: var(--bg-page);
 	border-top: var(--border);
 	box-shadow: var(--navbar-shadow);
+}
+
+.bottom-navbar.active {
+	background-color: var(--active-surface);
 }
 
 .nav-links {
@@ -39,6 +43,7 @@
 	gap: var(--grid-gap-mobile);
 	padding: var(--grid-padding-mobile);
 	padding-block-end: var(--spacing-800);
+	border-radius: var(--radius-16);
 }
 
 .note-list {
@@ -58,7 +63,8 @@
 	inline-size: 3rem;
 	margin-block-end: var(--spacing-200);
 	background-color: var(--blue-500);
-	border-radius: 50%;
+	border-radius: var(--radius-full);
+	color: var(--neutral-0);
 }
 
 .note-link {
@@ -75,20 +81,19 @@
 
 .note-tags span {
 	padding: var(--spacing-025) var(--spacing-075);
-	background-color: var(--neutral-700);
+	background-color: var(--bg-surface-2);
 	border-radius: var(--radius-4);
 }
 
 .empty-state {
-	background-color: var(--neutral-800);
+	background-color: var(--bg-surface);
 	padding: var(--spacing-100);
 	border: var(--border);
-	border-color: var(--neutral-700);
 	border-radius: var(--radius-8);
 }
 
 .page-desc {
-	color: var(--neutral-300);
+	color: var(--text-secondary);
 	margin-block-end: var(--spacing-200);
 }
 
@@ -102,7 +107,7 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: start;
-	color: var(--neutral-300);
+	color: var(--text-secondary);
 }
 
 .header-controls svg {
@@ -114,7 +119,7 @@
 	display: flex;
 	align-items: center;
 	gap: var(--spacing-050);
-	color: var(--neutral-300);
+	color: inherit;
 }
 
 .go-back-link svg {
@@ -132,10 +137,15 @@
 	color: var(--blue-500);
 }
 
+textarea#title::placeholder,
+textarea#content::placeholder {
+	color: var(--text-primary);
+}
+
 .note-props {
 	display: grid;
 	gap: var(--spacing-050);
-	color: var(--neutral-300);
+	color: var(--text-secondary);
 }
 
 .prop {
@@ -164,9 +174,9 @@
 	align-items: center;
 	gap: var(--spacing-100);
 	padding: var(--spacing-150) var(--spacing-200);
-	border: var(--border);
-	border-color: var(--neutral-600);
+	border: var(--input-border);
 	border-radius: var(--radius-8);
+	background-color: var(--bg-input);
 }
 
 .input-bar svg {
@@ -184,7 +194,7 @@
 	align-items: center;
 	gap: var(--spacing-100);
 	padding-block: var(--spacing-150);
-	color: var(--neutral-300);
+	color: var(--text-secondary);
 }
 
 .tag-link svg {
@@ -193,11 +203,11 @@
 }
 
 .tagged {
-	color: var(--neutral-400);
+	color: var(--text-secondary-2);
 }
 
 .tagged span {
-	color: var(--neutral-0);
+	color: var(--text-primary);
 }
 
 .settings-menu {
@@ -240,7 +250,7 @@
 	align-items: center;
 	gap: var(--spacing-200);
 	padding: var(--spacing-200);
-	border: 1px solid var(--neutral-700);
+	border: var(--border);
 	border-radius: var(--radius-12);
 	cursor: pointer;
 }
@@ -248,14 +258,14 @@
 .icon-wrapper {
 	inline-size: 2.5rem;
 	block-size: 2.5rem;
-	background-color: var(--neutral-950);
+	background-color: var(--bg-page);
 	padding: var(--spacing-100);
-	border: 1px solid var(--neutral-700);
+	border: var(--border);
 	border-radius: var(--radius-12);
 }
 
 .setting-desc {
-	color: var(--neutral-300);
+	color: var(--text-secondary);
 }
 
 .setting-content {
@@ -273,12 +283,13 @@
 	margin-inline-start: auto;
 	inline-size: 1rem;
 	block-size: 1rem;
-	border: 2px solid var(--neutral-600);
-	border-radius: 50%;
+	border: var(--input-border);
+	border-width: 2px;
+	border-radius: var(--radius-full);
 }
 
 .options label:has(input:checked) {
-	background-color: var(--neutral-800);
+	background-color: var(--bg-surface);
 }
 
 .options input:checked ~ .custom-radio {
@@ -312,7 +323,7 @@
 	display: flex;
 	align-items: center;
 	gap: var(--spacing-100);
-	color: var(--neutral-400);
+	color: var(--text-secondary-2);
 }
 
 .hint-text svg {
@@ -320,8 +331,7 @@
 	block-size: 0.75rem;
 }
 
-.save-password-btn {
-	background-color: var(--blue-500);
+.password-form button[type="submit"] {
 	padding: var(--spacing-150) var(--spacing-200);
 	margin-inline-start: auto;
 	border-radius: var(--radius-8);
@@ -382,8 +392,7 @@
 	align-items: center;
 	gap: var(--spacing-100);
 	padding: var(--spacing-150) var(--spacing-200);
-	border: var(--border);
-	border-color: var(--neutral-600);
+	border: var(--input-border);
 	border-radius: var(--radius-8);
 }
 
@@ -393,7 +402,7 @@
 	grid-template-columns: 1fr;
 	place-items: center;
 	min-block-size: 100vh;
-	background-color: var(--neutral-700);
+	background-color: var(--bg-surface);
 }
 
 .login-wrapper {
@@ -405,7 +414,7 @@
 	gap: var(--spacing-200);
 	padding-block: var(--spacing-600);
 	margin: 0 auto;
-	background-color: var(--neutral-950);
+	background-color: var(--bg-page);
 	border-radius: var(--radius-16);
 }
 
@@ -416,7 +425,7 @@
 
 .login-wrapper p {
 	margin-block-start: var(--spacing-100);
-	color: var(--neutral-300);
+	color: var(--text-secondary);
 }
 
 .login-form {
@@ -437,7 +446,7 @@
 	position: absolute;
 	right: 0;
 	top: var(--spacing-050);
-	color: var(--neutral-400);
+	color: var(--text-secondary-2);
 	text-decoration: underline;
 }
 
@@ -464,7 +473,8 @@
 }
 
 .signup-link {
-	color: var(--neutral-0);
+	color: var(--text-primary);
+	text-decoration: underline;
 }
 
 @media (min-width: 64rem) {
@@ -498,7 +508,8 @@
 		grid-template-rows: var(--spacing-1000) 1fr;
 		gap: var(--spacing-250) var(--grid-gap);
 		padding: 0 var(--spacing-400);
-		border-left: 1px solid var(--neutral-800);
+		border-left: var(--border);
+		border-radius: var(--radius-0);
 	}
 
 	.desktop-header {
@@ -507,7 +518,7 @@
 		gap: var(--spacing-200);
 		padding: var(--spacing-300) var(--spacing-400);
 		margin-inline: -2rem;
-		border-bottom: 1px solid var(--neutral-800);
+		border-bottom: var(--border);
 		grid-column: 1 / -1;
 	}
 

@@ -3,11 +3,12 @@ import GoBackLink from "../components/mobile/GoBackLink"
 import Button from "../components/shared/Button"
 
 import useMediaQuery from "../hooks/useMediaQuery"
+import {useContext} from "react"
+import {ColorThemeContext} from "../context/ColorThemeContext"
 
 export default function ColorTheme() {
 	const isDesktop = useMediaQuery()
-
-	function handleOptions() {}
+	const {colorTheme, setColorTheme} = useContext(ColorThemeContext)
 
 	return (
 		<div className="settings-item">
@@ -24,7 +25,13 @@ export default function ColorTheme() {
 						<h2>Light Mode</h2>
 						<p className="setting-desc text-preset-6">Pick a clean and classic light theme</p>
 					</div>
-					<input onChange={handleOptions} type="radio" name="setting-option" defaultChecked />
+					<input
+						onChange={() => setColorTheme("light")}
+						type="radio"
+						name="setting-option"
+						value="light"
+						defaultChecked={colorTheme === "light" && true}
+					/>
 					<span className="custom-radio"></span>
 				</label>
 				<label>
@@ -35,7 +42,13 @@ export default function ColorTheme() {
 						<h2>Dark Mode</h2>
 						<p className="setting-desc text-preset-6">Select a sleek and modern dark theme</p>
 					</div>
-					<input onChange={handleOptions} type="radio" name="setting-option" />
+					<input
+						onChange={() => setColorTheme("dark")}
+						type="radio"
+						name="setting-option"
+						value="dark"
+						defaultChecked={colorTheme === "dark" && true}
+					/>
 					<span className="custom-radio"></span>
 				</label>
 				<label>
@@ -46,7 +59,13 @@ export default function ColorTheme() {
 						<h2>System</h2>
 						<p className="setting-desc text-preset-6">Adapts to your device's theme</p>
 					</div>
-					<input onChange={handleOptions} type="radio" name="setting-option" />
+					<input
+						onChange={() => setColorTheme("system")}
+						type="radio"
+						name="setting-option"
+						value="system"
+						defaultChecked={colorTheme === "system" && true}
+					/>
 					<span className="custom-radio"></span>
 				</label>
 				<Button className="primary-btn text-preset-4">Apply Changes</Button>

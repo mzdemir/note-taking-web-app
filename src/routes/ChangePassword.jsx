@@ -1,26 +1,51 @@
-import GoBackLink from "../components/mobile/GoBackLink"
 import {InfoIcon, ShowPasswordIcon} from "../components/shared/Icons"
+import GoBackLink from "../components/mobile/GoBackLink"
+
 import useMediaQuery from "../hooks/useMediaQuery"
+import useTogglePassword from "../hooks/useTogglePassword"
+import useAuth from "../hooks/useAuth"
+
+import {useActionState} from "react"
 
 export default function ChangePassword() {
 	const isDesktop = useMediaQuery()
+	const {showPassword, handleShowPassword} = useTogglePassword()
+	const {changePassword} = useAuth()
+
+	const [_error, submitAction, isPending] = useActionState(async (previousState, formData) => {
+		const oldPassword = formData.get("old-password")
+		const newPassword = formData.get("new-password")
+		const confirmPassword = formData.get("confirm-password")
+
+		if (newPassword === confirmPassword) {
+			const confirmedPassword = newPassword
+			const {success, error} = await changePassword(oldPassword, confirmedPassword)
+
+			if (error) return new Error(error.message)
+			if (success) return success
+		}
+	}, null)
 
 	return (
 		<div className="settings-item">
 			{!isDesktop && <GoBackLink where="Settings" />}
 			<h1 className="setting-title text-preset-1">Change Password</h1>
 
-			<form className="password-form text-preset-4">
+			<form action={submitAction} className="password-form text-preset-4">
 				<label>
 					Old Password
-					<input className="input-bar" type="password" name="old-password" />
-					<ShowPasswordIcon className="show-password-icon" />
+					<input className="input-bar" type={!showPassword.old ? "password" : "text"} name="old-password" />
+					<button type="button" className="show-password-icon" onClick={() => handleShowPassword("old")}>
+						<ShowPasswordIcon />
+					</button>
 				</label>
 
 				<label>
 					New Password
-					<input className="input-bar" type="password" name="new-password" />
-					<ShowPasswordIcon className="show-password-icon" />
+					<input className="input-bar" type={!showPassword.new ? "password" : "text"} name="new-password" />
+					<button type="button" className="show-password-icon" onClick={() => handleShowPassword("new")}>
+						<ShowPasswordIcon />
+					</button>
 					<span className="hint-text text-preset-6">
 						<InfoIcon /> At least 8 characters
 					</span>
@@ -28,10 +53,14 @@ export default function ChangePassword() {
 
 				<label>
 					Confirm New Password
-					<input className="input-bar" type="password" name="confirm-password" />
-					<ShowPasswordIcon className="show-password-icon" />
+					<input className="input-bar" type={!showPassword.confirm ? "password" : "text"} name="confirm-password" />
+					<button type="button" className="show-password-icon" onClick={() => handleShowPassword("confirm")}>
+						<ShowPasswordIcon />
+					</button>
 				</label>
-				<button className="save-password-btn text-preset-4">Save Password</button>
+				<button type="submit" disabled={isPending} className="primary-btn" aria-busy={isPending}>
+					Reset Password
+				</button>
 			</form>
 		</div>
 	)

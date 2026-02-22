@@ -1,4 +1,3 @@
-// NoteContext.jsx
 import {createContext, useState, useEffect} from "react"
 import supabase from "../supabase-client"
 
@@ -9,7 +8,7 @@ export function NoteProvider({children}) {
 
 	useEffect(() => {
 		fetchNotes()
-	}, [])
+	}, [notes])
 
 	async function fetchNotes() {
 		try {
@@ -38,7 +37,7 @@ export function NoteProvider({children}) {
 				? {...note, ...updates}  
 				: note                   
 		))
-}
+	}
 
 	return <NoteContext.Provider value={{notes, updateNoteInContext}}>{children}</NoteContext.Provider>
 }
