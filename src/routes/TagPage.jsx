@@ -11,7 +11,6 @@ export default function TagPage() {
 	const params = useParams()
 
 	const capitalizeTag = params.id?.charAt(0).toUpperCase() + params.id.slice(1)
-	console.log(capitalizeTag)
 
 	const filteredNotes = notes?.filter((note) => {
 		return note.tags.map((tag) => tag.toLowerCase()).includes(params.id)

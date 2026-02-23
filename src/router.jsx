@@ -16,6 +16,7 @@ import Signup from "./components/auth/SignUp"
 import ForgotPassword from "./components/auth/ForgotPassword"
 import ResetPassword from "./components/auth/ResetPassword"
 
+import {NoteProvider} from "./context/NoteContext"
 import RootRedirect from "./routes/RootDirect"
 
 import ProtectedRoute from "./components/auth/ProtectedRoute"
@@ -30,7 +31,9 @@ export const mobileRouter = createBrowserRouter([
 	{
 		element: (
 			<ProtectedRoute>
-				<Layout />
+				<NoteProvider>
+					<Layout />
+				</NoteProvider>
 			</ProtectedRoute>
 		),
 		children: [
@@ -66,7 +69,9 @@ export const desktopRouter = createBrowserRouter([
 	{
 		element: (
 			<ProtectedRoute>
-				<Layout />
+				<NoteProvider>
+					<Layout />
+				</NoteProvider>
 			</ProtectedRoute>
 		),
 		children: [

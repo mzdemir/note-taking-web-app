@@ -1,14 +1,16 @@
 import {createContext, useState, useEffect, useContext} from "react"
 import supabase from "../supabase-client"
+import {useLocation} from "react-router"
 
 const NoteContext = createContext()
 
 export function NoteProvider({children}) {
 	const [notes, setNotes] = useState([])
+	const location = useLocation()
 
 	useEffect(() => {
 		fetchNotes()
-	}, [notes])
+	}, [location.pathname])
 
 	async function fetchNotes() {
 		try {
@@ -39,7 +41,13 @@ export function NoteProvider({children}) {
 		))
 	}
 
-	return <NoteContext.Provider value={{notes, updateNoteInContext}}>{children}</NoteContext.Provider>
+	function deleteNoteFromContext(noteId) {
+		setNotes((prev) => prev.filter((note) => note.id !== noteId))
+	}
+
+	return (
+		<NoteContext.Provider value={{notes, updateNoteInContext, deleteNoteFromContext}}>{children}</NoteContext.Provider>
+	)
 }
 
 // eslint-disable-next-line react-refresh/only-export-components

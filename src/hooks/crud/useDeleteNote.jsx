@@ -3,14 +3,18 @@ import supabase from "../../supabase-client"
 import {useState} from "react"
 import {useAuth} from "../../context/AuthContext"
 import {useNavigate} from "react-router"
+import {useNote} from "../../context/NoteContext"
+import {useToast} from "../../context/ToastContext"
 
-// prettier-ignore
 export default function useDeleteNote() {
 	const {session} = useAuth()
 	const navigate = useNavigate()
 	const [loading, setLoading] = useState(false)
 	const [error, setError] = useState(null)
+	const {deleteNoteFromContext} = useNote()
+	const {setShowToast} = useToast()
 
+	// prettier-ignore
 	async function deleteNote(noteId) {
 		// console.log(noteData)
 		try {
@@ -33,6 +37,7 @@ export default function useDeleteNote() {
 				.eq('user_id', session.user.id)
 
 			if (noteError) throw noteError
+			
 
 			// Clean up tags not used by any other notes
 			for (const tagId of tagIds) {
@@ -53,7 +58,15 @@ export default function useDeleteNote() {
 				}
 			}
 			console.log("delete succesfull")
+			setShowToast({
+				isVisible: true,
+				message: "Note permanently deleted.",
+				link: null,
+				navigateTo: null,
+			})
+
 			navigate("/notes")
+			deleteNoteFromContext(noteId)
 			
 		} catch (error) {
 			console.error("Deleting error: ", error)

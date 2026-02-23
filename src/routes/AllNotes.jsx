@@ -1,5 +1,6 @@
-import useMediaQuery from "../hooks/useMediaQuery"
 import NotesList from "../components/shared/NoteList"
+import useMediaQuery from "../hooks/useMediaQuery"
+
 import {useNote} from "../context/NoteContext"
 
 export default function AllNotes() {
@@ -8,7 +9,7 @@ export default function AllNotes() {
 
 	const getLinkPath = (noteId) => `/notes/${noteId}`
 
-	const emptyState = "You don’t have any notes yet. Start a new note to capture your thoughts and ideas."
+	const emptyState = "You don't have any notes yet. Start a new note to capture your thoughts and ideas."
 
 	return (
 		<>

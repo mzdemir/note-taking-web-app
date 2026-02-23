@@ -3,22 +3,22 @@ import {RouterProvider} from "react-router"
 import {desktopRouter, mobileRouter} from "./router"
 import useMediaQuery from "./hooks/useMediaQuery"
 import {AuthProvider} from "./context/AuthContext"
-import {NoteProvider} from "./context/NoteContext"
 import {ColorThemeProvider} from "./context/ColorThemeContext"
 import {FontThemeProvider} from "./context/FontThemeContext"
+import {ToastProvider} from "./context/ToastContext"
 
 export default function App() {
 	const isDesktop = useMediaQuery()
 
 	return (
 		<AuthProvider>
-			<NoteProvider>
-				<ColorThemeProvider>
-					<FontThemeProvider>
+			<ColorThemeProvider>
+				<FontThemeProvider>
+					<ToastProvider>
 						<RouterProvider router={isDesktop ? desktopRouter : mobileRouter} />
-					</FontThemeProvider>
-				</ColorThemeProvider>
-			</NoteProvider>
+					</ToastProvider>
+				</FontThemeProvider>
+			</ColorThemeProvider>
 		</AuthProvider>
 	)
 }

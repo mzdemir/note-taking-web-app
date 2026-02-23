@@ -6,8 +6,8 @@ import Modal from "../components/shared/Modal"
 
 import useMediaQuery from "../hooks/useMediaQuery"
 import useUpdateNote from "../hooks/crud/useUpdateNote"
-import {useNote} from "../context/NoteContext"
 
+import {useNote} from "../context/NoteContext"
 import {useActionState, useState} from "react"
 import {useParams} from "react-router"
 
@@ -21,20 +21,7 @@ export default function NoteDetails() {
 	const noteId = params.noteId || params.id
 	const noteDetails = notes?.find((note) => note.id.toString() === noteId)
 
-	const [_error, submitAction, _isPending] = useActionState(async (previousState, formData) => {
-		const title = formData.get("title")
-		const content = formData.get("content")
-		const tags = formData.get("tags")
-
-		const hasChanged =
-			title !== noteDetails.title || content !== noteDetails.content || tags !== noteDetails.tags.join(", ")
-
-		if (!hasChanged) return previousState
-
-		await updateNote(formData)
-
-		return null
-	}, null)
+	const [_error, submitAction, _isPending] = useActionState(updateNote, null)
 
 	if (!noteDetails) return <></>
 

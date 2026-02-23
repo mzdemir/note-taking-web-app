@@ -4,12 +4,23 @@ import Button from "../components/shared/Button"
 
 import useMediaQuery from "../hooks/useMediaQuery"
 import {FontThemeContext} from "../context/FontThemeContext"
-
+import {useToast} from "../context/ToastContext"
 import {useContext} from "react"
+
 export default function FontTheme() {
 	const isDesktop = useMediaQuery()
 	const {fontTheme, setFontTheme} = useContext(FontThemeContext)
+	const {setShowToast} = useToast()
 
+	function handleChange(theme) {
+		setFontTheme(theme)
+		setShowToast({
+			isVisible: true,
+			message: "Settings updated successfully!",
+			link: null,
+			navigateTo: null,
+		})
+	}
 	return (
 		<div className="settings-item">
 			{!isDesktop && <GoBackLink where="Settings" />}
@@ -26,7 +37,7 @@ export default function FontTheme() {
 						<p className="setting-desc text-preset-6">Clean and modern, easy to read.</p>
 					</div>
 					<input
-						onChange={() => setFontTheme("sans-serif")}
+						onChange={() => handleChange("sans-serif")}
 						type="radio"
 						name="setting-option"
 						defaultChecked={fontTheme === "sans-serif" && true}
@@ -42,7 +53,7 @@ export default function FontTheme() {
 						<p className="setting-desc text-preset-6">Classic and elegant for a timeless feel.</p>
 					</div>
 					<input
-						onChange={() => setFontTheme("serif")}
+						onChange={() => handleChange("serif")}
 						type="radio"
 						name="setting-option"
 						defaultChecked={fontTheme === "serif" && true}
@@ -58,7 +69,7 @@ export default function FontTheme() {
 						<p className="setting-desc text-preset-6">Code-like, great for a technical vibe.</p>
 					</div>
 					<input
-						onChange={() => setFontTheme("monospace")}
+						onChange={() => handleChange("monospace")}
 						type="radio"
 						name="setting-option"
 						defaultChecked={fontTheme === "monospace" && true}

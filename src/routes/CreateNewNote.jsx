@@ -9,9 +9,10 @@ import {useActionState} from "react"
 
 export default function CreateNewNote() {
 	const isDesktop = useMediaQuery()
+
 	const {insertNote} = useInsertNote()
 
-	const [_error, submitAction, _isPending] = useActionState(insertNote, [])
+	const [_error, submitAction, _isPending] = useActionState(insertNote, null)
 
 	return (
 		<div className="note-details">

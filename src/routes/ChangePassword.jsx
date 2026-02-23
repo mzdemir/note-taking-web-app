@@ -4,13 +4,14 @@ import GoBackLink from "../components/mobile/GoBackLink"
 import useMediaQuery from "../hooks/useMediaQuery"
 import useTogglePassword from "../hooks/useTogglePassword"
 import {useAuth} from "../context/AuthContext"
-
+import {useToast} from "../context/ToastContext"
 import {useActionState} from "react"
 
 export default function ChangePassword() {
 	const isDesktop = useMediaQuery()
 	const {showPassword, handleShowPassword} = useTogglePassword()
 	const {changePassword} = useAuth()
+	const {setShowToast} = useToast()
 
 	const [_error, submitAction, isPending] = useActionState(async (previousState, formData) => {
 		const oldPassword = formData.get("old-password")
@@ -22,7 +23,14 @@ export default function ChangePassword() {
 			const {success, error} = await changePassword(oldPassword, confirmedPassword)
 
 			if (error) return new Error(error.message)
-			if (success) return success
+			if (success) {
+				setShowToast({
+					isVisible: true,
+					message: "Password changed successfully!",
+					link: null,
+					navigateTo: null,
+				})
+			}
 		}
 	}, null)
 
@@ -59,7 +67,7 @@ export default function ChangePassword() {
 					</button>
 				</label>
 				<button type="submit" disabled={isPending} className="primary-btn" aria-busy={isPending}>
-					Reset Password
+					Save Password
 				</button>
 			</form>
 		</div>

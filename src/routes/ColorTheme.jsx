@@ -5,10 +5,22 @@ import Button from "../components/shared/Button"
 import useMediaQuery from "../hooks/useMediaQuery"
 import {useContext} from "react"
 import {ColorThemeContext} from "../context/ColorThemeContext"
+import {useToast} from "../context/ToastContext"
 
 export default function ColorTheme() {
 	const isDesktop = useMediaQuery()
 	const {colorTheme, setColorTheme} = useContext(ColorThemeContext)
+	const {setShowToast} = useToast()
+
+	function handleChange(theme) {
+		setColorTheme(theme)
+		setShowToast({
+			isVisible: true,
+			message: "Settings updated successfully!",
+			link: null,
+			navigateTo: null,
+		})
+	}
 
 	return (
 		<div className="settings-item">
@@ -26,7 +38,7 @@ export default function ColorTheme() {
 						<p className="setting-desc text-preset-6">Pick a clean and classic light theme</p>
 					</div>
 					<input
-						onChange={() => setColorTheme("light")}
+						onChange={() => handleChange("light")}
 						type="radio"
 						name="setting-option"
 						value="light"
@@ -43,7 +55,7 @@ export default function ColorTheme() {
 						<p className="setting-desc text-preset-6">Select a sleek and modern dark theme</p>
 					</div>
 					<input
-						onChange={() => setColorTheme("dark")}
+						onChange={() => handleChange("dark")}
 						type="radio"
 						name="setting-option"
 						value="dark"
@@ -60,7 +72,7 @@ export default function ColorTheme() {
 						<p className="setting-desc text-preset-6">Adapts to your device's theme</p>
 					</div>
 					<input
-						onChange={() => setColorTheme("system")}
+						onChange={() => handleChange("system")}
 						type="radio"
 						name="setting-option"
 						value="system"

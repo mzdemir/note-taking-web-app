@@ -1,111 +1,145 @@
 import supabase from "../../supabase-client"
 import {useAuth} from "../../context/AuthContext"
 import {useNote} from "../../context/NoteContext"
+import {useToast} from "../../context/ToastContext"
 
-// prettier-ignore
 export default function useUpdateNote() {
 	const {session} = useAuth()
 	const {updateNoteInContext} = useNote()
+	const {setShowToast} = useToast()
 
-	async function updateNote(formData) {
+	async function updateNote(previousState, formData) {
 		try {
 			const noteId = parseInt(formData.get("noteId"))
-			const title = formData.get("title")
-			const content = formData.get("content")
-			const newTagNames = formData.get("tags").split(",").map((t) => t.trim())
+			const newTitle = formData.get("title")
+			const newContent = formData.get("content")
+			const newTagNames = formData
+				.get("tags")
+				.split(",")
+				.map((t) => t.trim())
 
-			const{error: updateError} = await supabase
+			// Fetch current note data to compare
+			const {data: currentNote} = await supabase
 				.from("notes")
-				.update({
-					title: title,
-					content: content,
-					lastEdited: new Date().toISOString(),
-				})
+				.select(`title, content, note_tags(tag_id, tags(name))`)
 				.eq("id", noteId)
-        .eq("user_id", session.user.id)
+				.eq("user_id", session.user.id)
+				.single()
 
-			if (updateError) throw updateError
+			const currentTagNames = currentNote.note_tags?.map((nt) => nt.tags.name) || []
 
-			const {data: relations} = await supabase
-				.from("note_tags")
-				.select("tag_id")
-				.eq("note_id", noteId)
+			// Check if title or content changed
+			const titleChanged = newTitle !== currentNote.title
+			const contentChanged = newContent !== currentNote.content
 
-			const {error: deleteRelationsError} = await supabase
-    		.from("note_tags")
-    		.delete()
-    		.eq("note_id", noteId)
-
-			if (deleteRelationsError) throw deleteRelationsError
-
-			// Clean up tags not used by any other notes
-			const existingTagIds = relations?.map(r => r.tag_id) || []
-			for (const tagId of existingTagIds) {
-				// Check if this tag is still used by other notes
-				const {data: stillUsedTags} = await supabase
-					.from("note_tags")
-					.select("id")
-					.eq("tag_id", tagId)
-					.limit(1)
-			
-				// If not used by any notes, delete the tag
-				if (!stillUsedTags || stillUsedTags.length === 0){
-					await supabase
-            .from("tags")
-            .delete()
-            .eq("id", tagId)
-            .eq("user_id", session.user.id)
-				}
-			}
-			
-			// Try to find existing tag
-			const tagIds = []
-			for (const tagName of newTagNames) {
-				let {data: existingTag} = await supabase
-					.from("tags")
-					.select("id")
-					.eq("name", tagName)
+			// Update note only if title or content changed
+			if (titleChanged || contentChanged) {
+				const {error: updateError} = await supabase
+					.from("notes")
+					.update({
+						title: newTitle,
+						content: newContent,
+						lastEdited: new Date().toISOString(),
+					})
+					.eq("id", noteId)
 					.eq("user_id", session.user.id)
-					.maybeSingle()
 
-				if (existingTag) {
-					tagIds.push(existingTag.id)
-				} else {
-					// Create new tag if it doesn't exist
-					const {data: newTag, error: tagError} = await supabase
+				if (updateError) throw updateError
+			}
+
+			// Compare tags - find what changed
+			const tagsToAdd = newTagNames.filter((tag) => !currentTagNames.includes(tag))
+			const tagsToRemove = currentTagNames.filter((tag) => !newTagNames.includes(tag))
+
+			// Only proceed with tag changes if there are differences
+			if (tagsToAdd.length > 0 || tagsToRemove.length > 0) {
+				// Handle tags to remove
+				if (tagsToRemove.length > 0) {
+					// Get tag IDs for tags to remove
+					const {data: tagsToRemoveData} = await supabase
 						.from("tags")
-						.insert({name: tagName, user_id: session.user.id})
-						.select()
-						.single()
-					
-					if (tagError) throw tagError
-					tagIds.push(newTag.id)
+						.select("id, name")
+						.in("name", tagsToRemove)
+						.eq("user_id", session.user.id)
+
+					const tagIdsToRemove = tagsToRemoveData?.map((t) => t.id) || []
+
+					// Delete relationships for removed tags
+					const {error: deleteRelError} = await supabase
+						.from("note_tags")
+						.delete()
+						.eq("note_id", noteId)
+						.in("tag_id", tagIdsToRemove)
+
+					if (deleteRelError) throw deleteRelError
+
+					// Clean up orphaned tags
+					for (const tagId of tagIdsToRemove) {
+						const {data: stillUsed} = await supabase.from("note_tags").select("id").eq("tag_id", tagId).limit(1)
+
+						if (!stillUsed || stillUsed.length === 0) {
+							await supabase.from("tags").delete().eq("id", tagId).eq("user_id", session.user.id)
+						}
+					}
+				}
+
+				// Handle tags to add
+				if (tagsToAdd.length > 0) {
+					const tagIdsToAdd = []
+
+					for (const tagName of tagsToAdd) {
+						let {data: existingTag} = await supabase
+							.from("tags")
+							.select("id")
+							.eq("name", tagName)
+							.eq("user_id", session.user.id)
+							.maybeSingle()
+
+						if (existingTag) {
+							tagIdsToAdd.push(existingTag.id)
+						} else {
+							const {data: newTag, error: tagError} = await supabase
+								.from("tags")
+								.insert({name: tagName, user_id: session.user.id})
+								.select()
+								.single()
+
+							if (tagError) throw tagError
+							tagIdsToAdd.push(newTag.id)
+						}
+					}
+
+					// Create new relationships
+					const noteTagsData = tagIdsToAdd.map((tagId) => ({
+						note_id: noteId,
+						tag_id: tagId,
+					}))
+
+					const {error: insertRelError} = await supabase.from("note_tags").insert(noteTagsData)
+
+					if (insertRelError) throw insertRelError
 				}
 			}
 
-			const noteTagsData = tagIds.map(tagId => ({
-				note_id: noteId,
-				tag_id: tagId
-			}))
-
-			const {error: relationError} = await supabase
-				.from("note_tags")
-				.insert(noteTagsData)
-
-			if (relationError) throw relationError
+			// Update context
 			updateNoteInContext(noteId, {
-				title,
-				content,
+				title: newTitle,
+				content: newContent,
 				tags: newTagNames,
-				lastEdited: new Date().toISOString()
+				lastEdited: new Date().toISOString(),
 			})
 
-			console.log("update successful")
-
+			setShowToast({
+				isVisible: true,
+				message: "Note updated successfully!",
+				link: null,
+				navigateTo: null,
+			})
 		} catch (error) {
 			console.error("Updating Error", error)
+			throw error
 		}
 	}
-  
+
 	return {updateNote}
 }
