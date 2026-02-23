@@ -1,13 +1,11 @@
 import NotesList from "../components/shared/NoteList"
 
 import useMediaQuery from "../hooks/useMediaQuery"
-import {NoteContext} from "../context/NoteContext"
-
-import {useContext} from "react"
+import {useNote} from "../context/NoteContext"
 
 export default function Archived() {
 	const isDesktop = useMediaQuery()
-	const {notes} = useContext(NoteContext)
+	const {notes} = useNote()
 
 	const filteredNotes = notes?.filter((note) => note.isArchived)
 	const getLinkPath = (noteId) => `/archived/${noteId}`

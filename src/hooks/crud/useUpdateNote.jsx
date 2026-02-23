@@ -1,11 +1,11 @@
 import supabase from "../../supabase-client"
-import useAuth from "../useAuth"
-import {NoteContext} from "../../context/NoteContext"
-import {useContext} from "react"
+import {useAuth} from "../../context/AuthContext"
+import {useNote} from "../../context/NoteContext"
+
 // prettier-ignore
 export default function useUpdateNote() {
 	const {session} = useAuth()
-	const {updateNoteInContext} = useContext(NoteContext)
+	const {updateNoteInContext} = useNote()
 
 	async function updateNote(formData) {
 		try {

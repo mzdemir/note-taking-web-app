@@ -1,4 +1,4 @@
-import {createContext, useState, useEffect} from "react"
+import {createContext, useState, useEffect, useContext} from "react"
 import supabase from "../supabase-client"
 
 const NoteContext = createContext()
@@ -42,4 +42,7 @@ export function NoteProvider({children}) {
 	return <NoteContext.Provider value={{notes, updateNoteInContext}}>{children}</NoteContext.Provider>
 }
 
-export {NoteContext}
+// eslint-disable-next-line react-refresh/only-export-components
+export function useNote() {
+	return useContext(NoteContext)
+}

@@ -2,22 +2,19 @@ import Button from "../components/shared/Button"
 import {TagsIcon, PlusIcon} from "../components/shared/Icons"
 
 import useMediaQuery from "../hooks/useMediaQuery"
-import {NoteContext} from "../context/NoteContext"
+import {useNote} from "../context/NoteContext"
 
-import {useContext} from "react"
 import {Fragment} from "react"
 import {NavLink, useNavigate} from "react-router"
 
 export default function Tags() {
 	const isDesktop = useMediaQuery()
-	const {notes} = useContext(NoteContext)
+	const {notes} = useNote()
 	const navigate = useNavigate()
 
 	const tags = [...new Set(notes?.map((note) => note.tags).flat())]
+	const emptyState = "You don’t have any notes yet. Start a new note to capture your thoughts and ideas."
 
-	if (!tags || tags.length < 1) return <></>
-
-	//prettier-ignore
 	return (
 		<>
 			{!isDesktop && (
@@ -31,14 +28,16 @@ export default function Tags() {
 				</>
 			)}
 			<div className="tags-list text-preset-4">
-				{tags && tags.sort().map((tag) => (
-					<Fragment key={tag}>
-						<NavLink to={`/tags/${tag.toLowerCase()}`} className="tag-link">
-							<TagsIcon /> {tag}
-						</NavLink>
-						<hr />
-					</Fragment>
-				))}
+				{tags && tags.length > 0 ?
+					tags.sort().map((tag) => (
+						<Fragment key={tag}>
+							<NavLink to={`/tags/${tag.toLowerCase()}`} className="tag-link">
+								<TagsIcon /> {tag}
+							</NavLink>
+							<hr />
+						</Fragment>
+					))
+				:	<p className="text-preset-5 empty-state">{emptyState}</p>}
 			</div>
 		</>
 	)

@@ -2,7 +2,7 @@ import {SunIcon, FontIcon, LockIcon, LogoutIcon} from "../components/shared/Icon
 import Button from "../components/shared/Button"
 import useMediaQuery from "../hooks/useMediaQuery"
 
-import useAuth from "../hooks/useAuth"
+import {useAuth} from "../context/AuthContext"
 import {NavLink, Outlet, useNavigate} from "react-router"
 
 export default function Settings() {

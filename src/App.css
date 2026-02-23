@@ -476,6 +476,61 @@ textarea#content::placeholder {
 	color: var(--text-primary);
 	text-decoration: underline;
 }
+/* Modal */
+#root:has(.overlay) {
+	z-index: 0;
+	/* opacity: 50%; */
+}
+.overlay {
+	position: fixed;
+	background-color: rgba(14, 18, 27, 50%);
+	inset: 0;
+	z-index: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: var(--spacing-200);
+}
+
+.modal {
+	max-inline-size: 440px;
+	opacity: 100%;
+	background-color: var(--bg-modal);
+	border: var(--modal-border);
+	border-radius: var(--radius-12);
+}
+
+.modal .top {
+	display: flex;
+	gap: var(--spacing-200);
+	padding: var(--spacing-250);
+	border-bottom: var(--input-border);
+}
+
+.modal .icon-wrapper {
+	background-color: var(--modal-surface);
+}
+
+.modal .content {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-075);
+}
+
+.modal .bottom {
+	display: flex;
+	justify-content: end;
+	gap: var(--spacing-200);
+	padding: var(--spacing-200);
+}
+
+.modal .secondary-btn {
+	background-color: var(--modal-surface);
+	color: var(--modal-text);
+}
+.modal .delete.primary-btn {
+	background-color: var(--red-500);
+}
 
 @media (min-width: 64rem) {
 	#root {

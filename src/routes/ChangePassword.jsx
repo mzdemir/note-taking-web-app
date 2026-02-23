@@ -3,7 +3,7 @@ import GoBackLink from "../components/mobile/GoBackLink"
 
 import useMediaQuery from "../hooks/useMediaQuery"
 import useTogglePassword from "../hooks/useTogglePassword"
-import useAuth from "../hooks/useAuth"
+import {useAuth} from "../context/AuthContext"
 
 import {useActionState} from "react"
 

@@ -2,14 +2,12 @@ import NotesList from "../components/shared/NoteList"
 import GoBackLink from "../components/mobile/GoBackLink"
 import useMediaQuery from "../hooks/useMediaQuery"
 
-import {NoteContext} from "../context/NoteContext"
-
-import {useContext} from "react"
+import {useNote} from "../context/NoteContext"
 import {useParams} from "react-router"
 
 export default function TagPage() {
 	const isDesktop = useMediaQuery()
-	const {notes} = useContext(NoteContext)
+	const {notes} = useNote()
 	const params = useParams()
 
 	const capitalizeTag = params.id?.charAt(0).toUpperCase() + params.id.slice(1)

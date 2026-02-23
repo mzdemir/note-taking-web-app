@@ -1,13 +1,9 @@
 import supabase from "../../supabase-client"
 
-import useAuth from "../useAuth"
-import {NoteContext} from "../../context/NoteContext"
-
-import {useContext} from "react"
+import {useAuth} from "../../context/AuthContext"
 
 export default function useArchiveNote() {
 	const {session} = useAuth()
-	const {updateNoteInContext} = useContext(NoteContext)
 
 	async function archiveNote(noteId) {
 		const {data} = await supabase
@@ -24,7 +20,6 @@ export default function useArchiveNote() {
 			.eq("user_id", session.user.id)
 
 		if (archiveError) throw archiveError
-		updateNoteInContext(noteId, {isArchived: !data.isArchived})
 	}
 
 	return {archiveNote}

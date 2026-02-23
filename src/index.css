@@ -112,28 +112,36 @@
 
 :root[data-colorTheme="light"] {
 	--bg-page: var(--neutral-0);
+	--bg-modal: var(--neutral-0);
 	--bg-input: var(--neutral-50);
 	--bg-surface: var(--neutral-100);
 	--bg-surface-2: var(--neutral-200);
+	--modal-surface: var(--neutral-100);
 	--text-primary: var(--neutral-950);
 	--text-secondary: var(--neutral-700);
 	--text-secondary-2: var(--neutral-600);
-	--input-border: 1px solid var(--neutral-300);
+	--modal-text: var(--neutral-600);
 	--border: 1px solid var(--neutral-200);
+	--input-border: 1px solid var(--neutral-300);
+	--modal-border: 1px solid var(--neutral-200);
 	--active-surface: var(--blue-50);
 	--navbar-shadow: 0 -4px 6px 0 hsl(0, 0, 94, 60%);
 }
 
 :root[data-colorTheme="dark"] {
 	--bg-page: var(--neutral-950);
-	--bg-input: transparent;
+	--bg-modal: var(--neutral-700);
+	--bg-input: var(--neutral-950);
 	--bg-surface: var(--neutral-800);
 	--bg-surface-2: var(--neutral-600);
+	--modal-surface: var(--neutral-600);
 	--text-primary: var(--neutral-100);
 	--text-secondary: var(--neutral-300);
 	--text-secondary-2: var(--neutral-400);
-	--input-border: 1px solid var(--neutral-600);
+	--modal-text: var(--neutral-200);
 	--border: 1px solid var(--neutral-800);
+	--input-border: 1px solid var(--neutral-600);
+	--modal-border: 1px solid var(--neutral-600);
 	--active-surface: var(--neutral-700);
 	--navbar-shadow: 0 -5px 6px 0 hsl(0, 0, 0, 50%);
 }

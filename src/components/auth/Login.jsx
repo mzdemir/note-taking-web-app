@@ -1,5 +1,5 @@
 import {Logo, GoogleIcon, ShowPasswordIcon} from "../shared/Icons"
-import useAuth from "../../hooks/useAuth"
+import {useAuth} from "../../context/AuthContext"
 
 import useTogglePassword from "../../hooks/useTogglePassword"
 import {useActionState} from "react"
