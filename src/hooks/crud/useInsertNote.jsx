@@ -11,14 +11,29 @@ export default function useInsertNote() {
 	const {setShowToast} = useToast()
 
 	async function insertNote(previousState, formData) {
+		const title = formData.get("title")
+		const content= formData.get("content")
+		const tags = formData.get("tags").split(",").map((t) => t.trim())
+
+		if (!title || !content || !tags) {
+			setShowToast({
+				isVisible: true,
+				variant: "error",
+				message: "Note fields can't be empty",
+				link: null,
+				navigateTo: null,
+			})
+			return
+		}
+
 		try {
 			// Insert note
 			const {data: newNote, error: noteError} = await supabase
 				.from("notes")
 				.insert({
 					user_id: session.user.id,
-					title: formData.get("title"),
-					content: formData.get("content"),
+					title: title,
+					content: content,
 				})
 				.select()
 				.single()
@@ -27,7 +42,7 @@ export default function useInsertNote() {
 
 			// Try to find existing tag
 			const tagIds = []
-			for (const tagName of formData.get("tags").split(",")) {
+			for (const tagName of tags) {
 				let {data: existingTag} = await supabase
 					.from("tags")
 					.select("id")
@@ -71,7 +86,13 @@ export default function useInsertNote() {
 			return newNote
 		} catch (error) {
 			console.error("Inserting error: ", error)
-			throw error
+			setShowToast({
+				isVisible: true,
+				variant: "error",
+				message: "Something went wrong. Please try again.",
+				link: null,
+				navigateTo: null,
+			})
 		}
 	}
 

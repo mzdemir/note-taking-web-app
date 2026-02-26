@@ -11,14 +11,14 @@ export default function App() {
 	const isDesktop = useMediaQuery()
 
 	return (
-		<AuthProvider>
-			<ColorThemeProvider>
-				<FontThemeProvider>
-					<ToastProvider>
+		<ColorThemeProvider>
+			<FontThemeProvider>
+				<ToastProvider>
+					<AuthProvider>
 						<RouterProvider router={isDesktop ? desktopRouter : mobileRouter} />
-					</ToastProvider>
-				</FontThemeProvider>
-			</ColorThemeProvider>
-		</AuthProvider>
+					</AuthProvider>
+				</ToastProvider>
+			</FontThemeProvider>
+		</ColorThemeProvider>
 	)
 }

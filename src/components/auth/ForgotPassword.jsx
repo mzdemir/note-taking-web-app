@@ -1,7 +1,7 @@
 import supabase from "../../supabase-client"
 
+import {Logo, InfoIcon} from "../shared/Icons"
 import {useActionState} from "react"
-import {Logo} from "../shared/Icons"
 
 export default function ForgotPassword() {
 	const [error, submitAction, isPending] = useActionState(async (previousState, formData) => {
@@ -14,38 +14,38 @@ export default function ForgotPassword() {
 			if (error) throw error
 		} catch (error) {
 			console.error(error)
+			return error
 		}
 	}, null)
 
+	// prettier-ignore
 	return (
-		<div className="login-wrapper">
+		<div className="auth-wrapper text-preset-5">
 			<Logo />
 			<div>
 				<h1 className="text-preset-1">Forgotten your password?</h1>
-				<p className="text-preset-5">Enter your email below, and we'll send you a link to reset it. </p>
+				<p >Enter your email below, and we'll send you a link to reset it. </p>
 			</div>
-			<form action={submitAction} className="login-form">
-				<label>
+			<form action={submitAction} className="auth-form" noValidate aria-label="Forgot password form" aria-describedby="form-description">
+				<label className="text-preset-4">
 					Email Addres
 					<input
 						className="input-bar"
 						type="email"
 						name="email"
 						placeholder="email@example.com"
-						required
 						aria-required="true"
 						aria-invalid={error ? "true" : "false"}
 						aria-describedby={error ? "signup-error" : undefined}
 						disabled={isPending}
+						autoComplete="off"
 					/>
 				</label>
+				{error && 
+					<p className="hint-text text-preset-6"><InfoIcon />{error.message}!</p>
+				}
 
-				{/* prettier-ignore */}
-				<button 
-          type="submit" 
-          disabled={isPending} 
-          className="primary-btn text-preset-3" 
-          aria-busy={isPending}>
+				<button className="primary-btn text-preset-3" disabled={isPending} aria-busy={isPending}>
 					Send Reset Link
 				</button>
 			</form>

@@ -1,5 +1,7 @@
-import {createContext, useState, useEffect, useContext} from "react"
 import supabase from "../supabase-client"
+
+import {useToast} from ".//ToastContext"
+import {createContext, useState, useEffect, useContext} from "react"
 import {useLocation} from "react-router"
 
 const NoteContext = createContext()
@@ -7,6 +9,7 @@ const NoteContext = createContext()
 export function NoteProvider({children}) {
 	const [notes, setNotes] = useState([])
 	const location = useLocation()
+	const {setShowToast} = useToast()
 
 	useEffect(() => {
 		fetchNotes()
@@ -29,6 +32,13 @@ export function NoteProvider({children}) {
 			setNotes(data)
 		} catch (error) {
 			console.error("Error fetching data:", error)
+			setShowToast({
+				isVisible: true,
+				variant: "error",
+				message: "Something went wrong. Please try again.",
+				link: null,
+				navigateTo: null,
+			})
 		}
 	}
 

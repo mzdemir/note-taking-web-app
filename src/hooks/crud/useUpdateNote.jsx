@@ -18,6 +18,17 @@ export default function useUpdateNote() {
 				.split(",")
 				.map((t) => t.trim())
 
+			if (!newTitle || !newContent || !newTagNames) {
+				setShowToast({
+					isVisible: true,
+					variant: "error",
+					message: "Note fields can't be empty",
+					link: null,
+					navigateTo: null,
+				})
+				return
+			}
+
 			// Fetch current note data to compare
 			const {data: currentNote} = await supabase
 				.from("notes")
@@ -137,7 +148,13 @@ export default function useUpdateNote() {
 			})
 		} catch (error) {
 			console.error("Updating Error", error)
-			throw error
+			setShowToast({
+				isVisible: true,
+				variant: "error",
+				message: "Something went wrong. Please try again.",
+				link: null,
+				navigateTo: null,
+			})
 		}
 	}
 

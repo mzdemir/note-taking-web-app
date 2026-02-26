@@ -1,39 +1,20 @@
-import {InfoIcon, ShowPasswordIcon} from "../components/shared/Icons"
+import {InfoIcon, ShowPasswordIcon, HidePasswordIcon} from "../components/shared/Icons"
 import GoBackLink from "../components/mobile/GoBackLink"
 
 import useMediaQuery from "../hooks/useMediaQuery"
 import useTogglePassword from "../hooks/useTogglePassword"
-import {useAuth} from "../context/AuthContext"
-import {useToast} from "../context/ToastContext"
+import useChangePassword from "../hooks/auth/useChangePassword"
+
 import {useActionState} from "react"
 
 export default function ChangePassword() {
 	const isDesktop = useMediaQuery()
+	const changePassword = useChangePassword()
 	const {showPassword, handleShowPassword} = useTogglePassword()
-	const {changePassword} = useAuth()
-	const {setShowToast} = useToast()
 
-	const [_error, submitAction, isPending] = useActionState(async (previousState, formData) => {
-		const oldPassword = formData.get("old-password")
-		const newPassword = formData.get("new-password")
-		const confirmPassword = formData.get("confirm-password")
+	const [error, submitAction, isPending] = useActionState(changePassword, null)
 
-		if (newPassword === confirmPassword) {
-			const confirmedPassword = newPassword
-			const {success, error} = await changePassword(oldPassword, confirmedPassword)
-
-			if (error) return new Error(error.message)
-			if (success) {
-				setShowToast({
-					isVisible: true,
-					message: "Password changed successfully!",
-					link: null,
-					navigateTo: null,
-				})
-			}
-		}
-	}, null)
-
+	// prettier-ignore
 	return (
 		<div className="settings-item">
 			{!isDesktop && <GoBackLink where="Settings" />}
@@ -42,20 +23,33 @@ export default function ChangePassword() {
 			<form action={submitAction} className="password-form text-preset-4">
 				<label>
 					Old Password
-					<input className="input-bar" type={!showPassword.old ? "password" : "text"} name="old-password" />
+					<input
+						className={`input-bar ${error?.oldPasswordError && "error"}`}
+						type={!showPassword.old ? "password" : "text"}
+						name="old-password"
+					/>
 					<button type="button" className="show-password-icon" onClick={() => handleShowPassword("old")}>
-						<ShowPasswordIcon />
+						{!showPassword.old ? <ShowPasswordIcon /> :	<HidePasswordIcon />}
 					</button>
+					{error?.oldPasswordError && (
+						<span className={`hint-text text-preset-6 ${error?.oldPasswordError && "error"}`}>
+							<InfoIcon /> {error?.oldPasswordError}
+						</span>
+					)}
 				</label>
 
 				<label>
 					New Password
-					<input className="input-bar" type={!showPassword.new ? "password" : "text"} name="new-password" />
+					<input
+						className={`input-bar ${error?.passwordError && "error"}`}
+						type={!showPassword.new ? "password" : "text"}
+						name="new-password"
+					/>
 					<button type="button" className="show-password-icon" onClick={() => handleShowPassword("new")}>
-						<ShowPasswordIcon />
+						{!showPassword.new ? <ShowPasswordIcon /> :	<HidePasswordIcon />}
 					</button>
-					<span className="hint-text text-preset-6">
-						<InfoIcon /> At least 8 characters
+					<span className={`hint-text text-preset-6 ${error?.passwordError && "error"}`}>
+						<InfoIcon /> {error?.passwordError ? error?.passwordError : "At least 8 characters"}
 					</span>
 				</label>
 
@@ -63,8 +57,18 @@ export default function ChangePassword() {
 					Confirm New Password
 					<input className="input-bar" type={!showPassword.confirm ? "password" : "text"} name="confirm-password" />
 					<button type="button" className="show-password-icon" onClick={() => handleShowPassword("confirm")}>
-						<ShowPasswordIcon />
+						{!showPassword.confirm ? <ShowPasswordIcon /> :	<HidePasswordIcon />}
 					</button>
+					{error?.resetError && (
+						<span className={`hint-text text-preset-6 ${error?.resetError && "error"}`}>
+							<InfoIcon /> {error.resetError}
+						</span>
+					)}
+					{error?.error && (
+						<span className={`hint-text text-preset-6 ${error?.error && "error"}`}>
+							<InfoIcon /> {error.error}
+						</span>
+					)}
 				</label>
 				<button type="submit" disabled={isPending} className="primary-btn" aria-busy={isPending}>
 					Save Password

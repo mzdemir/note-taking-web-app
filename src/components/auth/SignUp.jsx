@@ -1,98 +1,85 @@
-import {useAuth} from "../../context/AuthContext"
-import {useActionState} from "react"
-import {Link, useNavigate} from "react-router"
-import {Logo, GoogleIcon, ShowPasswordIcon} from "../shared/Icons"
+import {Logo, GoogleIcon, ShowPasswordIcon, HidePasswordIcon, InfoIcon} from "../shared/Icons"
 
 import useTogglePassword from "../../hooks/useTogglePassword"
+import useSignUpUser from "../../hooks/auth/useSignUpUser"
+
+import {useActionState} from "react"
+import {Link} from "react-router"
+
 export default function Signup() {
-	const {signUpUser} = useAuth()
-	const navigate = useNavigate()
+	const singUp = useSignUpUser()
 	const {showPassword, handleShowPassword} = useTogglePassword()
 
-	const [error, submitAction, isPending] = useActionState(async (previousState, formData) => {
-		const email = formData.get("email")
-		const password = formData.get("password")
+	const [error, submitAction, isPending] = useActionState(singUp, null)
 
-		const {success, data, error: signUpError} = await signUpUser(email, password)
-
-		if (signUpError) {
-			return new Error(signUpError)
-		}
-		if (success && data?.session) {
-			navigate("/notes")
-			return null
-		}
-		return null
-	}, null)
-
+	// prettier-ignore
 	return (
-		<div className="login-wrapper">
+		<div className="auth-wrapper text-preset-5">
 			<Logo />
 			<div>
 				<h1 className="text-preset-1">Create Your Account</h1>
-				<p className="text-preset-5">Sign up to start organizing your notes and boost your productivity.</p>
+				<p>Sign up to start organizing your notes and boost your productivity.</p>
 			</div>
-			<form
-				action={submitAction}
-				className="login-form text-preset-5"
-				aria-label="Sign up form"
-				aria-describedby="form-description">
-				<label>
+			<form action={submitAction} className="auth-form" noValidate aria-label="Sign up form" aria-describedby="form-description">
+				<label className="text-preset-4">
 					Email Addres
 					<input
-						className="input-bar"
+						className={`input-bar ${error?.emailError && "error"}`}
 						type="email"
 						name="email"
 						placeholder="email@example.com"
-						required
 						aria-required="true"
 						aria-invalid={error ? "true" : "false"}
 						aria-describedby={error ? "signup-error" : undefined}
 						disabled={isPending}
 					/>
+					{error?.emailError && 
+						<p className={`hint-text text-preset-6 ${error?.emailError && "error"}`}>
+							<InfoIcon/> {error.emailError}
+						</p>}
 				</label>
 
-				<label>
+				<label className="text-preset-4">
 					Password
 					<input
-						className="input-bar"
+						className={`input-bar ${error?.passwordError && "error"}`}
 						type={!showPassword.old ? "password" : "text"}
 						name="password"
 						placeholder=""
-						required
 						aria-required="true"
 						aria-invalid={error ? "true" : "false"}
 						aria-describedby={error ? "signup-error" : undefined}
 						disabled={isPending}
 					/>
 					<button type="button" className="show-password-icon" onClick={() => handleShowPassword("old")}>
-						<ShowPasswordIcon />
+						{!showPassword.old ? <ShowPasswordIcon /> : <HidePasswordIcon/>}
 					</button>
+
+					<p className={`hint-text text-preset-6 ${error?.passwordError && "error"}`}>
+						<InfoIcon/> {error?.passwordError ? error?.passwordError : "At least 8 characters" }
+					</p>
+					
+					{error?.error && 
+					<p className={`hint-text text-preset-6 ${error?.error && "error"}`}>
+						<InfoIcon/> {error.error}
+					</p>}
 				</label>
 
 				<button type="submit" disabled={isPending} className="primary-btn text-preset-3" aria-busy={isPending}>
 					Sign Up
 				</button>
-
-				{error && (
-					<div id="signup-error" role="alert" className="sign-form-error-message">
-						{error.message}
-					</div>
-				)}
 			</form>
 
 			<div className="google-login">
-				<p className="text-preset-5">Or log in with:</p>
-				<button className="google-btn">
+				<p>Or log in with:</p>
+				<button className="google-btn text-preset-3">
 					<GoogleIcon /> Google
 				</button>
 			</div>
 
-			<p className="text-preset-5">
-				Already have an account?
-				<Link to="/login" className="signup-link">
-					Login
-				</Link>
+			<p>
+				Already have an account?{" "}
+				<Link to="/login" className="signup-link">Login</Link>
 			</p>
 		</div>
 	)

@@ -4,7 +4,7 @@ import Textarea from "./Textarea"
 export default function NoteForm({action, noteDetails}) {
 	// prettier-ignore
 	return (
-		<form action={action} id="note-form" className="note-details text-preset-5">
+		<form action={action} id="note-form" className="note-details text-preset-5" noValidate>
 			<input type="hidden" name="noteId" value={noteDetails?.id} />
 			<label aria-label="Enter a title...">
 				<Textarea name="title" className="text-preset-1" value={noteDetails?.title} placeholder="Enter a title..."/>

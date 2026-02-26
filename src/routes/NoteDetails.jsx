@@ -21,14 +21,14 @@ export default function NoteDetails() {
 	const noteId = params.noteId || params.id
 	const noteDetails = notes?.find((note) => note.id.toString() === noteId)
 
-	const [_error, submitAction, _isPending] = useActionState(updateNote, null)
+	const [_error, submitAction, isPending] = useActionState(updateNote, null)
 
 	if (!noteDetails) return <></>
 
 	return (
 		<>
 			<div className="note-details">
-				{!isDesktop && <HeaderControl noteId={noteDetails?.id} setModal={setModal} />}
+				{!isDesktop && <HeaderControl noteId={noteDetails?.id} setModal={setModal} isPending={isPending} />}
 				{!isDesktop && <hr />}
 				<NoteForm action={submitAction} noteDetails={noteDetails} />
 				<hr />
