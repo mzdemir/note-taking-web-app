@@ -1,7 +1,6 @@
 import HeaderControl from "../components/mobile/HeaderControl"
 import NoteForm from "../components/shared/NoteForm"
 import RightMenu from "../components/desktop/RightMenu"
-import Button from "../components/shared/Button"
 import Modal from "../components/shared/Modal"
 
 import useMediaQuery from "../hooks/useMediaQuery"
@@ -34,10 +33,10 @@ export default function NoteDetails() {
 				<hr />
 				{isDesktop && (
 					<div className="save-btns">
-						<Button className="primary-btn" type="submit">
+						<button className="primary-btn" type="submit" form="note-form">
 							Save Note
-						</Button>
-						<Button className="secondary-btn">Cancel</Button>
+						</button>
+						<button className="secondary-btn">Cancel</button>
 					</div>
 				)}
 			</div>

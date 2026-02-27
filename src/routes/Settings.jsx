@@ -1,6 +1,6 @@
 import {SunIcon, FontIcon, LockIcon, LogoutIcon} from "../components/shared/Icons"
-import Button from "../components/shared/Button"
 import useMediaQuery from "../hooks/useMediaQuery"
+import {useToast} from "../context/ToastContext"
 
 import {useAuth} from "../context/AuthContext"
 import {NavLink, Outlet, useNavigate} from "react-router"
@@ -9,6 +9,7 @@ export default function Settings() {
 	const isDesktop = useMediaQuery()
 	const {logout} = useAuth()
 	const navigate = useNavigate()
+	const {setShowToast} = useToast()
 
 	const handleSignOut = async (e) => {
 		e.preventDefault()
@@ -16,6 +17,14 @@ export default function Settings() {
 		const {success} = await logout()
 		if (success) {
 			navigate("/")
+		} else {
+			setShowToast({
+				isVisible: true,
+				variant: "error",
+				message: "Something went wrong. Please try again.",
+				link: null,
+				navigateTo: null,
+			})
 		}
 	}
 
@@ -33,9 +42,9 @@ export default function Settings() {
 					<LockIcon /> Change Password
 				</NavLink>
 				{isDesktop && <hr />}
-				<Button className="settings-menu-item" onClick={handleSignOut}>
+				<button className="settings-menu-item" onClick={handleSignOut}>
 					<LogoutIcon /> Logout
-				</Button>
+				</button>
 			</div>
 			<Outlet />
 		</>

@@ -7,6 +7,10 @@ export default function ForgotPassword() {
 	const [error, submitAction, isPending] = useActionState(async (previousState, formData) => {
 		try {
 			const email = formData.get("email")
+
+			if (!email) throw new Error("Field can't be empty")
+			if (!email.includes("@")) throw new Error("Please enter a valid email address.")
+
 			const {error} = await supabase.auth.resetPasswordForEmail(email, {
 				redirectTo: "http://localhost:5173/reset-password",
 			})
@@ -28,9 +32,9 @@ export default function ForgotPassword() {
 			</div>
 			<form action={submitAction} className="auth-form" noValidate aria-label="Forgot password form" aria-describedby="form-description">
 				<label className="text-preset-4">
-					Email Addres
+					Email Address
 					<input
-						className="input-bar"
+						className={`input-bar ${error && "error"}`}
 						type="email"
 						name="email"
 						placeholder="email@example.com"
@@ -42,7 +46,7 @@ export default function ForgotPassword() {
 					/>
 				</label>
 				{error && 
-					<p className="hint-text text-preset-6"><InfoIcon />{error.message}!</p>
+					<p className={`hint-text text-preset-6 ${error && "error"}`}><InfoIcon />{error.message}!</p>
 				}
 
 				<button className="primary-btn text-preset-3" disabled={isPending} aria-busy={isPending}>

@@ -1,12 +1,7 @@
 import {DeleteIcon, ArchivedIcon} from "../shared/Icons"
 import GoBackLink from "./GoBackLink"
-import Button from "../shared/Button"
-
-import useMediaQuery from "../../hooks/useMediaQuery"
 
 export default function HeaderControl({setModal, isPending}) {
-	const isDesktop = useMediaQuery()
-
 	return (
 		<header className="header-controls text-preset-5">
 			<GoBackLink where={"Go Back"} />
@@ -21,16 +16,18 @@ export default function HeaderControl({setModal, isPending}) {
 
 				<button
 					onClick={() => setModal({open: true, variant: "archive"})}
-					disabled={isPending}
 					aria-label="Archive note"
+					disabled={isPending}
 					aria-busy={isPending}>
 					<ArchivedIcon />
 				</button>
 
-				<button>Cancel</button>
-				<Button className={!isDesktop ? "save-btn" : "primary-btn"} type="submit">
+				<button disabled={isPending} aria-busy={isPending}>
+					Cancel
+				</button>
+				<button className="save-btn" type="submit" form="note-form" disabled={isPending} aria-busy={isPending}>
 					Save Note
-				</Button>
+				</button>
 			</div>
 		</header>
 	)

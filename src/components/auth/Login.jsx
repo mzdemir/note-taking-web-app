@@ -2,14 +2,15 @@ import {Logo, GoogleIcon, ShowPasswordIcon, HidePasswordIcon, InfoIcon} from "..
 
 import useTogglePassword from "../../hooks/useTogglePassword"
 import useSignInUser from "../../hooks/auth/useSignInUser"
+import useSignInWithGoogle from "../../hooks/auth/useSignInWithGoogle"
 
 import {useActionState} from "react"
 import {Link} from "react-router"
 
 export default function Login() {
 	const singIn = useSignInUser()
+	const {signInWithGoogle} = useSignInWithGoogle()
 	const {showPassword, handleShowPassword} = useTogglePassword()
-
 	const [error, submitAction, isPending] = useActionState(singIn, null)
 
 	// prettier-ignore
@@ -20,7 +21,12 @@ export default function Login() {
 				<h1 className="text-preset-1">Welcome to Note</h1>
 				<p>Please log in to continue</p>
 			</div>
-			<form action={submitAction} className="auth-form" noValidate aria-label="Sign in form" aria-describedby="form-description">
+			<form 
+				action={submitAction} 
+				className="auth-form"  
+				noValidate aria-label="Sign in form" 
+				aria-describedby="form-description" 
+				autoComplete="off">
 				<label className="text-preset-4">
 					Email Addres
 					<input
@@ -75,7 +81,7 @@ export default function Login() {
 			</form>
 			<div className="google-login">
 				<p>Or log in with:</p>
-				<button className="google-btn text-preset-3">
+				<button className="google-btn text-preset-3" onClick={signInWithGoogle}>
 					<GoogleIcon /> Google
 				</button>
 			</div>

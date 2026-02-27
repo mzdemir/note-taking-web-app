@@ -9,8 +9,13 @@ export default function useChangePassword() {
 	return async function changePassword(previousState, formData) {
 		const oldPassword = formData.get("old-password")
 		const newPassword = formData.get("new-password")
-		if (newPassword.length < 8) return {passwordError: "Password must be at least 8 characters."}
 		const confirmPassword = formData.get("confirm-password")
+
+		if (!oldPassword) return {oldPasswordError: "Field can't be empty"}
+		if (!newPassword) return {passwordError: "Field can't be empty"}
+		if (newPassword.length < 8) return {passwordError: "Password must be at least 8 characters."}
+		if (!confirmPassword) return {resetError: "Field can't be empty"}
+		if (confirmPassword.length < 8) return {resetError: "Password must be at least 8 characters."}
 
 		const passwordConfirmed = newPassword === confirmPassword ? confirmPassword : null
 

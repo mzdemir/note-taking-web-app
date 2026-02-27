@@ -1,4 +1,4 @@
-import {createBrowserRouter} from "react-router"
+import {createBrowserRouter, Navigate} from "react-router"
 
 import AllNotes from "./routes/AllNotes"
 import NoteDetails from "./routes/NoteDetails"
@@ -15,6 +15,7 @@ import Login from "./components/auth/Login"
 import Signup from "./components/auth/SignUp"
 import ForgotPassword from "./components/auth/ForgotPassword"
 import ResetPassword from "./components/auth/ResetPassword"
+import NotFound from "./routes/NotFound"
 
 import {NoteProvider} from "./context/NoteContext"
 import RootRedirect from "./routes/RootDirect"
@@ -56,6 +57,7 @@ export const mobileRouter = createBrowserRouter([
 				],
 			},
 			{path: "new-note", element: <CreateNewNote />},
+			{path: "*", element: <NotFound />},
 		],
 	},
 ])
@@ -86,9 +88,15 @@ export const desktopRouter = createBrowserRouter([
 				children: [{path: ":id", element: <NoteDetails />}],
 			},
 			{
-				path: "tags/:id",
-				element: <TagPage />,
-				children: [{path: ":noteId", element: <NoteDetails />}],
+				path: "tags",
+				children: [
+					{index: true, element: <Navigate to="/notes" replace />}, // ← /tags redirects to /notes
+					{
+						path: ":id",
+						element: <TagPage />,
+						children: [{path: ":noteId", element: <NoteDetails />}],
+					},
+				],
 			},
 			{
 				path: "search",
@@ -105,6 +113,7 @@ export const desktopRouter = createBrowserRouter([
 				],
 			},
 			{path: "new-note", element: <CreateNewNote />},
+			{path: "*", element: <NotFound />},
 		],
 	},
 ])

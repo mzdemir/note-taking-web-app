@@ -1,4 +1,4 @@
-import HeaderControl from "../components/mobile/HeaderControl"
+import GoBackLink from "../components/mobile/GoBackLink"
 import NoteForm from "../components/shared/NoteForm"
 
 import useMediaQuery from "../hooks/useMediaQuery"
@@ -14,7 +14,19 @@ export default function CreateNewNote() {
 
 	return (
 		<div className="note-details">
-			{!isDesktop && <HeaderControl />}
+			{!isDesktop && (
+				<header className="header-controls text-preset-5">
+					<GoBackLink where={"Go Back"} />
+					<div className="control-btns">
+						<button disabled={isPending} aria-busy={isPending}>
+							Cancel
+						</button>
+						<button className="save-btn" type="submit" form="note-form" disabled={isPending} aria-busy={isPending}>
+							Save Note
+						</button>
+					</div>
+				</header>
+			)}
 			{!isDesktop && <hr />}
 
 			<NoteForm action={submitAction} />

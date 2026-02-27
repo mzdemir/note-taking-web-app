@@ -1,5 +1,4 @@
 import {PlusIcon} from "./Icons"
-import Button from "../shared/Button"
 
 import useMediaQuery from "../../hooks/useMediaQuery"
 
@@ -16,11 +15,11 @@ export default function NotesList({notes, pageDesc, getLinkPath, emptyState}) {
 	return (
 		<>
 			<div className="note-list">
-				<Button className="new-note-btn text-preset-4" onClick={() => navigate("/new-note")}>
+				<button className="new-note-btn text-preset-4" onClick={() => navigate("/new-note")}>
 					{!isDesktop ?
 						<PlusIcon />
 					:	"+ Create New Note"}
-				</Button>
+				</button>
 
 				{pageDesc ?
 					<p className="page-desc text-preset-5">{pageDesc}</p>

@@ -9,23 +9,23 @@ export default function MobileNav() {
 			<nav className="bottom-navbar">
 				<NavLink to="/notes" className="nav-links">
 					{<HomeIcon />}
-					<span>Home</span>
+					<span className="text-preset-6">Home</span>
 				</NavLink>
 				<NavLink to="/search" className="nav-links">
 					{<SearchIcon />}
-					<span>Search</span>
+					<span className="text-preset-6">Search</span>
 				</NavLink>
 				<NavLink to="/archived" className="nav-links">
 					{<ArchivedIcon />}
-					<span>Archived</span>
+					<span className="text-preset-6">Archived</span>
 				</NavLink>
 				<NavLink to="/tags" className="nav-links">
 					{<TagsIcon />}
-					<span>Tags</span>
+					<span className="text-preset-6">Tags</span>
 				</NavLink>
 				<NavLink to="/settings" className="nav-links">
 					{<SettingsIcon />}
-					<span>Settings</span>
+					<span className="text-preset-6">Settings</span>
 				</NavLink>
 			</nav>
 		</header>

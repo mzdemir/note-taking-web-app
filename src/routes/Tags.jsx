@@ -1,4 +1,3 @@
-import Button from "../components/shared/Button"
 import {TagsIcon, PlusIcon} from "../components/shared/Icons"
 
 import useMediaQuery from "../hooks/useMediaQuery"
@@ -15,16 +14,17 @@ export default function Tags() {
 	const tags = [...new Set(notes?.map((note) => note.tags).flat())]
 	const emptyState = "You don’t have any notes yet. Start a new note to capture your thoughts and ideas."
 
+	// if (isDesktop) navigate("/notes")
 	return (
 		<>
 			{!isDesktop && (
 				<>
 					<h1 className="text-preset-1">Tags</h1>
-					<Button className="new-note-btn text-preset-4" onClick={() => navigate("/new-note")}>
+					<button className="new-note-btn text-preset-4" onClick={() => navigate("/new-note")}>
 						{!isDesktop ?
 							<PlusIcon />
 						:	"+ Create New Note"}
-					</Button>
+					</button>
 				</>
 			)}
 			<div className="tags-list text-preset-4">

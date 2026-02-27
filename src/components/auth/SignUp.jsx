@@ -2,12 +2,14 @@ import {Logo, GoogleIcon, ShowPasswordIcon, HidePasswordIcon, InfoIcon} from "..
 
 import useTogglePassword from "../../hooks/useTogglePassword"
 import useSignUpUser from "../../hooks/auth/useSignUpUser"
+import useSignInWithGoogle from "../../hooks/auth/useSignInWithGoogle"
 
 import {useActionState} from "react"
 import {Link} from "react-router"
 
 export default function Signup() {
 	const singUp = useSignUpUser()
+	const {signInWithGoogle} = useSignInWithGoogle()
 	const {showPassword, handleShowPassword} = useTogglePassword()
 
 	const [error, submitAction, isPending] = useActionState(singUp, null)
@@ -50,6 +52,7 @@ export default function Signup() {
 						aria-invalid={error ? "true" : "false"}
 						aria-describedby={error ? "signup-error" : undefined}
 						disabled={isPending}
+						autoComplete="new-password"
 					/>
 					<button type="button" className="show-password-icon" onClick={() => handleShowPassword("old")}>
 						{!showPassword.old ? <ShowPasswordIcon /> : <HidePasswordIcon/>}
@@ -72,7 +75,7 @@ export default function Signup() {
 
 			<div className="google-login">
 				<p>Or log in with:</p>
-				<button className="google-btn text-preset-3">
+				<button className="google-btn text-preset-3" onClick={signInWithGoogle}>
 					<GoogleIcon /> Google
 				</button>
 			</div>

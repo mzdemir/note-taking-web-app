@@ -187,6 +187,26 @@ textarea#content::placeholder {
 	border-color: var(--red-500);
 }
 
+.input-bar:hover,
+.google-btn:hover {
+	background-color: var(--active-surface);
+}
+
+.input-bar:focus-within {
+	border-color: var(--neutral-950);
+	box-shadow:
+		0 0 0 2px white,
+		0 0 0 4px var(--neutral-500);
+}
+
+html[data-colorTheme="dark"] .input-bar:focus-within {
+	border-color: var(--neutral-600);
+
+	box-shadow:
+		0 0 0 2px var(--neutral-950),
+		0 0 0 4px var(--neutral-600);
+}
+
 .hint-text {
 	display: flex;
 	align-items: center;
@@ -434,6 +454,10 @@ textarea#content::placeholder {
 	text-align: center;
 }
 
+.auth-wrapper a:hover {
+	color: var(--blue-500);
+}
+
 .auth-wrapper p {
 	margin-block-start: var(--spacing-100);
 	color: var(--text-secondary);
@@ -465,7 +489,6 @@ textarea#content::placeholder {
 	padding-block: var(--spacing-300) var(--spacing-200);
 	display: flex;
 	flex-direction: column;
-	align-items: center;
 	gap: var(--spacing-200);
 	border-top: var(--border);
 	border-bottom: var(--border);
@@ -476,8 +499,8 @@ textarea#content::placeholder {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	gap: var(--spacing-075);
-	padding: var(--spacing-075);
+	gap: var(--spacing-200);
+	padding-block: var(--spacing-125);
 	border: var(--border);
 	border-radius: var(--radius-12);
 }
@@ -572,6 +595,18 @@ html[data-colorTheme="light"] .toast {
 
 .toast a {
 	text-decoration: underline;
+}
+
+@media (min-width: 35rem) {
+	.nav-links {
+		gap: var(--spacing-025);
+		align-items: center;
+		margin-inline: auto;
+	}
+
+	.nav-links span {
+		display: block;
+	}
 }
 
 @media (min-width: 64rem) {

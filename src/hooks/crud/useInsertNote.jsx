@@ -15,7 +15,7 @@ export default function useInsertNote() {
 		const content= formData.get("content")
 		const tags = formData.get("tags").split(",").map((t) => t.trim())
 
-		if (!title || !content || !tags) {
+		if (!title || !content || tags.length === 0) {
 			setShowToast({
 				isVisible: true,
 				variant: "error",

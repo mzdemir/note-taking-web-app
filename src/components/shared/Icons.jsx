@@ -406,7 +406,7 @@ export function PlusIcon() {
 
 export function GoogleIcon() {
 	return (
-		<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 25">
+		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 25">
 			<path
 				fill="currentColor"
 				fillRule="evenodd"
