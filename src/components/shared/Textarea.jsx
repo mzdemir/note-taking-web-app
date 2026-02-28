@@ -9,10 +9,12 @@ export default function Textarea({name, className, value, placeholder}) {
 	}
 
 	useEffect(() => {
-		if (textareaRef.current) {
-			textareaRef.current.style.height = "auto"
-			textareaRef.current.style.height = textareaRef.current.scrollHeight + "px"
-		}
+		requestAnimationFrame(() => {
+			if (textareaRef.current) {
+				textareaRef.current.style.height = "auto"
+				textareaRef.current.style.height = textareaRef.current.scrollHeight + "px"
+			}
+		})
 	}, [value])
 
 	return (

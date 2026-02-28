@@ -2,12 +2,12 @@ import {SearchIcon} from "../components/shared/Icons"
 import NotesList from "../components/shared/NoteList"
 
 import useMediaQuery from "../hooks/useMediaQuery"
-import {useNote} from "../context/NoteContext"
+import useNoteContext from "../hooks/useNoteContext"
 import {useSearchParams} from "react-router"
 
 export default function Search() {
 	const isDesktop = useMediaQuery()
-	const {notes} = useNote()
+	const {notes, isLoading} = useNoteContext()
 	const [searchParams, setSearchParams] = useSearchParams()
 
 	const query = searchParams.get("query") || ""
@@ -27,6 +27,7 @@ export default function Search() {
 	const pageDesc = `All notes matching "${capitalizeQuery}" are displayed below.`
 	const emptyState = "No notes match your search. Try a different keyword or create a new note."
 
+	if (isLoading) return <p className="empty-state text-preset-5">Loading</p>
 	return (
 		<>
 			{!isDesktop && (

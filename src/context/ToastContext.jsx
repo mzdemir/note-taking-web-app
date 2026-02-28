@@ -1,4 +1,4 @@
-import {createContext, useContext, useState} from "react"
+import {createContext, useState} from "react"
 
 const ToastContext = createContext()
 
@@ -8,7 +8,4 @@ export function ToastProvider({children}) {
 	return <ToastContext.Provider value={{showToast, setShowToast}}>{children}</ToastContext.Provider>
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
-export function useToast() {
-	return useContext(ToastContext)
-}
+export {ToastContext}

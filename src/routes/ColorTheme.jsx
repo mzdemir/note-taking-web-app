@@ -4,12 +4,12 @@ import GoBackLink from "../components/mobile/GoBackLink"
 import useMediaQuery from "../hooks/useMediaQuery"
 import {useContext} from "react"
 import {ColorThemeContext} from "../context/ColorThemeContext"
-import {useToast} from "../context/ToastContext"
+import useToastContext from "../hooks/useToastContext"
 
 export default function ColorTheme() {
 	const isDesktop = useMediaQuery()
 	const {colorTheme, setColorTheme} = useContext(ColorThemeContext)
-	const {setShowToast} = useToast()
+	const {setShowToast} = useToastContext()
 
 	function handleChange(formData) {
 		const getColorTheme = formData.get("setting-option")

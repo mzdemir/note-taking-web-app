@@ -1,15 +1,15 @@
 import {SunIcon, FontIcon, LockIcon, LogoutIcon} from "../components/shared/Icons"
 import useMediaQuery from "../hooks/useMediaQuery"
-import {useToast} from "../context/ToastContext"
+import useToastContext from "../hooks/useToastContext"
 
-import {useAuth} from "../context/AuthContext"
+import useAuthContext from "../hooks/useAuthContext"
 import {NavLink, Outlet, useNavigate} from "react-router"
 
 export default function Settings() {
 	const isDesktop = useMediaQuery()
-	const {logout} = useAuth()
+	const {logout} = useAuthContext()
 	const navigate = useNavigate()
-	const {setShowToast} = useToast()
+	const {setShowToast} = useToastContext()
 
 	const handleSignOut = async (e) => {
 		e.preventDefault()

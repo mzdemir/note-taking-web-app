@@ -1,19 +1,20 @@
 import supabase from "../../supabase-client"
-
-import {useToast} from "../../context/ToastContext"
-import {useAuth} from "../../context/AuthContext"
+import useAuthContext from "../useAuthContext"
+import useNoteContext from "../useNoteContext"
+import useToastContext from "../useToastContext"
 import {useNavigate} from "react-router"
 
 // prettier-ignore
 export default function useInsertNote() {
-	const {session} = useAuth()
+	const {session} = useAuthContext()
 	const navigate = useNavigate()
-	const {setShowToast} = useToast()
+	const {addNoteToContext} = useNoteContext()
+	const {setShowToast} = useToastContext()
 
 	async function insertNote(previousState, formData) {
 		const title = formData.get("title")
 		const content= formData.get("content")
-		const tags = formData.get("tags").split(",").map((t) => t.trim())
+		const tags = formData.get("tags").split(",").map((t) => t.trim()).filter(Boolean)
 
 		if (!title || !content || tags.length === 0) {
 			setShowToast({
@@ -75,6 +76,12 @@ export default function useInsertNote() {
 				.insert(noteTagsData)
 
 			if (relationError) throw relationError
+
+			addNoteToContext({
+					...newNote,
+					tags: tags
+			})
+
 			setShowToast({
 				isVisible: true,
 				message: "Note saved successfully!",

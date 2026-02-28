@@ -1,10 +1,10 @@
 import supabase from "../../supabase-client"
-import {useAuth} from "../../context/AuthContext"
-import {useToast} from "../../context/ToastContext"
+import useAuthContext from "../useAuthContext"
+import useToastContext from "../useToastContext"
 
 export default function useChangePassword() {
-	const {session} = useAuth()
-	const {setShowToast} = useToast()
+	const {session} = useAuthContext()
+	const {setShowToast} = useToastContext()
 
 	return async function changePassword(previousState, formData) {
 		const oldPassword = formData.get("old-password")

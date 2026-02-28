@@ -5,17 +5,16 @@ import DesktopHeader from "../components/desktop/DesktopHeader"
 import Toast from "../components/shared/Toast"
 
 import useMediaQuery from "../hooks/useMediaQuery"
-import {useToast} from "../context/ToastContext"
-
+import useToastContext from "../hooks/useToastContext"
 export default function DesktopLayout() {
 	const isDesktop = useMediaQuery()
-	const {showToast} = useToast()
+	const {showToast} = useToastContext()
 
 	// prettier-ignore
 	return (
 		<>
 			{isDesktop ? <SideNav /> : <MobileNav /> }
-			<main className="main">
+			<main className="main" aria-live="polite">
 				{isDesktop ? <DesktopHeader /> : null}
 				<Outlet />
 			</main>

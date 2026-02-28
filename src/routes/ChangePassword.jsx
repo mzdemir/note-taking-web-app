@@ -28,7 +28,11 @@ export default function ChangePassword() {
 						type={!showPassword.old ? "password" : "text"}
 						name="old-password"
 					/>
-					<button type="button" className="show-password-icon" onClick={() => handleShowPassword("old")}>
+					<button 
+						type="button" 
+						className="show-password-icon" 
+						onClick={() => handleShowPassword("old")} 
+						aria-label="Click to show password">
 						{!showPassword.old ? <ShowPasswordIcon /> :	<HidePasswordIcon />}
 					</button>
 					{error?.oldPasswordError && (
@@ -45,7 +49,11 @@ export default function ChangePassword() {
 						type={!showPassword.new ? "password" : "text"}
 						name="new-password"
 					/>
-					<button type="button" className="show-password-icon" onClick={() => handleShowPassword("new")}>
+					<button 
+						type="button" 
+						className="show-password-icon" 
+						onClick={() => handleShowPassword("new")}
+						aria-label="Click to show password">
 						{!showPassword.new ? <ShowPasswordIcon /> :	<HidePasswordIcon />}
 					</button>
 					<span className={`hint-text text-preset-6 ${error?.passwordError && "error"}`}>
@@ -56,7 +64,11 @@ export default function ChangePassword() {
 				<label>
 					Confirm New Password
 					<input className="input-bar" type={!showPassword.confirm ? "password" : "text"} name="confirm-password" />
-					<button type="button" className="show-password-icon" onClick={() => handleShowPassword("confirm")}>
+					<button 
+						type="button" 
+						className="show-password-icon" 
+						onClick={() => handleShowPassword("confirm")}
+						aria-label="Click to show password">
 						{!showPassword.confirm ? <ShowPasswordIcon /> :	<HidePasswordIcon />}
 					</button>
 					{error?.resetError && (

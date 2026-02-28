@@ -40,7 +40,7 @@ export default function DesktopHeader() {
 
 	return (
 		<>
-			<header className="desktop-header">
+			<header className="desktop-header" aria-live="polite">
 				<h1 className="text-preset-1">
 					{query && !isSearchDetailPage ? `Showing results for: ${capitalizeQuery}` : pageTitle}
 				</h1>
@@ -55,7 +55,7 @@ export default function DesktopHeader() {
 					/>
 				</label>
 				<div className="setting-icon">
-					<Link to="settings">
+					<Link to="settings" aria-label="Go to settings">
 						<SettingsIcon />
 					</Link>
 				</div>

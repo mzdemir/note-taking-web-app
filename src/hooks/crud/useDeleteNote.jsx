@@ -1,16 +1,16 @@
 import supabase from "../../supabase-client"
 
-import {useAuth} from "../../context/AuthContext"
-import {useNote} from "../../context/NoteContext"
-import {useToast} from "../../context/ToastContext"
+import useAuthContext from "../useAuthContext"
+import useNoteContext from "../useNoteContext"
+import useToastContext from "../useToastContext"
 
 import {useNavigate} from "react-router"
 
 export default function useDeleteNote() {
-	const {session} = useAuth()
+	const {session} = useAuthContext()
 	const navigate = useNavigate()
-	const {deleteNoteFromContext} = useNote()
-	const {setShowToast} = useToast()
+	const {deleteNoteFromContext} = useNoteContext()
+	const {setShowToast} = useToastContext()
 
 	// prettier-ignore
 	async function deleteNote(noteId) {

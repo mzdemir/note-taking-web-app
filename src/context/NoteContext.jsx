@@ -1,21 +1,17 @@
 import supabase from "../supabase-client"
 
-import {useToast} from ".//ToastContext"
-import {createContext, useState, useEffect, useContext} from "react"
-import {useLocation} from "react-router"
+import useToastContext from "../hooks/useToastContext"
+import {createContext, useState, useEffect, useCallback} from "react"
 
 const NoteContext = createContext()
 
 export function NoteProvider({children}) {
 	const [notes, setNotes] = useState([])
-	const location = useLocation()
-	const {setShowToast} = useToast()
+	const {setShowToast} = useToastContext()
+	const [isLoading, setIsLoading] = useState(true)
 
-	useEffect(() => {
-		fetchNotes()
-	}, [location.pathname])
-
-	async function fetchNotes() {
+	const fetchNotes = useCallback(async () => {
+		setIsLoading(true)
 		try {
 			const {data, error} = await supabase
 				.from("notes")
@@ -39,7 +35,17 @@ export function NoteProvider({children}) {
 				link: null,
 				navigateTo: null,
 			})
+		} finally {
+			setIsLoading(false)
 		}
+	}, [setShowToast])
+
+	useEffect(() => {
+		fetchNotes()
+	}, [fetchNotes])
+
+	function addNoteToContext(note) {
+		setNotes((prev) => [note, ...prev])
 	}
 
 	// prettier-ignore
@@ -55,12 +61,13 @@ export function NoteProvider({children}) {
 		setNotes((prev) => prev.filter((note) => note.id !== noteId))
 	}
 
+	// prettier-ignore
 	return (
-		<NoteContext.Provider value={{notes, updateNoteInContext, deleteNoteFromContext}}>{children}</NoteContext.Provider>
+		<NoteContext.Provider 
+			value={{notes, isLoading, addNoteToContext, updateNoteInContext, deleteNoteFromContext}}>
+			{children}
+		</NoteContext.Provider>
 	)
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
-export function useNote() {
-	return useContext(NoteContext)
-}
+export {NoteContext}

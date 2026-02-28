@@ -1,12 +1,12 @@
 import supabase from "../../supabase-client"
-import {useAuth} from "../../context/AuthContext"
-import {useNote} from "../../context/NoteContext"
-import {useToast} from "../../context/ToastContext"
+import useAuthContext from "../useAuthContext"
+import useNoteContext from "../useNoteContext"
+import useToastContext from "../useToastContext"
 
 export default function useUpdateNote() {
-	const {session} = useAuth()
-	const {updateNoteInContext} = useNote()
-	const {setShowToast} = useToast()
+	const {session} = useAuthContext()
+	const {updateNoteInContext} = useNoteContext()
+	const {setShowToast} = useToastContext()
 
 	async function updateNote(previousState, formData) {
 		try {

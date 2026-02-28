@@ -75,7 +75,7 @@ export default function Signup() {
 
 			<div className="google-login">
 				<p>Or log in with:</p>
-				<button className="google-btn text-preset-3" onClick={signInWithGoogle}>
+				<button className="google-btn text-preset-3" onClick={signInWithGoogle} aria-label="Sign in with Google">
 					<GoogleIcon /> Google
 				</button>
 			</div>

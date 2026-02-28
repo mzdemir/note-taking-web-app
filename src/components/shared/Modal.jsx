@@ -32,11 +32,13 @@ export default function Modal({noteId, variant, setModal}) {
 	}
 
 	return (
-		<div className="modal">
+		<div className="modal" role="alertdialog" aria-labelledby="modal-title" aria-modal="true">
 			<div className="top">
 				<div className="icon-wrapper">{ModalIcon}</div>
 				<div className="content">
-					<h2 className="text-preset-3">{modalTitle}</h2>
+					<h2 id="modal-title" className="text-preset-3">
+						{modalTitle}
+					</h2>
 					<p className="text-preset-5">{modalMessage}</p>
 				</div>
 			</div>

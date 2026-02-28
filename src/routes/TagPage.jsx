@@ -2,12 +2,12 @@ import NotesList from "../components/shared/NoteList"
 import GoBackLink from "../components/mobile/GoBackLink"
 import useMediaQuery from "../hooks/useMediaQuery"
 
-import {useNote} from "../context/NoteContext"
+import useNoteContext from "../hooks/useNoteContext"
 import {useParams} from "react-router"
 
 export default function TagPage() {
 	const isDesktop = useMediaQuery()
-	const {notes} = useNote()
+	const {notes, isLoading} = useNoteContext()
 	const params = useParams()
 
 	const capitalizeTag = params.id?.charAt(0).toUpperCase() + params.id.slice(1)
@@ -19,7 +19,7 @@ export default function TagPage() {
 	const pageDesc = `All notes with the "${capitalizeTag}" tag are shown here.`
 	const getLinkPath = (noteId) => `/tags/${params.id}/${noteId}`
 
-	if (!filteredNotes) return <></>
+	if (isLoading || filteredNotes) return <p className="empty-state text-preset-5">Loading</p>
 
 	return (
 		<>

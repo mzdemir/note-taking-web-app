@@ -14,7 +14,7 @@ export default function NotesList({notes, pageDesc, getLinkPath, emptyState}) {
 
 	return (
 		<>
-			<div className="note-list">
+			<div className="note-list" aria-live="polite">
 				<button className="new-note-btn text-preset-4" onClick={() => navigate("/new-note")}>
 					{!isDesktop ?
 						<PlusIcon />
@@ -32,7 +32,8 @@ export default function NotesList({notes, pageDesc, getLinkPath, emptyState}) {
 									pathname: getLinkPath(note.id),
 									search: searchParams.toString(),
 								}}
-								className="note-link text-preset-6">
+								className="note-link text-preset-6"
+								aria-label="Click to see note details">
 								<h2 className="text-preset-3">{note.title}</h2>
 								<div className="note-tags">
 									{note?.tags.map((tag) => (

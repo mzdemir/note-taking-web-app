@@ -1,8 +1,8 @@
-import {useAuth} from "../context/AuthContext"
+import useAuthContext from "../hooks/useAuthContext"
 import {Navigate} from "react-router"
 
 const RootRedirect = () => {
-	const {session} = useAuth()
+	const {session} = useAuthContext()
 
 	if (session === undefined) {
 		return <></>

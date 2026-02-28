@@ -3,13 +3,13 @@ import GoBackLink from "../components/mobile/GoBackLink"
 
 import useMediaQuery from "../hooks/useMediaQuery"
 import {FontThemeContext} from "../context/FontThemeContext"
-import {useToast} from "../context/ToastContext"
+import useToastContext from "../hooks/useToastContext"
 import {useContext} from "react"
 
 export default function FontTheme() {
 	const isDesktop = useMediaQuery()
 	const {fontTheme, setFontTheme} = useContext(FontThemeContext)
-	const {setShowToast} = useToast()
+	const {setShowToast} = useToastContext()
 
 	function handleChange(formData) {
 		const getFontTheme = formData.get("setting-option")

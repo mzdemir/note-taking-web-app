@@ -1,7 +1,7 @@
 import {DeleteIcon, ArchivedIcon} from "../shared/Icons"
 import GoBackLink from "./GoBackLink"
 
-export default function HeaderControl({setModal, isPending}) {
+export default function HeaderControl({setModal, isPending, handleCancel}) {
 	return (
 		<header className="header-controls text-preset-5">
 			<GoBackLink where={"Go Back"} />
@@ -22,7 +22,7 @@ export default function HeaderControl({setModal, isPending}) {
 					<ArchivedIcon />
 				</button>
 
-				<button disabled={isPending} aria-busy={isPending}>
+				<button disabled={isPending} aria-busy={isPending} onClick={handleCancel}>
 					Cancel
 				</button>
 				<button className="save-btn" type="submit" form="note-form" disabled={isPending} aria-busy={isPending}>

@@ -1,8 +1,8 @@
-import {useAuth} from "../../context/AuthContext"
+import useAuthContext from "../../hooks/useAuthContext"
 import {Navigate} from "react-router"
 
 const ProtectedRoute = ({children}) => {
-	const {session} = useAuth()
+	const {session} = useAuthContext()
 
 	if (session === undefined) {
 		return

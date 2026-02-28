@@ -1,11 +1,13 @@
 import NotesList from "../components/shared/NoteList"
 
 import useMediaQuery from "../hooks/useMediaQuery"
-import {useNote} from "../context/NoteContext"
+import useNoteContext from "../hooks/useNoteContext"
 
 export default function Archived() {
 	const isDesktop = useMediaQuery()
-	const {notes} = useNote()
+	const {notes, isLoading} = useNoteContext()
+
+	if (isLoading) return <p className="empty-state text-preset-5">Loading</p>
 
 	const filteredNotes = notes?.filter((note) => note.isArchived)
 	const getLinkPath = (noteId) => `/archived/${noteId}`

@@ -1,20 +1,20 @@
 import {TagsIcon, PlusIcon} from "../components/shared/Icons"
 
 import useMediaQuery from "../hooks/useMediaQuery"
-import {useNote} from "../context/NoteContext"
+import useNoteContext from "../hooks/useNoteContext"
 
 import {Fragment} from "react"
 import {NavLink, useNavigate} from "react-router"
 
 export default function Tags() {
 	const isDesktop = useMediaQuery()
-	const {notes} = useNote()
+	const {notes, isLoading} = useNoteContext()
 	const navigate = useNavigate()
 
 	const tags = [...new Set(notes?.map((note) => note.tags).flat())]
 	const emptyState = "You don’t have any notes yet. Start a new note to capture your thoughts and ideas."
 
-	// if (isDesktop) navigate("/notes")
+	if (isLoading) return <p className="empty-state text-preset-5">Loading</p>
 	return (
 		<>
 			{!isDesktop && (
