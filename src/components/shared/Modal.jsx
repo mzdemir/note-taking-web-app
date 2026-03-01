@@ -1,4 +1,4 @@
-import {DeleteIcon, ArchivedIcon} from "./Icons"
+import {DeleteIcon, ArchivedIcon} from "../../assets/images/Icons"
 import useDeleteNote from "../../hooks/crud/useDeleteNote"
 import useArchiveNote from "../../hooks/crud/useArchiveNote"
 

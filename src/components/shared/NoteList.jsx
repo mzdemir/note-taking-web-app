@@ -1,4 +1,4 @@
-import {PlusIcon} from "./Icons"
+import {PlusIcon} from "../../assets/images/Icons"
 
 import useMediaQuery from "../../hooks/useMediaQuery"
 

@@ -1,4 +1,4 @@
-import {SunIcon, FontIcon, LockIcon, LogoutIcon} from "../components/shared/Icons"
+import {SunIcon, FontIcon, LockIcon, LogoutIcon} from "../assets/images/Icons"
 import useMediaQuery from "../hooks/useMediaQuery"
 import useToastContext from "../hooks/useToastContext"
 

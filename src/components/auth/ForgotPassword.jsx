@@ -1,6 +1,6 @@
 import supabase from "../../supabase-client"
 
-import {Logo, InfoIcon} from "../shared/Icons"
+import {Logo, InfoIcon} from "../../assets/images/Icons"
 import {useActionState} from "react"
 
 export default function ForgotPassword() {

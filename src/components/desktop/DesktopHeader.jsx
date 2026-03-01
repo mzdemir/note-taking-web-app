@@ -1,4 +1,4 @@
-import {SearchIcon, SettingsIcon} from "../shared/Icons"
+import {SearchIcon, SettingsIcon} from "../../assets/images/Icons"
 
 import {useLocation, useParams, Link, useSearchParams, useNavigate} from "react-router"
 

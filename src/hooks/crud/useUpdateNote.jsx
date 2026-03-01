@@ -1,4 +1,5 @@
 import supabase from "../../supabase-client"
+import {nanoid} from "nanoid"
 import useAuthContext from "../useAuthContext"
 import useNoteContext from "../useNoteContext"
 import useToastContext from "../useToastContext"
@@ -111,7 +112,7 @@ export default function useUpdateNote() {
 						} else {
 							const {data: newTag, error: tagError} = await supabase
 								.from("tags")
-								.insert({name: tagName, user_id: session.user.id})
+								.insert({id: nanoid(10), name: tagName, user_id: session.user.id})
 								.select()
 								.single()
 

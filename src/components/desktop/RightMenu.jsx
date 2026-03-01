@@ -1,4 +1,4 @@
-import {ArchivedIcon, DeleteIcon} from "../shared/Icons"
+import {ArchivedIcon, DeleteIcon} from "../../assets/images/Icons"
 
 export default function RightMenu({setModal}) {
 	return (

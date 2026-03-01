@@ -1,4 +1,4 @@
-import {SansSerifIcon, SerifIcon, MonospaceIcon} from "../components/shared/Icons"
+import {SansSerifIcon, SerifIcon, MonospaceIcon} from "../assets/images/Icons"
 import GoBackLink from "../components/mobile/GoBackLink"
 
 import useMediaQuery from "../hooks/useMediaQuery"

@@ -1,4 +1,4 @@
-import {DeleteIcon, ArchivedIcon} from "../shared/Icons"
+import {DeleteIcon, ArchivedIcon} from "../../assets/images/Icons"
 import GoBackLink from "./GoBackLink"
 
 export default function HeaderControl({setModal, isPending, handleCancel}) {

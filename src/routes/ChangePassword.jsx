@@ -1,4 +1,4 @@
-import {InfoIcon, ShowPasswordIcon, HidePasswordIcon} from "../components/shared/Icons"
+import {InfoIcon, ShowPasswordIcon, HidePasswordIcon} from "../assets/images/Icons"
 import GoBackLink from "../components/mobile/GoBackLink"
 
 import useMediaQuery from "../hooks/useMediaQuery"

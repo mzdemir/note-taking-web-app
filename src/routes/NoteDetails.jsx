@@ -48,7 +48,7 @@ export default function NoteDetails() {
 						<button className="primary-btn" type="submit" form="note-form">
 							Save Note
 						</button>
-						<button className="secondary-btn" onClick={handleCancel} isPending={isPending}>
+						<button className="secondary-btn" onClick={handleCancel} disabled={isPending}>
 							Cancel
 						</button>
 					</div>

@@ -1,6 +1,7 @@
-import {Link} from "react-router"
-import {CheckIcon, CrossIcon, InfoIcon} from "./Icons"
+import {CheckIcon, CrossIcon, InfoIcon} from "../../assets/images/Icons"
+
 import useToastContext from "../../hooks/useToastContext"
+import {Link} from "react-router"
 import {useState, useEffect, useCallback} from "react"
 
 export default function Toast() {

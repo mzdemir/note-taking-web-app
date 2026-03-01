@@ -1,4 +1,4 @@
-import {SearchIcon} from "../components/shared/Icons"
+import {SearchIcon} from "../assets/images/Icons"
 import NotesList from "../components/shared/NoteList"
 
 import useMediaQuery from "../hooks/useMediaQuery"

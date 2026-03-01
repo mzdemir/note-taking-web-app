@@ -1,4 +1,4 @@
-import {Logo, HomeIcon, ArchivedIcon, TagsIcon, SearchIcon, SettingsIcon} from "../shared/Icons"
+import {Logo, HomeIcon, ArchivedIcon, TagsIcon, SearchIcon, SettingsIcon} from "../../assets/images/Icons"
 
 import {NavLink} from "react-router"
 

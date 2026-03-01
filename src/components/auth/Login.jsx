@@ -1,4 +1,4 @@
-import {Logo, GoogleIcon, ShowPasswordIcon, HidePasswordIcon, InfoIcon} from "../shared/Icons"
+import {Logo, GoogleIcon, ShowPasswordIcon, HidePasswordIcon, InfoIcon} from "../../assets/images/Icons"
 
 import useTogglePassword from "../../hooks/useTogglePassword"
 import useSignInUser from "../../hooks/auth/useSignInUser"

@@ -1,5 +1,5 @@
 import supabase from "../../supabase-client"
-import {Logo, ShowPasswordIcon, HidePasswordIcon, InfoIcon} from "../shared/Icons"
+import {Logo, ShowPasswordIcon, HidePasswordIcon, InfoIcon} from "../../assets/images/Icons"
 import useTogglePassword from "../../hooks/useTogglePassword"
 import {useActionState, useEffect} from "react"
 import useResetPassword from "../../hooks/auth/useResetPassword"

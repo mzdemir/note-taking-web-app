@@ -1,4 +1,4 @@
-import {TagsIcon, StatusIcon, ClockIcon} from "./Icons"
+import {TagsIcon, StatusIcon, ClockIcon} from "../../assets/images/Icons"
 import Textarea from "./Textarea"
 
 export default function NoteForm({action, noteDetails}) {

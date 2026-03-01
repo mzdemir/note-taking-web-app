@@ -1,4 +1,4 @@
-import {SunIcon, MoonIcon, SystemIcon} from "../components/shared/Icons"
+import {SunIcon, MoonIcon, SystemIcon} from "../assets/images/Icons"
 import GoBackLink from "../components/mobile/GoBackLink"
 
 import useMediaQuery from "../hooks/useMediaQuery"

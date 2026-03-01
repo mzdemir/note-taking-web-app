@@ -1,4 +1,4 @@
-import {TagsIcon, PlusIcon} from "../components/shared/Icons"
+import {TagsIcon, PlusIcon} from "../assets/images/Icons"
 
 import useMediaQuery from "../hooks/useMediaQuery"
 import useNoteContext from "../hooks/useNoteContext"

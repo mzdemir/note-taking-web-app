@@ -1,5 +1,5 @@
 import Tags from "../../routes/Tags"
-import {ArchivedIcon, HomeIcon, Logo} from "../shared/Icons"
+import {ArchivedIcon, HomeIcon, Logo} from "../../assets/images/Icons"
 
 import {NavLink} from "react-router"
 

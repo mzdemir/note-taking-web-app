@@ -1,4 +1,4 @@
-import {ArrowLeftIcon} from "../shared/Icons"
+import {ArrowLeftIcon} from "../../assets/images/Icons"
 
 import {Link, useSearchParams} from "react-router"
 
