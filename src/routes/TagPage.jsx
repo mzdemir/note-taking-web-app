@@ -19,7 +19,7 @@ export default function TagPage() {
 	const pageDesc = `All notes with the "${capitalizeTag}" tag are shown here.`
 	const getLinkPath = (noteId) => `/tags/${params.id}/${noteId}`
 
-	if (isLoading || filteredNotes) return <p className="empty-state text-preset-5">Loading</p>
+	if (isLoading || !filteredNotes) return <p className="empty-state text-preset-5">Loading</p>
 
 	return (
 		<>
