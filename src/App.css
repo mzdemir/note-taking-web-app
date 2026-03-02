@@ -589,7 +589,7 @@ html[data-colorTheme="dark"] .input-bar:focus-within {
 	animation: slideOut 0.3s ease forwards;
 }
 
-html[data-colorTheme="light"] .toast {
+html .toast {
 	box-shadow: 0 1rem 2rem -0.75rem rgba(14, 18, 27, 10%);
 }
 

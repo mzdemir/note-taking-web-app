@@ -95,7 +95,7 @@
 	--sidebar-width: 17rem; /* 272px */
 }
 
-:root[data-colorTheme="light"] {
+:root {
 	--bg-page: var(--neutral-0);
 	--bg-modal: var(--neutral-0);
 	--bg-input: var(--neutral-50);
@@ -131,7 +131,7 @@
 	--navbar-shadow: 0 -5px 6px 0 hsl(0, 0, 0, 50%);
 }
 
-html[data-colorTheme="light"] {
+html {
 	background-color: var(--bg-page);
 	color: var(--text-primary);
 }
